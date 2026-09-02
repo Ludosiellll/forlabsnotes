@@ -1,0 +1,16 @@
+{
+  "autoMemoryEnabled": false,
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"AI-OS recall gate: if this prompt involves people, meetings, past decisions or project state - search the memory layer (if configured) and open the canonical note (01_Index/People.md, 50_Meetings/*, 40_Decisions/Decision_Log.md, 10_Project/Current_Focus.md) BEFORE answering; advice or predictions about a real person are factual claims that require recall. Before finishing: capture durable context into the workspace notes per AGENTS.md.\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

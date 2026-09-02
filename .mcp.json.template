@@ -1,0 +1,15 @@
+{
+  "_comment": "Copy this file to .mcp.json and fill in the real executable paths (done automatically during full install, TEMPLATE_SETUP.md steps 3-4). Delete this _comment key and any server you do not use. MCP servers activate on the next agent session.",
+  "mcpServers": {
+    "memory": {
+      "command": "{{MEMORY_TOOL_PATH}}",
+      "args": [
+        "mcp"
+      ]
+    },
+    "codebase-memory": {
+      "command": "{{CODE_INTEL_TOOL_PATH}}",
+      "args": []
+    }
+  }
+}

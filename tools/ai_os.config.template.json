@@ -1,0 +1,7 @@
+{
+  "_comment": "Setup writes this machine-local file automatically. For a manual install, copy it to ai_os.config.json and fill the paths that exist on this computer. The file is gitignored.",
+  "memoryToolPath": "{{MEMORY_TOOL_PATH}}",
+  "memoryLibrary": "{{MEMORY_LIBRARY_NAME}}",
+  "powershellPath": "{{POWERSHELL_PATH}}",
+  "setupExecutablePath": "{{SETUP_EXECUTABLE_PATH}}"
+}

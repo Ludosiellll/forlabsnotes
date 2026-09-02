@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "bundle": {
+    "resources": [
+      "resources/workspace-template",
+      "resources/memory-tool",
+      "resources/memory-runtime",
+      "resources/code-intel-tool",
+      "resources/install_ai_os_workspace.ps1",
+      "resources/ai_os_package_cache.psm1",
+      "resources/ai_os_supervisor.ps1",
+      "resources/install_ai_os_supervisor_task.ps1",
+      "resources/PAYLOAD_MANIFEST.json"
+    ],
+    "windows": {
+      "webviewInstallMode": {
+        "type": "offlineInstaller"
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "AI OS",
+  "version": "0.4.5",
+  "identifier": "io.ludosiel.aios.setup",
+  "app": {
+    "windows": [],
+    "security": {
+      "csp": "default-src 'self' dash: http://dash.localhost; style-src 'unsafe-inline'; img-src 'self' data:; script-src 'self' dash: http://dash.localhost; connect-src 'self' dash: http://dash.localhost; object-src 'none'; frame-src 'none'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "publisher": "Denis Labyntsev",
+    "copyright": "Copyright 2026 Denis Labyntsev",
+    "shortDescription": "Установка и восстановление рабочей среды AI OS",
+    "longDescription": "Создаёт и обслуживает отдельные рабочие среды проектов, подключает локальный поиск, карту кода, скиллы агентов и единый фоновый supervisor AI OS.",
+    "icon": ["icons/icon.ico"],
+    "resources": [
+      "resources/workspace-template",
+      "resources/memory-tool/LICENSE.txt",
+      "resources/code-intel-tool/LICENSE.txt",
+      "resources/install_ai_os_workspace.ps1",
+      "resources/ai_os_package_cache.psm1",
+      "resources/ai_os_supervisor.ps1",
+      "resources/install_ai_os_supervisor_task.ps1",
+      "resources/PAYLOAD_MANIFEST.json"
+    ],
+    "windows": {
+      "webviewInstallMode": {
+        "type": "downloadBootstrapper"
+      },
+      "nsis": {
+        "compression": "none",
+        "installMode": "currentUser",
+        "installerIcon": "icons/icon.ico",
+        "displayLanguageSelector": false,
+        "languages": ["Russian", "English"],
+        "startMenuFolder": "AI OS"
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+# Gitleaks config for the AI OS workspace: default ruleset + the same
+# third-party/runtime exclusions the built-in secret-scan uses.
+title = "AI OS gitleaks config"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Local runtime, third-party and archive dirs (same exclusions as the built-in scan)"
+paths = [
+  '''\.venv[^/\\]*[/\\]''',
+  '''\.git[/\\]''',
+  '''\.obsidian[/\\]''',
+  '''\.local[/\\]''',
+  '''_to_delete[/\\]''',
+  '''_delivery[/\\]''',
+  '''90_Archive[/\\]''',
+  '''__pycache__[/\\]''',
+]

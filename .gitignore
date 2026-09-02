@@ -1,0 +1,33 @@
+# Obsidian local app state
+.obsidian/
+
+# Obsidian local trash
+.trash/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local AI/runtime state, logs, caches
+.local/
+*.log
+__pycache__/
+*.pyc
+.venv*/
+snapshots/
+
+# Local memory-layer configuration (machine-specific paths)
+tools/ai_os.config.json
+
+# Local MCP activation (contains machine-specific paths)
+.mcp.json
+
+# Raw speech-to-text artifacts can contain noisy or sensitive context
+50_Meetings/_transcripts/
+90_Archive/
+
+# Secrets never belong here, but belt and suspenders
+.env
+*.secret
+*credentials*

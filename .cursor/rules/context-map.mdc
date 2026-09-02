@@ -1,0 +1,49 @@
+---
+description: Load the project knowledge workspace before planning or editing.
+alwaysApply: true
+---
+
+# Context Map
+
+This repository is a markdown vault and a durable project context base for Лабораторные работы по 1С.
+
+Before planning or editing, read:
+
+- `AGENTS.md`
+- `01_Index/AI_Context.md`
+- `10_Project/Current_Focus.md`
+- `10_Project/Project_Brief.md`
+- `30_Tech/Tech_Map.md`
+- `30_Tech/Codebase_Map.md`
+- `40_Decisions/Decision_Log.md`
+
+For AI workflow, memory, context capture, or user-specific collaboration style, also read:
+
+- `70_Resources/Agent_Workflow_Protocol.md`
+- `70_Resources/AI_Operating_System.md`
+- `70_Resources/AI_Context_Quality_Guide.md`
+- `01_Index/User_Working_Profile.md`
+
+For repeated workflows, use the relevant procedure note:
+
+- `70_Resources/Procedure_Deploy_Template.md`
+- `70_Resources/Procedure_Frontend_Visual_QA.md`
+- `70_Resources/Procedure_Bug_Diagnosis_Loop.md`
+- `70_Resources/Procedure_Meeting_Capture.md`
+- `70_Resources/Procedure_Multi_Agent_Review.md`
+
+Rules:
+
+- Recall gate: before any claim about people, meetings, past decisions or project state — including advice and predictions — search the memory layer (if configured) and open the canonical note; predictions about real people are factual claims. Time-sensitive external facts (versions, prices, rates) — verify via web search or label as possibly-outdated model memory.
+- Source code and primary documents override notes.
+- Memory/retrieval tools are navigation aids, not the source of truth.
+- Shared loop: recall -> read canonical notes/code -> challenge -> act -> verify -> capture -> reimport memory when relevant.
+- For substantial tasks, use protocol preflight: context, skill/procedure, challenge checkpoint, verification target.
+- Push back once, with concrete reasons, when a request conflicts with code, accepted decisions, security, or a simpler safer alternative; then follow the user's explicit choice.
+- Before the final answer on a substantial task, run the End-Of-Task Self-Audit from `70_Resources/Agent_Workflow_Protocol.md`: context used, skill/procedure, verification, capture, memory sync, residual risk.
+- Preserve Obsidian wikilinks.
+- Update relevant notes after learning durable project context.
+- Do not store secrets or private credentials in notes.
+- Before finishing a task, run the Autonomous Context Capture checklist from `AGENTS.md`.
+- If the user asks to install/set up this workspace, follow `TEMPLATE_SETUP.md` end-to-end (full install) as the installer.
+- The OS layer (entry points, protocol, router, evals, `tools/`, `.mcp.json`) is a stable, versioned system: use it, do not modify it; record system-change ideas as proposals in `60_Tasks/System_Proposals.md` (generic wording, no project details).
