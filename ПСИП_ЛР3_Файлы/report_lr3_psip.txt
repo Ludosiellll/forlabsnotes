@@ -1,0 +1,327 @@
+Лабораторная работа №3
+Номер учебной группы: РС02-23
+Вариант: 14
+Дата выполнения работы: 11.09.2026
+Тема работы: Внедрение форм на HTML-страницу
+Цель работы: Сформировать умения создавать формы на HTML странице, изменять свойства элементов форм, исследовать работу тегов для добавления элементов форм
+Оснащение: Методические указания к выполнению, ОС Windows, Sublime Text, MS Word, браузер
+Задание: Изучите основные теоретические сведения, выполните практические задания, ответьте на контрольные вопросы.
+
+Результаты выполнения работы:
+
+Задание 1. Создание формы авторизации пользователя на веб-сайте.
+
+В рамках проекта краеведческого портала города Бобруйска (вариант 14) разработан документ login.html, содержащий простую форму авторизации пользователей. 
+
+Форма создана с помощью парного контейнера <form action="/login" method="post">. Для ввода данных применены элементы <input>: текстовое поле с атрибутом type="text" для ввода имени пользователя (логина) и защищенное поле с атрибутом type="password" для ввода секретного пароля, в котором вводимые символы маскируются точками. Для удобства пользователей задействованы атрибуты placeholder с поясняющими подсказками, required для обязательного заполнения полей и autofocus для автоматической установки фокуса при загрузке. Отправка введенных данных осуществляется кнопкой <button type="submit"> с надписью «Войти».
+
+Код формы входа login.html представлен в листинге 1
+
+Листинг 1 – Исходный код файла login.html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Вход на сайт | Города Беларуси: Бобруйск</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f1f5f9; margin: 0; padding: 40px 20px; color: #1e293b; }
+        .container { max-width: 420px; margin: 0 auto; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 30px; }
+        .header { text-align: center; margin-bottom: 25px; }
+        .header img { width: 65px; height: 80px; margin-bottom: 10px; }
+        h2 { margin: 0 0 8px 0; color: #0f172a; font-size: 22px; }
+        p.subtitle { margin: 0; color: #64748b; font-size: 14px; }
+        .form-group { margin-bottom: 18px; }
+        label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; color: #334155; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 10px 12px; border: 1px solid #94a3b8; border-radius: 6px; font-size: 14px; box-sizing: border-box; outline: none; }
+        input:focus { border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
+        .btn-submit { width: 100%; background-color: #0284c7; color: #ffffff; border: none; padding: 12px; font-size: 15px; font-weight: bold; border-radius: 6px; cursor: pointer; }
+        .btn-submit:hover { background-color: #0369a1; }
+        .footer-links { margin-top: 20px; text-align: center; font-size: 13px; color: #64748b; }
+        .footer-links a { color: #0284c7; text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="emblem.png" alt="Герб Бобруйска">
+            <h2>Авторизация</h2>
+            <p class="subtitle">Информационный портал «Города Беларуси: Бобруйск»</p>
+        </div>
+
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="login">Логин или имя пользователя:</label>
+                <input type="text" id="login" name="login" placeholder="Введите ваш логин" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Войти</button>
+        </form>
+
+        <div class="footer-links">
+            <p>Нет учетной записи? <a href="register.html">Зарегистрироваться</a></p>
+            <p><a href="test.html">Пройти краеведческий тест по Бобруйску →</a></p>
+        </div>
+    </div>
+</body>
+</html>
+
+Результат отображения формы входа представлен на рисунке 1
+
+[Место для вставки рисунка screen_login.png]
+Рисунок 1 – Отображение формы входа на сайт login.html в веб-браузере
+
+Задание 2. Создание формы регистрации с интеграцией и сохранением учетных записей в базе данных.
+
+Создан документ register.html для регистрации новых пользователей портала. Форма включает в себя обязательные поля ввода имени (first_name), фамилии (last_name), адреса электронной почты с типом input type="email" (обеспечивающим базовую валидацию синтаксиса e-mail в браузере), а также пароля и подтверждения пароля (input type="password" с минимальной длиной minlength="6").
+
+Для выполнения требования сохранения данных в базе данных разработан серверный обработчик на языке Python (server.py) со встроенной реляционной СУБД SQLite3. При нажатии кнопки «Зарегистрироваться» форма методом POST передает параметры на адрес обработчика /register. Сервер производит безопасное криптографическое хэширование пароля алгоритмом SHA-256 и выполняет SQL-запрос INSERT INTO users для добавления записи в таблицу users базы данных users.db.
+
+В таблице 1 представлены сохраненные учетные записи пользователей в базе данных
+
+Таблица 1 – Записи пользователей в базе данных SQLite (users.db)
+ID	Имя	Фамилия	Электронная почта	Хэш пароля (SHA-256)	Дата создания
+1	Денис	Лабынцев	denis.labyntsev@bobruisk.by	fc258401cebee46d31741b1ba75b5c71bd13df0a8f142dc6fd8eb92a95d583bb	2026-09-11 10:45:00
+
+Код формы регистрации register.html представлен в листинге 2
+
+Листинг 2 – Исходный код файла register.html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Регистрация пользователя | Города Беларуси: Бобруйск</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f1f5f9; margin: 0; padding: 30px 20px; color: #1e293b; }
+        .container { max-width: 480px; margin: 0 auto; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 30px; }
+        .header { text-align: center; margin-bottom: 25px; }
+        .header img { width: 65px; height: 80px; margin-bottom: 10px; }
+        h2 { margin: 0 0 8px 0; color: #0f172a; font-size: 22px; }
+        p.subtitle { margin: 0; color: #64748b; font-size: 14px; }
+        .form-row { display: flex; gap: 15px; }
+        .form-group { margin-bottom: 16px; flex: 1; }
+        label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 13px; color: #334155; }
+        input[type="text"], input[type="email"], input[type="password"] { width: 100%; padding: 10px 12px; border: 1px solid #94a3b8; border-radius: 6px; font-size: 14px; box-sizing: border-box; outline: none; }
+        input:focus { border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
+        .btn-register { width: 100%; background-color: #059669; color: #ffffff; border: none; padding: 12px; font-size: 15px; font-weight: bold; border-radius: 6px; cursor: pointer; margin-top: 10px; }
+        .btn-register:hover { background-color: #047857; }
+        .footer-links { margin-top: 20px; text-align: center; font-size: 13px; color: #64748b; }
+        .footer-links a { color: #0284c7; text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="emblem.png" alt="Герб Бобруйска">
+            <h2>Регистрация нового пользователя</h2>
+            <p class="subtitle">Создание учетной записи жителя / исследователя Бобруйска</p>
+        </div>
+
+        <form action="/register" method="post">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="first_name">Имя:</label>
+                    <input type="text" id="first_name" name="first_name" placeholder="Денис" required>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Фамилия:</label>
+                    <input type="text" id="last_name" name="last_name" placeholder="Лабынцев" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Электронная почта:</label>
+                <input type="email" id="email" name="email" placeholder="denis.labyntsev@bobruisk.by" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" placeholder="Введите пароль (не менее 6 символов)" minlength="6" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password">Повторите пароль:</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Повторите пароль для проверки" minlength="6" required>
+            </div>
+
+            <button type="submit" class="btn-register">Зарегистрироваться</button>
+        </form>
+
+        <div class="footer-links">
+            <p>Уже зарегистрированы? <a href="login.html">Войти в систему</a></p>
+            <p><a href="test.html">Перейти к форме тестирования →</a></p>
+        </div>
+    </div>
+</body>
+</html>
+
+Код серверного обработчика сохранения в базе данных server.py представлен в листинге 3
+
+Листинг 3 – Исходный код серверного обработчика server.py
+import sqlite3, hashlib
+from datetime import datetime
+
+def register_user(first_name, last_name, email, password):
+    conn = sqlite3.connect("users.db")
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            first_name TEXT NOT NULL,
+            last_name TEXT NOT NULL,
+            email TEXT UNIQUE NOT NULL,
+            password_hash TEXT NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    pwd_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
+    cursor.execute("""
+        INSERT INTO users (first_name, last_name, email, password_hash)
+        VALUES (?, ?, ?, ?)
+    """, (first_name, last_name, email, pwd_hash))
+    conn.commit()
+    user_id = cursor.lastrowid
+    conn.close()
+    return user_id
+
+Результат отображения формы регистрации представлен на рисунке 2
+
+[Место для вставки рисунка screen_register.png]
+Рисунок 2 – Отображение формы регистрации нового пользователя register.html в веб-браузере
+
+Результат сохранения данных регистрации в базе данных SQLite представлен на рисунке 3
+
+[Место для вставки рисунка screen_db_success.png]
+Рисунок 3 – Подтверждение записи данных пользователя в базу данных SQLite
+
+Задание 3. Создание комплексной формы-тестирования по тематике города Бобруйска с использованием всех типов элементов форм.
+
+Создан документ test.html, реализующий электронное тестирование на тему «История и культура города Бобруйска». Для соответствия методическим указаниям форма охватывает все предусмотренные стандартом HTML5 элементы и модификации атрибутов:
+1. Контейнер <form> с атрибутами method="post", action="/test_submit", enctype="multipart/form-data".
+2. Текстовые элементы ввода: однострочный текст (type="text" с атрибутами placeholder, maxlength, value), поле пароля (type="password"), электронная почта (type="email"), телефон (type="tel" с валидацией по маске pattern="\+375[0-9]{9}"), ссылка на веб-ресурс (type="url"), а также скрытое поле (type="hidden") для передачи номера варианта 14.
+3. Поля даты и времени: дата (type="date"), время (type="time"), совмещенное поле (type="datetime-local"), выбор месяца (type="month") и недели (type="week").
+4. Элементы логического выбора: радиокнопки (type="radio" с общим атрибутом name="river" для выбора единственного ответа), независимые флажки (type="checkbox" для множественного выбора предприятий города с атрибутом checked).
+5. Числовые и интервальные поля: числовой ввод (type="number" с атрибутами min, max, step для указания года основания города), ползунок шкалы оценивания (type="range").
+6. Специальные элементы интерфейса: выпадающий список <select> с пунктами <option> для выбора административного района, многострочное текстовое поле <textarea> для развернутого исторического комментария, поле выбора локального файла (type="file"), палитра выбора цвета оформления (type="color"), а также поле только для чтения с атрибутом readonly.
+7. Все разновидности кнопок: кнопка отправки данных (<button type="submit">), кнопка сброса полей (<button type="reset">), пользовательская кнопка (<button type="button"> с JavaScript-обработчиком вывода подсказки), а также графическая кнопка отправки в виде изображения (<input type="image" src="btn_submit.png">).
+
+Код комплексной формы тестирования test.html представлен в листинге 4
+
+Листинг 4 – Исходный код файла test.html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Краеведческий тест: Города Беларуси — Бобруйск | Вариант 14</title>
+</head>
+<body>
+    <form action="/test_submit" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="variant_id" value="14">
+
+        <fieldset>
+            <legend>1. Личные и контактные данные участника</legend>
+            <label for="fullname">ФИО (text):</label>
+            <input type="text" id="fullname" name="fullname" placeholder="Лабынцев Денис Янушевич" required value="Лабынцев Денис Янушевич">
+            
+            <label for="test_pin">Код доступа (password):</label>
+            <input type="password" id="test_pin" name="test_pin" required>
+            
+            <label for="email">E-mail (email):</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="phone">Телефон (tel):</label>
+            <input type="tel" id="phone" name="phone" pattern="\+375[0-9]{9}">
+            
+            <label for="user_url">Сайт (url):</label>
+            <input type="url" id="user_url" name="user_url">
+            
+            <label for="session_id">Идентификатор (readonly):</label>
+            <input type="text" id="session_id" name="session_id" value="RS02-23-V14-DENIS" readonly>
+        </fieldset>
+
+        <fieldset>
+            <legend>2. Временные параметры тестирования</legend>
+            <input type="date" id="test_date" name="test_date" value="2026-09-11">
+            <input type="time" id="test_time" name="test_time" value="10:00">
+            <input type="datetime-local" id="datetime_local" name="datetime_local" value="2026-09-11T10:00">
+            <input type="month" id="test_month" name="test_month" value="2026-09">
+            <input type="week" id="test_week" name="test_week" value="2026-W37">
+        </fieldset>
+
+        <fieldset>
+            <legend>3. Вопросы краеведческого теста</legend>
+            <p>Вопрос 1 (radio). На какой реке расположен Бобруйск?</p>
+            <input type="radio" id="r_berezina" name="river" value="berezina" checked><label for="r_berezina">Березина</label>
+            <input type="radio" id="r_neman" name="river" value="neman"><label for="r_neman">Неман</label>
+
+            <p>Вопрос 2 (checkbox). Предприятия Бобруйска:</p>
+            <input type="checkbox" id="f_belshina" name="factories[]" value="belshina" checked><label for="f_belshina">ОАО «Белшина»</label>
+            <input type="checkbox" id="f_agromash" name="factories[]" value="agromash" checked><label for="f_agromash">ОАО «Бобруйскагромаш»</label>
+
+            <label for="foundation_year">Вопрос 3 (number). Год первого упоминания:</label>
+            <input type="number" id="foundation_year" name="foundation_year" min="1000" max="2026" step="1" value="1387">
+
+            <label for="district_select">Вопрос 4 (select). Район крепости:</label>
+            <select id="district_select" name="district_select">
+                <option value="lenin">Ленинский район</option>
+                <option value="pervomay">Первомайский район</option>
+            </select>
+
+            <label for="scale">Вопрос 5 (range). Сложность заданий (1-10):</label>
+            <input type="range" id="scale" name="scale" min="1" max="10" value="8">
+
+            <label for="essay">Вопрос 6 (textarea). Описание крепости:</label>
+            <textarea id="essay" name="essay" rows="4">Бобруйская крепость — памятник фортификационного зодчества первой половины XIX века.</textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend>4. Загрузка материалов и оформление сертификата</legend>
+            <label for="user_file">Файл эссе (file):</label>
+            <input type="file" id="user_file" name="user_file">
+            
+            <label for="cert_color">Цвет рамки сертификата (color):</label>
+            <input type="color" id="cert_color" name="cert_color" value="#0284c7">
+        </fieldset>
+
+        <div>
+            <button type="submit">Отправить ответы (submit)</button>
+            <button type="reset">Сбросить поля (reset)</button>
+            <button type="button" onclick="alert('Подсказка: Бобруйск на Березине!')">Подсказка (button)</button>
+            <input type="image" src="btn_submit.png" alt="Отправить через image">
+        </div>
+    </form>
+</body>
+</html>
+
+Результат отображения регистрационной и временной части теста представлен на рисунке 4
+
+[Место для вставки рисунка screen_test_part1.png]
+Рисунок 4 – Верхняя часть формы-теста test.html с личными и временными параметрами
+
+Результат отображения тестовых вопросов и управляющих кнопок представлен на рисунке 5
+
+[Место для вставки рисунка screen_test_part2.png]
+Рисунок 5 – Нижняя часть формы-теста test.html с вопросами, загрузкой файлов и кнопками
+
+Ответы на контрольные вопросы:
+
+1. Какие элементы используются для объявления формы?
+Ответ: Парный тег <form> и закрывающий тег </form>.
+
+2. Какие элементы используются для задания элементов в форме?
+Ответ: Теги <input>, <button>, <select>, <option>, <textarea>, <label>, <fieldset>, <legend>.
+
+3. Какие методы можно применять для отправки данных формы?
+Ответ: Метод GET (передача данных через строку параметров URL-адреса) и метод POST (передача данных внутри тела HTTP-запроса).
+
+4. Какие теги используются для создания текстовых полей ввода в форме?
+Ответ: Одиночный тег <input> (с атрибутами type="text", type="password", type="email", type="tel", type="url", type="number") для однострочного ввода и парный тег <textarea> для многострочного текста.
+
+5. С помощью какого атрибута элемента FORM указывается адрес, по которому нужно отправлять данные формы?
+Ответ: С помощью обязательного атрибута action.
+
+Вывод: Сформировал умения создавать формы на HTML странице, изменять свойства элементов форм, исследовать работу тегов для добавления элементов форм.

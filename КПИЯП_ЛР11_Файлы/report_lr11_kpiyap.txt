@@ -1,0 +1,307 @@
+Лабораторная работа № 11
+Номер учебной группы: РС02-23
+Дата выполнения работы: 07.10.2026
+Тема: Разработка, отладка и испытание программ, реализующих объекты класса как поля другого класса
+Цель: Сформировать умение проводить разработку, отладку, испытание программ, реализующих объекты класса как поля другого класса
+Оснащение: Методические указания к выполнению, ОС Windows, VS Code
+
+Выполнение заданий
+
+Задание 1. Разработать консольное приложение согласно условию своего варианта
+
+Согласно варианту 30 разработана программа на языке C#, реализующая класс «Научная лаборатория» с использованием механизма композиции объектов других классов:
+- класс Head представляет руководителя лаборатории и содержит закрытые поля имени name и ученой степени degree, конструкторы, свойства и метод вывода Print;
+- класс Researcher представляет исследователя и содержит закрытые поля имени name и специальности specialty, конструкторы, свойства и метод вывода Print;
+- класс Experiment представляет эксперимент и содержит закрытые поля названия title, оборудования equipment, методики method и планируемой даты проведения plannedDate, конструкторы, свойства и метод вывода Print;
+- класс Laboratory представляет научную лабораторию и содержит объект руководителя Head, массив объектов Researcher, массив объектов Experiment, индексатор this[int index], метод добавления исследователя AddResearcher, метод планирования исследований PlanExperiment и метод вывода данных Print.
+
+Исходный код программы представлен в листинге 1
+
+Листинг 1 – Исходный код программы
+using System;
+
+namespace Lab11
+{
+    class Head
+    {
+        private string name;
+        private string degree;
+
+        public Head()
+        {
+            name = "Не назначен";
+            degree = "Без степени";
+        }
+
+        public Head(string name, string degree)
+        {
+            this.name = name;
+            this.degree = degree;
+        }
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public string Degree
+        {
+            get { return degree; }
+            set { degree = value; }
+        }
+
+        public void Print()
+        {
+            Console.WriteLine("Руководитель: " + name + " (" + degree + ")");
+        }
+    }
+
+    class Researcher
+    {
+        private string name;
+        private string specialty;
+
+        public Researcher()
+        {
+            name = "Не указан";
+            specialty = "Общая";
+        }
+
+        public Researcher(string name, string specialty)
+        {
+            this.name = name;
+            this.specialty = specialty;
+        }
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public string Specialty
+        {
+            get { return specialty; }
+            set { specialty = value; }
+        }
+
+        public void Print()
+        {
+            Console.WriteLine("Исследователь: " + name + " (" + specialty + ")");
+        }
+    }
+
+    class Experiment
+    {
+        private string title;
+        private string equipment;
+        private string method;
+        private string plannedDate;
+
+        public Experiment()
+        {
+            title = "Базовый тест";
+            equipment = "Стандартное";
+            method = "Наблюдение";
+            plannedDate = "01.11.2026";
+        }
+
+        public Experiment(string title, string equipment, string method, string plannedDate)
+        {
+            this.title = title;
+            this.equipment = equipment;
+            this.method = method;
+            this.plannedDate = plannedDate;
+        }
+
+        public string Title
+        {
+            get { return title; }
+            set { title = value; }
+        }
+
+        public string Equipment
+        {
+            get { return equipment; }
+            set { equipment = value; }
+        }
+
+        public string Method
+        {
+            get { return method; }
+            set { method = value; }
+        }
+
+        public string PlannedDate
+        {
+            get { return plannedDate; }
+            set { plannedDate = value; }
+        }
+
+        public void Print()
+        {
+            Console.WriteLine("Эксперимент: " + title);
+            Console.WriteLine("Оборудование: " + equipment);
+            Console.WriteLine("Методика: " + method);
+            Console.WriteLine("Дата проведения: " + plannedDate);
+        }
+    }
+
+    class Laboratory
+    {
+        private string name;
+        private Head head;
+        private Researcher[] researchers;
+        private int researcherCount;
+        private Experiment[] experiments;
+        private int experimentCount;
+
+        public Laboratory()
+        {
+            name = "Новая лаборатория";
+            head = new Head();
+            researchers = new Researcher[10];
+            researcherCount = 0;
+            experiments = new Experiment[10];
+            experimentCount = 0;
+        }
+
+        public Laboratory(string name, Head head)
+        {
+            this.name = name;
+            this.head = head;
+            researchers = new Researcher[10];
+            researcherCount = 0;
+            experiments = new Experiment[10];
+            experimentCount = 0;
+        }
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public Head Head
+        {
+            get { return head; }
+            set { head = value; }
+        }
+
+        public Researcher this[int index]
+        {
+            get
+            {
+                if (index >= 0 && index < researcherCount)
+                {
+                    return researchers[index];
+                }
+                return null;
+            }
+        }
+
+        public void AddResearcher(Researcher r)
+        {
+            if (researcherCount < researchers.Length)
+            {
+                researchers[researcherCount] = r;
+                researcherCount++;
+            }
+        }
+
+        public void PlanExperiment(string title, string equipment, string method, string date)
+        {
+            if (experimentCount < experiments.Length)
+            {
+                experiments[experimentCount] = new Experiment(title, equipment, method, date);
+                experimentCount++;
+            }
+        }
+
+        public void PlanFromKeyboard()
+        {
+            Console.WriteLine("Планирование исследования с клавиатуры:");
+            Console.Write("Название эксперимента: ");
+            string title = Console.ReadLine();
+            Console.Write("Оборудование: ");
+            string equipment = Console.ReadLine();
+            Console.Write("Методика: ");
+            string method = Console.ReadLine();
+            Console.Write("Дата проведения: ");
+            string date = Console.ReadLine();
+            PlanExperiment(title, equipment, method, date);
+        }
+
+        public void Print()
+        {
+            Console.WriteLine("Научная лаборатория: " + name);
+            head.Print();
+            Console.WriteLine();
+
+            Console.WriteLine("Список исследователей:");
+            for (int i = 0; i < researcherCount; i++)
+            {
+                Console.Write((i + 1) + ". ");
+                researchers[i].Print();
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("План исследований:");
+            for (int i = 0; i < experimentCount; i++)
+            {
+                Console.WriteLine((i + 1) + ") ");
+                experiments[i].Print();
+                Console.WriteLine();
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Head labHead = new Head("Профессор Сидоров А.В.", "Доктор технических наук");
+            Laboratory lab = new Laboratory("Лаборатория искусственного интеллекта", labHead);
+
+            lab.AddResearcher(new Researcher("Иванов И.И.", "Нейросети"));
+            lab.AddResearcher(new Researcher("Петров П.П.", "Анализ данных"));
+
+            lab.PlanExperiment(
+                "Тестирование классификатора",
+                "Серверный кластер GPU",
+                "Кросс-валидация",
+                "15.10.2026"
+            );
+
+            lab.Print();
+
+            Console.WriteLine("1. Проверка индексатора (первый исследователь):");
+            if (lab[0] != null)
+            {
+                lab[0].Print();
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("2. Планирование нового исследования с клавиатуры:");
+            lab.PlanFromKeyboard();
+
+            Console.WriteLine();
+            Console.WriteLine("Результат после добавления исследования:");
+            lab.Print();
+
+            if (!Console.IsInputRedirected)
+            {
+                Console.Write("\nPress any key to continue... ");
+                Console.ReadKey(true);
+            }
+        }
+    }
+}
+
+Результат выполнения программы представлен на рисунке 1
+
+[Вставить скриншот: Окно консоли с результатом выполнения программы научной лаборатории]
+Рисунок 1 – Результат выполнения программы
+
+Вывод: Сформировал умение проводить разработку, отладку, испытание программ, реализующих объекты класса как поля другого класса.

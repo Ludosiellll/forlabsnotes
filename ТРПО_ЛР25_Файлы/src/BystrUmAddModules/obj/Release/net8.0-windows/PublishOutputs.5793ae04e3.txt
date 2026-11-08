@@ -1,0 +1,5 @@
+d:\1с лабы\ТРПО_ЛР25_Файлы\App\BystrUmAddModules.exe
+d:\1с лабы\ТРПО_ЛР25_Файлы\App\BystrUmAddModules.dll
+d:\1с лабы\ТРПО_ЛР25_Файлы\App\BystrUmAddModules.deps.json
+d:\1с лабы\ТРПО_ЛР25_Файлы\App\BystrUmAddModules.runtimeconfig.json
+d:\1с лабы\ТРПО_ЛР25_Файлы\App\BystrUmAddModules.pdb

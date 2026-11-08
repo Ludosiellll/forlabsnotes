@@ -1,0 +1,460 @@
+/* ==========================================================================
+   Лабораторная работа №4 по дисциплине «ПСИП»
+   Тема: Подключение таблиц CSS к HTML-документу, использование селекторов
+   Студент: Лабынцев Денис Янушевич, группа РС02-23
+   Файл: style.css (Внешняя таблица стилей)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS-переменные (Custom Properties) и математическая функция calc()
+   -------------------------------------------------------------------------- */
+:root {
+    --primary-color: #1e3a8a;       /* Основной синий цвет (HEX) */
+    --primary-light: #3b82f6;       /* Светло-синий акцент */
+    --secondary-color: #0f766e;     /* Изумрудно-бирюзовый цвет */
+    --text-main: #1f2937;           /* Основной цвет текста */
+    --text-muted: #4b5563;          /* Приглушенный цвет текста */
+    --bg-page: #f8fafc;             /* Фон страницы */
+    --bg-card: #ffffff;             /* Фон блоков */
+    --border-color: #cbd5e1;        /* Цвет границ */
+    --font-heading: 'Segoe UI', Arial, sans-serif;
+    --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --base-padding: 16px;
+    --content-max-width: 1000px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Сброс и базовые стили оформления страницы (Задание 1)
+   -------------------------------------------------------------------------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-page);
+    background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-attachment: fixed;
+    color: var(--text-main);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   3. Шапка сайта и типографика (Задание 1)
+   -------------------------------------------------------------------------- */
+header.site-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #1d4ed8 100%);
+    color: #ffffff;
+    padding: calc(var(--base-padding) * 1.5) calc(var(--base-padding) * 2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 4px solid var(--secondary-color);
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-logo {
+    width: 54px;
+    height: 54px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.header-content h1 {
+    font-family: var(--font-heading);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.header-content p.subtitle {
+    font-size: 14px;
+    font-style: italic;
+    color: #e0e7ff;
+}
+
+.header-badge {
+    text-align: right;
+    font-size: 13px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Основное содержимое */
+main.main-content {
+    padding: calc(var(--base-padding) * 2);
+}
+
+section.content-section {
+    margin-bottom: 36px;
+}
+
+h2.section-title {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary-color);
+    border-left: 5px solid var(--primary-light);
+    padding-left: 12px;
+    margin-bottom: 16px;
+    letter-spacing: 0.3px;
+}
+
+p.description {
+    font-size: 15px;
+    color: var(--text-main);
+    text-align: justify;
+    word-spacing: 1px;
+    margin-bottom: 14px;
+}
+
+/* Демонстрация приоритетов стилей (внешний класс) */
+.priority-demo-box {
+    background-color: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   4. Стилизация ссылок во всех 4 состояниях (Задание 2)
+   -------------------------------------------------------------------------- */
+/* Навигационное меню сайта */
+nav.main-nav {
+    background-color: #0f172a;
+    padding: 10px 24px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* Ссылки в меню */
+nav.main-nav a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: all 0.25s ease-in-out;
+}
+
+nav.main-nav a:link {
+    color: #e2e8f0;
+    background-color: transparent;
+}
+
+nav.main-nav a:visited {
+    color: #cbd5e1;
+}
+
+nav.main-nav a:hover {
+    color: #ffffff;
+    background-color: var(--primary-light);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+}
+
+nav.main-nav a:active {
+    color: #ffffff;
+    background-color: var(--primary-color);
+    transform: translateY(1px);
+}
+
+/* Текстовые ссылки в теле страницы */
+.links-demo-card {
+    background-color: #f1f5f9;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    margin-top: 12px;
+}
+
+.text-link:link {
+    color: #2563eb;
+    text-decoration: underline;
+    font-weight: 600;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.text-link:visited {
+    color: #7c3aed; /* Фиолетовый оттенок для посещенных */
+}
+
+.text-link:hover {
+    color: #dc2626; /* Яркий акцент при наведении */
+    text-decoration: none;
+    background-color: #fee2e2;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.text-link:active {
+    color: #991b1b;
+    background-color: #fecaca;
+}
+
+/* --------------------------------------------------------------------------
+   5. Стилизация списков (Задание 3)
+   -------------------------------------------------------------------------- */
+.lists-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+/* Нумерованный список с ведущими нулями */
+ol.custom-num-list {
+    list-style-type: decimal-leading-zero; /* 01, 02, 03... */
+    padding-left: 28px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+ol.custom-num-list li {
+    margin-bottom: 10px;
+    padding-left: 6px;
+}
+
+ol.custom-num-list li span {
+    color: var(--text-main);
+    font-weight: 400;
+}
+
+/* Маркированный список с декоративными псевдоэлементами */
+ul.custom-bullet-list {
+    list-style-type: none; /* Убираем стандартные кружочки */
+    padding-left: 0;
+}
+
+ul.custom-bullet-list li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    color: var(--text-main);
+}
+
+ul.custom-bullet-list li::before {
+    content: '✦';
+    position: absolute;
+    left: 4px;
+    top: 0px;
+    color: var(--secondary-color);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Список с квадратными маркерами */
+ul.square-list {
+    list-style-type: square;
+    padding-left: 24px;
+    color: var(--primary-light);
+}
+
+ul.square-list li {
+    margin-bottom: 8px;
+    color: var(--text-main);
+}
+
+/* --------------------------------------------------------------------------
+   6. Стилизация формы (Задание 4)
+   -------------------------------------------------------------------------- */
+.form-wrapper {
+    background-color: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 24px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+}
+
+.form-group input[type='text'],
+.form-group input[type='email'],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 14px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-main);
+    background-color: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 6px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input[type='text']:focus,
+.form-group input[type='email']:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.radio-checkbox-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-top: 6px;
+}
+
+.radio-checkbox-group label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+button.btn-submit {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, #0d9488 100%);
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(15, 118, 110, 0.25);
+    transition: all 0.2s ease-in-out;
+}
+
+button.btn-submit:hover {
+    background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+    box-shadow: 0 6px 14px rgba(15, 118, 110, 0.35);
+    transform: translateY(-1px);
+}
+
+button.btn-submit:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(15, 118, 110, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   7. Стилизация таблицы и полосатый (зебровый) эффект (Задания 5 и 6)
+   -------------------------------------------------------------------------- */
+.table-container {
+    overflow-x: auto;
+    margin-top: 16px;
+}
+
+table.hotels-table {
+    width: 100%;
+    border-collapse: collapse; /* Объединение границ ячеек */
+    border: 1px solid #cbd5e1;
+    font-size: 14px;
+    text-align: left;
+}
+
+table.hotels-table thead {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+table.hotels-table th {
+    padding: 12px 16px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    border: 1px solid #1e40af;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.hotels-table td {
+    padding: 10px 16px;
+    border: 1px solid #cbd5e1;
+    vertical-align: middle;
+}
+
+/* Выравнивание ячеек таблицы по смыслу */
+table.hotels-table td.col-id {
+    text-align: center;
+    font-weight: 600;
+    color: var(--primary-color);
+    width: 50px;
+}
+
+table.hotels-table td.col-stars {
+    text-align: center;
+    color: #f59e0b;
+    width: 100px;
+}
+
+table.hotels-table td.col-price {
+    text-align: right;
+    font-weight: 600;
+    width: 130px;
+}
+
+/* Зебровый эффект (Задание 6: чередование строк через nth-child) */
+table.hotels-table tbody tr:nth-child(odd) {
+    background-color: #ffffff; /* Нечетные строки - белые */
+}
+
+table.hotels-table tbody tr:nth-child(even) {
+    background-color: #f1f5f9; /* Четные строки - светло-серые */
+}
+
+/* Интерактивная подсветка строки при наведении курсора */
+table.hotels-table tbody tr:hover {
+    background-color: #e0f2fe; /* Нежно-голубой цвет подсветки */
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* --------------------------------------------------------------------------
+   8. Подвал сайта
+   -------------------------------------------------------------------------- */
+footer.site-footer {
+    background-color: #0f172a;
+    color: #94a3b8;
+    padding: 20px 24px;
+    text-align: center;
+    font-size: 13px;
+    border-top: 1px solid #334155;
+}
+
+footer.site-footer p {
+    margin-bottom: 4px;
+}

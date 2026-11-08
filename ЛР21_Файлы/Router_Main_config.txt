@@ -1,0 +1,65 @@
+!
+! Конфигурационный файл маршрутизатора главного офиса Router-Main
+! Cisco IOS Software, 1841 Software (C1841-ADVIPSERVICESK9-M), Version 12.4(15)T1
+!
+version 12.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Router-Main
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+!
+no aaa new-model
+!
+ip cef
+!
+banner motd #
+=====================================================
+  Cisco 1841 Router - Main Office Gateway
+  Authorized Access Only! Network Lab 21 PC02-23
+=====================================================
+#
+!
+interface FastEthernet0/0
+ description LAN_Connection_to_Switch-Main
+ ip address 192.168.10.1 255.255.255.0
+ duplex auto
+ speed auto
+ no shutdown
+!
+interface FastEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ description WAN_Link_to_Branch_Office_Router
+ ip address 10.0.0.1 255.255.255.252
+ clock rate 64000
+ no shutdown
+!
+interface Serial0/0/1
+ no ip address
+ shutdown
+!
+ip classless
+ip route 192.168.20.0 255.255.255.0 10.0.0.2
+!
+ip http server
+no ip http secure-server
+!
+line con 0
+ password cisco
+ login
+line aux 0
+line vty 0 4
+ password cisco
+ login
+!
+end

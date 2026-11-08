@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head><meta charset="UTF-8"><title>Обработка POST</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 24px 28px; line-height: 1.55; color: #222; background: #fff; margin: 0; }
+  h2 { margin-top: 0; margin-bottom: 14px; font-size: 20px; }
+  input[type="text"], input[type="email"], input[type="tel"], textarea {
+      padding: 6px 8px; border: 1px solid #ccc; border-radius: 4px; width: 310px; font-family: Arial, sans-serif; font-size: 14px;
+  }
+  textarea { width: 380px; }
+  input[type="submit"], button, .btn {
+      padding: 7px 16px; background: #3498db; color: #fff; border: none; border-radius: 4px;
+      cursor: pointer; font-size: 14px; text-decoration: none; display: inline-block;
+  }
+  table { border-collapse: collapse; margin-top: 12px; font-size: 14px; }
+  th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+  th { background: #f2f2f2; }
+  .ok { color: #1e7e34; font-weight: bold; }
+  .err { color: #c0392b; }
+  .box { background: #f8f9fa; border: 1px solid #ced4da; padding: 12px 16px; border-radius: 4px; width: fit-content; margin-top: 10px; }
+</style>
+</head>
+<body>
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = htmlspecialchars($_POST['name']);
+    $email = htmlspecialchars($_POST['email']);
+    $message = htmlspecialchars($_POST['message']);
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        die("Некорректный email!");
+    }
+
+    echo "<h2>Данные получены:</h2>";
+    echo "<div class='box'>";
+    echo "Имя: $name<br>";
+    echo "Email: $email<br>";
+    echo "Сообщение: $message<br>";
+    echo "</div>";
+
+    $log = date('Y-m-d H:i:s') . " | $name | $email | $message\n";
+    file_put_contents('log.txt', $log, FILE_APPEND);
+} else {
+    echo "Данные не отправлены.";
+}
+?>
+</body>
+</html>

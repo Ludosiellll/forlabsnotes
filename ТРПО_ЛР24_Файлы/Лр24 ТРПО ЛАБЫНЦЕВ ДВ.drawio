@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" agent="Draw.io">
+  <diagram name="ЛР24_Модули_БыстрУм" id="lab24_modules_bystrum">
+    <mxGraphModel dx="1400" dy="950" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="UI_MAIN" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#9333ea;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Модуль графического интерфейса (UI)&lt;br&gt;&lt;b&gt;MainMenuScreen&lt;/b&gt;&lt;br&gt;(Главное меню, карточка ребенка, запуск игр)" vertex="1">
+          <mxGeometry x="120" y="50" width="300" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="UI_SETT" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#9333ea;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Модуль графического интерфейса (UI)&lt;br&gt;&lt;b&gt;ParentSettingsScreen&lt;/b&gt;&lt;br&gt;(Настройки доступности, свитчи, лимиты)" vertex="1">
+          <mxGeometry x="500" y="50" width="300" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="UI_ACH" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#9333ea;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Модуль графического интерфейса (UI)&lt;br&gt;&lt;b&gt;AchievementsScreen&lt;/b&gt;&lt;br&gt;(Коллекция кубков и значков)" vertex="1">
+          <mxGeometry x="880" y="50" width="300" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="UI_GAME" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#9333ea;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Модуль графического интерфейса (UI)&lt;br&gt;&lt;b&gt;GamePlayScreen&lt;/b&gt;&lt;br&gt;(Игровой экран, карточки, ответы)" vertex="1">
+          <mxGeometry x="120" y="180" width="300" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="MOD_USER" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#f0fdf4;strokeColor=#16a34a;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Модуль профиля пользователя&lt;br&gt;&lt;b&gt;UserProfileModule&lt;/b&gt;&lt;br&gt;+ Nickname: string&lt;br&gt;+ Level, StarsCount, XP&lt;br&gt;+ AddRewards()" vertex="1">
+          <mxGeometry x="120" y="340" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="MOD_SETT" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Модуль параметров доступности&lt;br&gt;&lt;b&gt;AccessibilitySettingsModule&lt;/b&gt;&lt;br&gt;+ GameSounds, Music&lt;br&gt;+ ReduceMotion, PlayWithoutTimer&lt;br&gt;+ SessionDuration, BreakReminder" vertex="1">
+          <mxGeometry x="480" y="340" width="280" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="MOD_ACH" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#ea580c;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Модуль наград и геймификации&lt;br&gt;&lt;b&gt;AchievementsModule&lt;/b&gt;&lt;br&gt;+ AchievementList&lt;br&gt;+ Unlock()&lt;br&gt;+ DisplayCollection()" vertex="1">
+          <mxGeometry x="860" y="340" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="MOD_ENG" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#e0e7ff;strokeColor=#4f46e5;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Модуль игрового движка&lt;br&gt;&lt;b&gt;GameEngineModule&lt;/b&gt;&lt;br&gt;+ PlayMathSprint()&lt;br&gt;+ PlayOddOneOut()&lt;br&gt;+ PlayLogicPairs()&lt;br&gt;+ MeasureReactionTime()" vertex="1">
+          <mxGeometry x="320" y="520" width="300" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="MOD_STAT" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#7c3aed;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Модуль аналитики и метрик&lt;br&gt;&lt;b&gt;AnalyticsModule&lt;/b&gt;&lt;br&gt;+ TrackReactionTimeMs()&lt;br&gt;+ SessionHistory&lt;br&gt;+ CalculateAccuracy()" vertex="1">
+          <mxGeometry x="700" y="520" width="280" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_100" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.3;exitY=1;entryX=0.3;entryY=0;" edge="1" source="UI_MAIN" target="MOD_USER">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_101" parent="edge_100" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Отображение уровня/звезд" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_101" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="UI_SETT" target="MOD_SETT">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_102" parent="edge_101" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Считывание/запись настроек" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_102" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="UI_ACH" target="MOD_ACH">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_103" parent="edge_102" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Запрос списка наград" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_103" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.5;exitY=1;entryX=0.2;entryY=0;" edge="1" source="UI_GAME" target="MOD_ENG">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_104" parent="edge_103" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Запуск раунда" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_104" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.6;exitY=0;entryX=0.3;entryY=1;" edge="1" source="MOD_ENG" target="MOD_SETT">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_105" parent="edge_104" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Чтение CalmMode и Timer" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_105" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.1;exitY=0;entryX=0.7;entryY=1;" edge="1" source="MOD_ENG" target="MOD_USER">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_106" parent="edge_105" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Начисление звезд и XP" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_106" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.9;exitY=0;entryX=0.3;entryY=1;" edge="1" source="MOD_ENG" target="MOD_ACH">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_107" parent="edge_106" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Разблокировка кубков" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_107" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="MOD_ENG" target="MOD_STAT">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_108" parent="edge_107" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Передача времени реакции" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_108" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.7;exitY=0;entryX=0.9;entryY=1;" edge="1" source="MOD_STAT" target="UI_SETT">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_109" parent="edge_108" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Показ динамики родителю" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

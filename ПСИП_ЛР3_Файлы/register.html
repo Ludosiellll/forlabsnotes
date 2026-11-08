@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Регистрация пользователя | Города Беларуси: Бобруйск</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f5f9;
+            margin: 0;
+            padding: 30px 20px;
+            color: #1e293b;
+        }
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .header img {
+            width: 65px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            margin: 0 0 8px 0;
+            color: #0f172a;
+            font-size: 22px;
+        }
+        p.subtitle {
+            margin: 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+            flex: 1;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            color: #334155;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #0284c7;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+        .btn-register {
+            width: 100%;
+            background-color: #059669;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+        .btn-register:hover {
+            background-color: #047857;
+        }
+        .footer-links {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #64748b;
+        }
+        .footer-links a {
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <img src="emblem.png" alt="Герб Бобруйска">
+            <h2>Регистрация нового пользователя</h2>
+            <p class="subtitle">Создание учетной записи жителя / исследователя Бобруйска</p>
+        </div>
+
+        <form action="/register" method="post">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="first_name">Имя:</label>
+                    <input type="text" id="first_name" name="first_name" placeholder="Денис" required>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Фамилия:</label>
+                    <input type="text" id="last_name" name="last_name" placeholder="Лабынцев" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Электронная почта:</label>
+                <input type="email" id="email" name="email" placeholder="denis.labyntsev@bobruisk.by" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" placeholder="Введите пароль (не менее 6 символов)" minlength="6" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password">Повторите пароль:</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Повторите пароль для проверки" minlength="6" required>
+            </div>
+
+            <button type="submit" class="btn-register">Зарегистрироваться</button>
+        </form>
+
+        <div class="footer-links">
+            <p>Уже зарегистрированы? <a href="login.html">Войти в систему</a></p>
+            <p><a href="test.html">Перейти к форме тестирования →</a></p>
+        </div>
+    </div>
+
+</body>
+</html>

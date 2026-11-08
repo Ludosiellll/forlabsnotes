@@ -1,0 +1,492 @@
+Лабораторная работа №7
+Номер учебной группы: РС02-23
+Дата выполнения работы: 24.09.2026
+Тема: Создание визуальных эффектов и анимации на HTML странице
+Цель: Сформировать умение создавать визуальные эффекты и анимации на HTML – странице
+Оснащение: Методические указания к выполнению, ОС Windows, Sublime Text, MS Word
+Задание: Задания выполняются к своей теме из ЛР №2:
+1. Создайте 2 простых анимации к выбранной тематике.
+2. Создайте анимацию с эффектом параллакса.
+3. Создайте анимированное меню.
+4. Создайте анимированные кнопки.
+5. Создайте слайдер изображений.
+6. Создайте анимированный заголовок.
+Ответьте на контрольные вопросы.
+
+Результаты выполнения работы:
+
+Задание 1. Создайте 2 простых анимации к выбранной тематике
+В рамках первого задания разработаны две тематические анимации для краеведческого веб-портала «Города Беларуси: Бобруйск» с использованием директивы @keyframes:
+- пульсирующее золотисто-лазурное сияние геральдического герба города Бобруйска с плавным циклическим изменением масштаба элемента от 1.0 до 1.08 и наложением радиальной световой тени;
+- непрерывное левитирующее парение интерактивного краеведческого бейджа «Символ Бобра» с гармоническими вертикальными колебаниями от 0 до -14 пикселей и мягким угловым покачиванием от -3 до +3 градусов.
+
+Параметры разработанных простых анимаций приведены в таблице 1
+Таблица 1 – Характеристики простых анимаций портала
+Имя анимации	Селектор	Анимируемые свойства	Длительность	Временная функция	Повторение
+pulseGlow	.pulse-animation	transform: scale, filter: drop-shadow	3.2s	ease-in-out	infinite
+floatBadge	.float-animation	transform: translateY, rotate, box-shadow	4.5s	ease-in-out	infinite
+(таблица из 6 столбцов и 3 строк)
+
+CSS-код реализации простых анимаций представлен в листинге 1
+Листинг 1 – Стилизация простых анимаций (фрагмент style.css)
+/* 1. Анимация пульсации геральдического герба */
+@keyframes pulseGlow {
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.3));
+    }
+    50% {
+        transform: scale(1.08);
+        filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.85)) drop-shadow(0 0 35px rgba(99, 102, 241, 0.5));
+    }
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.3));
+    }
+}
+
+.emblem-wrapper.pulse-animation {
+    display: inline-block;
+    animation: pulseGlow 3.2s ease-in-out infinite;
+}
+
+/* 2. Анимация парения и покачивания бейджа талисмана */
+@keyframes floatBadge {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    50% {
+        transform: translateY(-14px) rotate(2deg);
+        box-shadow: 0 24px 38px rgba(56, 189, 248, 0.25);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+}
+
+.floating-mascot-card.float-animation {
+    animation: floatBadge 4.5s ease-in-out infinite;
+}
+
+Демонстрационный стенд двух простых анимаций представлен на рисунке 1
+[Вставить скриншот простых анимаций]
+Рисунок 1 – Демонстрация работы анимаций pulseGlow и floatBadge
+
+Задание 2. Создайте анимацию с эффектом параллакса
+Для реализации эффекта параллакса спроектирована панорамная секция «Панорама Березины и величие Бобруйской цитадели».
+Эффект пространственной глубины достигается за счет фиксации фонового изображения в окне просмотра с помощью CSS-свойства background-attachment: fixed в сочетании с background-size: cover. При вертикальной прокрутке страницы контентный блок, содержащий историческую справку и карточки ключевых дат, плавно скользит поверх зафиксированного панорамного пейзажа реки Березины.
+
+CSS-код реализации эффекта параллакса приведен в листинге 2
+Листинг 2 – Стилизация секции с эффектом параллакса (фрагмент style.css)
+.parallax-section {
+    position: relative;
+    padding: 110px 0;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Фиксация фона относительно вьюпорта */
+    filter: brightness(0.65) saturate(1.2);
+    z-index: 1;
+}
+
+.parallax-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(11, 17, 32, 0.85) 0%, rgba(11, 17, 32, 0.6) 50%, rgba(11, 17, 32, 0.95) 100%);
+    z-index: 2;
+}
+
+.parallax-content {
+    position: relative;
+    z-index: 3;
+}
+
+.parallax-text-box {
+    max-width: 780px;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+Отображение секции с эффектом параллакса в браузере представлено на рисунке 2
+[Вставить скриншот параллакса]
+Рисунок 2 – Панорамная секция с эффектом параллакса
+
+Задание 3. Создайте анимированное меню
+Навигационная панель веб-портала оснащена многоуровневым анимированным меню, включающим интерактивные состояния для ссылок и выпадающий список (dropdown):
+- анимированное подчеркивание пунктов меню с помощью псевдоэлемента ::after, плавно расширяющегося от центра (transform: scaleX(0) в scaleX(1)) с кривой Безье cubic-bezier(0.4, 0, 0.2, 1);
+- вертикальный микро-сдвиг активной ссылки при наведении курсора (transform: translateY(-2px));
+- плавное появление выпадающего подменю достопримечательностей с переходом прозрачности от 0 до 1, вертикальным смещением сверху вниз и масштабированием (transform: translateY(4px) scale(1)).
+
+CSS-код стилизации анимированного меню приведен в листинге 3
+Листинг 3 – Стилизация анимированного меню и подменю (фрагмент style.css)
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 16px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+/* Анимированное подчеркивание при наведении */
+.nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+    right: 16px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-indigo));
+    border-radius: 3px 3px 0 0;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link:hover {
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    transform: scaleX(1);
+}
+
+/* Анимированное выпадающее подменю */
+.sub-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 250px;
+    background: #1e293b;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+    list-style: none;
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(18px) scale(0.96);
+    transform-origin: top left;
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), visibility 0.35s;
+    z-index: 100;
+}
+
+.has-dropdown:hover .sub-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(4px) scale(1);
+}
+
+.sub-link:hover {
+    color: #ffffff;
+    background: rgba(56, 189, 248, 0.12);
+    padding-left: 24px;
+}
+
+Внешний вид анимированного меню с раскрытым списком представлен на рисунке 3
+[Вставить скриншот меню]
+Рисунок 3 – Анимированная панель навигации и выпадающее подменю
+
+Задание 4. Создайте анимированные кнопки
+Спроектирована галерея из шести интерактивных кнопок, демонстрирующая ключевые методические техники hover-эффектов:
+- горизонтальное заполнение полупрозрачным фоном с левой границы (transition: all 500ms ease);
+- вертикальное заполнение фоном от нижней грани кнопки вверх;
+- плавное выдвижение иконки навигации слева от текста с увеличением внутреннего отступа;
+- пружинящее подпрыгивание с упругой деформацией по вертикали (@keyframes btnBounce);
+- объемный 3D-переворот по Примеру 5 методических указаний (transform-style: preserve-3d, поворот по оси X на 90 градусов со сменой надписи);
+- эффект перекатывания (rollover) по Примерам 3 и 4 методических указаний с вертикальным смещением фонового спрайта (background-position: 0 -40px).
+
+Сравнительный анализ реализованных типов анимированных кнопок приведен в таблице 2
+Таблица 2 – Параметры анимации интерактивных кнопок
+Тип эффекта	Ключевые свойства	Механизм трансформации	Время отклика
+Горизонтальное заполнение	::before, width, transition	Расширение подложки от 0% до 100%	500ms
+Вертикальное заполнение	::before, height, transition	Подъем заливки снизу вверх	500ms
+Появление иконки	padding-left, transform, opacity	Выплывание стрелки из-за границы	400ms
+Эффект подпрыгивания	animation, @keyframes btnBounce	Вертикальный отскок и сжатие scaleY	750ms
+Эффект 3D переворота	preserve-3d, rotateX, translateY	Вращение грани на -90 градусов в 3D	500ms
+Эффект перекатывания	background-position: 0 -40px	Смещение положения фонового спрайта	200ms
+(таблица из 4 столбцов и 7 строк)
+
+CSS-код стилизации анимированных кнопок приведен в листинге 4
+Листинг 4 – Стилизация галереи кнопок (фрагмент style.css)
+/* 1. Горизонтальное заполнение */
+.btn-fill-horizontal {
+    background: transparent;
+    color: #38bdf8;
+    border: 2px solid #38bdf8;
+    transition: all 500ms ease;
+}
+.btn-fill-horizontal::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 0%; height: 100%;
+    background: #38bdf8; z-index: -1;
+    transition: all 500ms ease;
+}
+.btn-fill-horizontal:hover { color: #0b1120; }
+.btn-fill-horizontal:hover::before { width: 100%; }
+
+/* 2. Вертикальное заполнение */
+.btn-fill-vertical {
+    background: transparent;
+    color: #a855f7;
+    border: 2px solid #a855f7;
+    transition: all 500ms ease;
+}
+.btn-fill-vertical::before {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 0%;
+    background: #a855f7; z-index: -1;
+    transition: all 500ms ease;
+}
+.btn-fill-vertical:hover { color: #ffffff; }
+.btn-fill-vertical:hover::before { height: 100%; }
+
+/* 3. Появление иконки */
+.btn-slide-icon {
+    padding-left: 20px;
+    padding-right: 20px;
+    transition: all 400ms ease;
+}
+.btn-slide-icon .icon {
+    display: inline-block;
+    opacity: 0; width: 0;
+    transform: translateX(-15px);
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-slide-icon:hover { padding-left: 14px; }
+.btn-slide-icon:hover .icon {
+    opacity: 1; width: 20px;
+    margin-right: 6px;
+    transform: translateX(0);
+}
+
+/* 4. Эффект подпрыгивания */
+@keyframes btnBounce {
+    0%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px) scaleY(1.05); }
+    60% { transform: translateY(-4px) scaleY(0.98); }
+    80% { transform: translateY(-2px); }
+}
+.btn-bounce:hover {
+    animation: btnBounce 0.75s ease-in-out;
+}
+
+/* 5. Эффект 3D переворота по Примеру 5 */
+.btn-flip-3d {
+    width: 170px; height: 44px;
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 500ms ease;
+    overflow: visible;
+}
+.btn-flip-3d::after {
+    top: -100%; left: 0px; width: 100%; height: 100%;
+    position: absolute;
+    background: #3a9999; border-radius: 5px;
+    content: attr(data-back);
+    display: flex; align-items: center; justify-content: center;
+    color: #ffffff; font-weight: 600;
+    transform-origin: left bottom;
+    transform: rotateX(90deg);
+    transition: all 500ms ease;
+}
+.btn-flip-3d:hover {
+    transform-origin: center bottom;
+    transform: rotateX(-90deg) translateY(100%);
+}
+
+/* 6. Эффект перекатывания по Примеру 4 */
+.rollover-btn-demo {
+    background: url("rollover_sprite.png");
+    display: block; width: 151px; height: 40px;
+    transition: background-position 0.2s ease;
+}
+.rollover-btn-demo:hover {
+    background-position: 0 -40px;
+}
+
+Внешний вид галереи анимированных кнопок представлен на рисунке 4
+[Вставить скриншот кнопок]
+Рисунок 4 – Галерея интерактивных кнопок с различными hover-эффектами
+
+Задание 5. Создайте слайдер изображений
+Разработан адаптивный слайдер экспозиций с архитектурными достопримечательностями Бобруйска:
+- плавное горизонтальное перемещение ленты слайдов с помощью CSS-трансформации transform: translateX(-N * 100%) и функции плавности cubic-bezier(0.25, 1, 0.5, 1);
+- двусторонняя циклическая навигация кнопками «‹» и «›» с полупрозрачным фоном и эффектом блюра;
+- интерактивная полоса индикаторов (dots) с динамическим увеличением ширины активного маркера от 10px до 32px;
+- автоматическая циклическая смена кадров с интервалом 4.5 секунды и интеллектуальной паузой при наведении курсора мыши (события mouseenter и mouseleave).
+
+Код скрипта управления слайдером приведен в листинге 5
+Листинг 5 – Программная логика интерактивного слайдера (файл script.js)
+const sliderTrack = document.getElementById("sliderTrack");
+const slides = document.querySelectorAll(".slide");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const dots = document.querySelectorAll(".dot");
+
+let currentSlide = 0;
+const totalSlides = slides.length;
+let autoSlideInterval = null;
+
+function updateSlider(index) {
+    currentSlide = (index + totalSlides) % totalSlides;
+    const offset = -currentSlide * 100;
+    if (sliderTrack) {
+        sliderTrack.style.transform = `translateX(${offset}%)`;
+    }
+
+    dots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === currentSlide);
+    });
+}
+
+if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+        updateSlider(currentSlide + 1);
+        resetAutoplay();
+    });
+}
+
+if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+        updateSlider(currentSlide - 1);
+        resetAutoplay();
+    });
+}
+
+dots.forEach((dot) => {
+    dot.addEventListener("click", (e) => {
+        const index = parseInt(e.target.getAttribute("data-index"), 10);
+        updateSlider(index);
+        resetAutoplay();
+    });
+});
+
+function startAutoplay() {
+    autoSlideInterval = setInterval(() => {
+        updateSlider(currentSlide + 1);
+    }, 4500);
+}
+
+function resetAutoplay() {
+    if (autoSlideInterval) {
+        clearInterval(autoSlideInterval);
+        startAutoplay();
+    }
+}
+
+startAutoplay();
+
+Внешний вид слайдера изображений в окне браузера представлен на рисунке 5
+[Вставить скриншот слайдера]
+Рисунок 5 – Интерактивный слайдер достопримечательностей Бобруйска
+
+Задание 6. Создайте анимированный заголовок
+Главный заголовок портала («Бобруйск: Легенды, Архитектура и Культура») снабжен комплексом выразительных визуальных эффектов:
+- переливающийся градиентный текст с анимацией градиентного смещения (animation: gradientShift 6s ease-in-out infinite), реализованный через сцепку свойств background-size: 300% 300%, -webkit-background-clip: text и -webkit-text-fill-color: transparent;
+- декоративная разделительная полоса, плавно вырастающая от центра по оси X при начальной загрузке страницы (@keyframes expandDivider);
+- эффект печатной машинки (typewriter) для подзаголовка, анимирующий посимвольное появление текста через шаговую функцию steps(55, end) с мигающим кареткой-курсором (@keyframes blinkCursor).
+
+CSS-код реализации анимированного заголовка и вступительного блока приведен в листинге 6
+Листинг 6 – Стилизация анимированного заголовка (фрагмент style.css)
+/* Анимация переливающегося градиента для заголовка */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.hero-animated-title {
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 35%, #c084fc 70%, #38bdf8 100%);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 6s ease-in-out infinite;
+    margin-bottom: 16px;
+}
+
+/* Декоративный расширяющийся разделитель */
+@keyframes expandDivider {
+    0% { width: 0; opacity: 0; }
+    100% { width: 140px; opacity: 1; }
+}
+
+.animated-divider {
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-indigo));
+    border-radius: 2px;
+    margin-bottom: 18px;
+    animation: expandDivider 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Эффект печатающейся машинки */
+@keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blinkCursor {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--accent-blue); }
+}
+
+.typewriter-text {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid var(--accent-blue);
+    animation: 
+        typewriter 3.5s steps(55, end) 0.5s 1 normal both,
+        blinkCursor 0.75s step-end infinite;
+}
+
+Внешний вид анимированного заголовка и вводного блока представлен на рисунке 6
+[Вставить скриншот заголовка]
+Рисунок 6 – Вводный блок Hero с анимированным заголовком и подзаголовком
+
+Контрольные вопросы
+
+1. Hover-эффекты и их применение?
+Ответ: Hover-эффекты представляют собой визуальные изменения элементов (вращение, сдвиг, трансформация, смена цвета), активируемые псевдоклассом :hover при наведении курсора мыши. Они применяются для визуального отклика интерфейса, акцентирования внимания пользователя на кликабельных компонентах и создания динамичного вида веб-сайта.
+
+2. Назовите наиболее распространенные hover-эффекты?
+Ответ: К наиболее распространенным относятся изменение цвета текста или фона, трансформация рамки, масштабирование (увеличение или сжатие), эффект перекатывания (rollover), смещение фона через background-position, появление иконок и трехмерный переворот.
+
+3. Алгоритм действия эффекта перекатывания?
+Ответ: Алгоритм включает подготовку двух изображений одинакового размера, установку первого изображения фоном блочного элемента <a>, а второго — фоном при псевдоклассе :hover либо вертикальное смещение спрайта с помощью свойства background-position: 0 -Ypx.
+
+4. Применение hover-эффектов к кнопкам?
+Ответ: К кнопкам применяются горизонтальное и вертикальное заполнение полупрозрачным фоном с переходом transition: all 500ms ease, плавное выдвижение иконки слева от текста, пружинящее подпрыгивание @keyframes bounce и объемный 3D-переворот с псевдоэлементом :after и transform-style: preserve-3d.
+
+Вывод: Сформировал умение создавать визуальные эффекты и анимации на HTML – странице.

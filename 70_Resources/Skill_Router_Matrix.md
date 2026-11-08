@@ -45,6 +45,7 @@ Rule: if the user explicitly names a skill, the agent must read its `SKILL.md` a
 | Voice notes, meetings, transcripts | [[50_Meetings/Meeting_Log]] | [[70_Resources/Procedure_Meeting_Capture]] | Raw STT stays out of memory-imported dirs; noisy names are hypotheses | Meeting note + [[60_Tasks/Task_Log]] updated, raw stays in archive |
 | AI OS maintenance: health, readiness, memory sync | [[70_Resources/MGI_Mind_Local_Setup_Template]] | `tools/check_agent_health.ps1`, `tools/check_ai_os_readiness.ps1`, `tools/sync_mgimind.ps1` | Green checks do not prove agent behavior; run the eval suite for that | Exit code 0, freshness OK, entry in `.local/*-check.log` |
 | Changing the AI OS itself (protocol, router, scripts, evals, entry points) | System Maintenance Boundary in `AGENTS.md` | None — out of scope for project agents | The OS layer is a stable versioned system; do not edit or extend it | Proposal recorded in [[60_Tasks/System_Proposals]] instead of an edit |
+| 1C:Предприятие lab work (Лабораторные работы по 1С) | [[70_Resources/Procedure_1C_Lab_Execution]], [[30_Tech/Tech_Map]], [[20_Domain/Lab_Report_Standard]] | `1c-batch`, `1c-metadata-manage`, [[70_Resources/Procedure_1C_Lab_Execution]] | Never deliver an empty database; do not fake screenshots; always create 1-click batch launchers | Base populated, .dt exported with data, batch files tested, report matches standard |
 
 ## Enforcement Rules
 

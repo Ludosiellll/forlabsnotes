@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" agent="Draw.io">
+  <diagram name="ЛР25_Дополнительные_Модули" id="lab25_additional_modules">
+    <mxGraphModel dx="1400" dy="950" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="UI_GATE" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#dc2626;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Дополнительный экранный модуль&lt;br&gt;&lt;b&gt;ParentalGateDialog&lt;/b&gt;&lt;br&gt;(Математический PIN-барьер 2+3)" vertex="1">
+          <mxGeometry x="120" y="50" width="300" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="UI_ANALYTICS" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#9333ea;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Дополнительный экранный модуль&lt;br&gt;&lt;b&gt;AnalyticsDashboardScreen&lt;/b&gt;&lt;br&gt;(Графики скорости реакции и точности)" vertex="1">
+          <mxGeometry x="520" y="50" width="320" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="UI_BREAK" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#f0fdf4;strokeColor=#16a34a;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Дополнительный экранный модуль&lt;br&gt;&lt;b&gt;BreakReminderModal&lt;/b&gt;&lt;br&gt;(Окно отдыха «Сделай разминку!»)" vertex="1">
+          <mxGeometry x="920" y="50" width="300" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="MOD_GATE" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#b91c1c;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Модуль родительского барьера&lt;br&gt;&lt;b&gt;ParentalGateModule&lt;/b&gt;&lt;br&gt;+ GenerateQuestion()&lt;br&gt;+ ValidateAnswer()" vertex="1">
+          <mxGeometry x="120" y="240" width="260" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="MOD_HAPTIC" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#6d28d9;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Модуль тактильного и звукового отклика&lt;br&gt;&lt;b&gt;HapticAudioFeedbackModule&lt;/b&gt;&lt;br&gt;+ TriggerCardTapFeedback()&lt;br&gt;+ TriggerRewardFeedback()" vertex="1">
+          <mxGeometry x="440" y="240" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="MOD_THEME" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Модуль адаптации палитр&lt;br&gt;&lt;b&gt;ColorBlindThemeModule&lt;/b&gt;&lt;br&gt;+ ApplyTheme(Protanopia, etc.)&lt;br&gt;+ ActiveColorTokens" vertex="1">
+          <mxGeometry x="800" y="240" width="280" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="MOD_TIMER" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#15803d;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Модуль тайм-менеджмента&lt;br&gt;&lt;b&gt;BreakReminderModule&lt;/b&gt;&lt;br&gt;+ SessionLimitMinutes&lt;br&gt;+ CheckSessionTime()&lt;br&gt;+ NotifyRest()" vertex="1">
+          <mxGeometry x="260" y="420" width="280" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="MOD_ANALYTICS" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#e0e7ff;strokeColor=#4338ca;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Модуль когнитивных метрик&lt;br&gt;&lt;b&gt;CognitiveAnalyticsModule&lt;/b&gt;&lt;br&gt;+ RecordResponse(activity, ms, ok)&lt;br&gt;+ CalculateAvgReaction()&lt;br&gt;+ GenerateTrendReport()" vertex="1">
+          <mxGeometry x="640" y="420" width="320" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="MOD_CORE" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#475569;strokeWidth=1.5;verticalAlign=middle;align=center;fontSize=11;fontFamily=Arial;" value="Базовое ядро системы&lt;br&gt;&lt;b&gt;BystrUm Core Engine &amp; Profile&lt;/b&gt;&lt;br&gt;(Игровой процесс, профиль Артёма)" vertex="1">
+          <mxGeometry x="450" y="600" width="340" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_200" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="UI_GATE" target="MOD_GATE">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_201" parent="edge_200" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Проверка ответа взрослого" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_201" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.5;exitY=1;entryX=0.2;entryY=0;" edge="1" source="MOD_GATE" target="MOD_CORE">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_202" parent="edge_201" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Разрешение доступа к настройкам" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_202" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="UI_ANALYTICS" target="MOD_ANALYTICS">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_203" parent="edge_202" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Запрос сводки динамики" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_203" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.3;exitY=1;entryX=0.8;entryY=0;" edge="1" source="UI_BREAK" target="MOD_TIMER">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_204" parent="edge_203" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Инициализация таймера" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_204" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.3;exitY=0;entryX=0.5;entryY=1;" edge="1" source="MOD_CORE" target="MOD_TIMER">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_205" parent="edge_204" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Сигнал непрерывной игры" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_205" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.8;exitY=0;entryX=0.1;entryY=1;" edge="1" source="MOD_TIMER" target="UI_BREAK">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_206" parent="edge_205" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Показ модального окна отдыха" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_206" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.7;exitY=0;entryX=0.5;entryY=1;" edge="1" source="MOD_CORE" target="MOD_ANALYTICS">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_207" parent="edge_206" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Передача миллисекунд реакции" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_207" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" source="MOD_CORE" target="MOD_HAPTIC">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_208" parent="edge_207" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="События клика и победы" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_208" parent="1" style="endArrow=classic;endFill=1;html=1;strokeColor=#475569;strokeWidth=1.5;rounded=0;exitX=0.5;exitY=1;entryX=0.9;entryY=0;" edge="1" source="MOD_THEME" target="MOD_CORE">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_209" parent="edge_208" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#334155;backgroundColor=#ffffff;" value="Применение контрастных токенов" vertex="1" connectable="0">
+          <mxGeometry x="0" relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

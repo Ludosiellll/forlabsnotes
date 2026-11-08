@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Города Беларуси: Бобруйск — Адаптивный туристический портал</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Верхняя информационная панель -->
+    <header class="site-header">
+        <div class="wrapper header-inner">
+            <div class="brand">
+                <img src="emblem.png" alt="Герб города Бобруйска" class="brand-logo">
+                <div class="brand-text">
+                    <h1 class="site-title">Города Беларуси: Бобруйск</h1>
+                    <p class="site-subtitle">Информационно-туристический гид и культурно-исторический атлас</p>
+                </div>
+            </div>
+            <div class="academic-badge">
+                <span class="badge-tag">ПСИП // Лабораторная работа №6</span>
+                <span class="badge-desc">Адаптивный дизайн • Группа РС02-23</span>
+            </div>
+        </div>
+
+        <!-- Адаптивная навигация -->
+        <nav class="main-nav">
+            <div class="wrapper nav-wrapper">
+                <a href="#about" class="nav-item active">О городе</a>
+                <a href="#attractions" class="nav-item">Достопримечательности</a>
+                <a href="#routes" class="nav-item">Маршруты</a>
+                <a href="#contacts" class="nav-item">Справка туриста</a>
+                <a href="#author" class="nav-item">Сведения об авторе</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Основной контейнер макета -->
+    <div class="wrapper content-layout">
+        <!-- Основная колонка контента -->
+        <main class="main-section">
+            <!-- Вводный блок Hero -->
+            <section id="about" class="hero-card">
+                <div class="hero-content">
+                    <span class="section-label">Жемчужина Приберезинского края</span>
+                    <h2 class="hero-title">Добро пожаловать в Бобруйск</h2>
+                    <p class="hero-text">
+                        Один из старейших и колоритнейших городов Беларуси, впервые упомянутый в 1387 году.
+                        Город славится уникальной фортификационной архитектурой XIX века, богатейшим 
+                        литературным наследием и неповторимым городским фольклором.
+                    </p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-value">1387</span>
+                            <span class="stat-name">Год основания</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">~210 тыс.</span>
+                            <span class="stat-name">Население города</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">1812</span>
+                            <span class="stat-name">Подвиг крепости</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">96 км²</span>
+                            <span class="stat-name">Территория</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Каталог достопримечательностей (Адаптивная сетка карточек) -->
+            <section id="attractions" class="cards-section">
+                <div class="section-header">
+                    <h2 class="section-title">Главные исторические памятники</h2>
+                    <p class="section-desc">Ключевые точки притяжения гостей города и культурные жемчужины</p>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Карточка 1: Бобруйская крепость -->
+                    <article class="landmark-card">
+                        <div class="card-media">
+                            <img src="fortress.jpg" alt="Бобруйская крепость" class="card-img">
+                            <span class="card-badge">Памятник истории</span>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Бобруйская крепость</h3>
+                            <p class="card-text">
+                                Выдающийся памятник фортификационного зодчества первой половины XIX века. 
+                                Крепость сыграла стратегическую роль в Отечественной войне 1812 года, 
+                                выдержав четырехмесячную осаду наполеоновских войск генерала Домбровского.
+                            </p>
+                            <div class="card-meta">
+                                <span class="meta-tag">Архитектура XIX в.</span>
+                                <span class="meta-status">Доступно для посещения</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Карточка 2: Скульптура Бобра -->
+                    <article class="landmark-card">
+                        <div class="card-media">
+                            <img src="bobr_statue.jpg" alt="Памятник Бобру" class="card-img">
+                            <span class="card-badge">Символ города</span>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Скульптура «Бобр Самуилович»</h3>
+                            <p class="card-text">
+                                Бронзовый памятник респектабельному бобру в сюртуке и шляпе на пешеходной 
+                                улице Социалистической. Согласно городской легенде, прикосновение к цепочке 
+                                от его карманных часов приносит финансовое благополучие и удачу.
+                            </p>
+                            <div class="card-meta">
+                                <span class="meta-tag">Городская скульптура</span>
+                                <span class="meta-status">Пешеходная зона</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Карточка 3: Театр Дунина-Марцинкевича -->
+                    <article class="landmark-card">
+                        <div class="card-media">
+                            <img src="video_poster.jpg" alt="Театр драмы и комедии" class="card-img">
+                            <span class="card-badge">Культура</span>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Театр им. В.И. Дунина-Марцинкевича</h3>
+                            <p class="card-text">
+                                Центр театрального искусства города, названный в честь классика белорусской 
+                                драматургии. Здание представляет собой образец неоклассической эстетики 
+                                с развитым репертуаром классических и современных постановок.
+                            </p>
+                            <div class="card-meta">
+                                <span class="meta-tag">Драматический театр</span>
+                                <span class="meta-status">Действующий репертуар</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Блок маршрутов -->
+            <section id="routes" class="routes-section">
+                <h2 class="section-title">Рекомендуемые туристические маршруты</h2>
+                <div class="routes-list">
+                    <div class="route-item">
+                        <div class="route-num">01</div>
+                        <div class="route-info">
+                            <h4>Фортификационное наследие (3.5 км, ~2.5 часа)</h4>
+                            <p>Включает обход редюитов, Минских ворот, капониров и бастионных укреплений крепости.</p>
+                        </div>
+                    </div>
+                    <div class="route-item">
+                        <div class="route-num">02</div>
+                        <div class="route-info">
+                            <h4>Исторический центр и «Бобруйский Арбат» (2.0 км, ~1.5 часа)</h4>
+                            <p>Прогулка по пешеходной Социалистической улице, знакомство с купеческой застройкой модерна.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Адаптивный сайдбар (Боковая панель) -->
+        <aside class="sidebar-section">
+            <!-- Виджет 1: Справка для путешественника -->
+            <div class="widget">
+                <h3 class="widget-title">◈ Справка путешественника</h3>
+                <ul class="widget-info-list">
+                    <li>
+                        <strong>Транспортная связь:</strong>
+                        <span>Прямые поезда из Минска (1.5 ч на Штадлере), трасса М-5</span>
+                    </li>
+                    <li>
+                        <strong>Городской вокзал:</strong>
+                        <span>Станция «Бобруйск» (ул. Интернациональная)</span>
+                    </li>
+                    <li>
+                        <strong>Туристский инфоцентр:</strong>
+                        <span>ул. Социалистическая, д. 84</span>
+                    </li>
+                    <li>
+                        <strong>Визитная сладость:</strong>
+                        <span>Зефир фабрики «Красный пищевик»</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Виджет 2: Карточка разработчика (учебный блок) -->
+            <div id="author" class="widget author-widget">
+                <h3 class="widget-title">◈ Сведения о разработчике</h3>
+                <div class="author-box">
+                    <img src="developer.jpg" alt="Разработчик Денис" class="author-photo">
+                    <div class="author-details">
+                        <h4 class="author-name">Денис</h4>
+                        <p class="author-role">Учащийся группы <strong>РС02-23</strong></p>
+                        <p class="author-desc">
+                            Разработка адаптивной версии страницы в рамках дисциплины ПСИП.
+                            Реализованы относительные единицы (%, rem, em) и адаптивные CSS3 медиа-запросы.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Виджет 3: Тестирование разрешений -->
+            <div class="widget tester-widget">
+                <h3 class="widget-title">◈ Контрольные точки макета</h3>
+                <div class="breakpoints-guide">
+                    <div class="bp-row">
+                        <span class="bp-device">Десктоп:</span>
+                        <span class="bp-val">&gt; 1024px</span>
+                    </div>
+                    <div class="bp-row">
+                        <span class="bp-device">Планшет:</span>
+                        <span class="bp-val">768px – 1024px</span>
+                    </div>
+                    <div class="bp-row">
+                        <span class="bp-device">Мобильный:</span>
+                        <span class="bp-val">&le; 480px / 320px</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Подвал сайта -->
+    <footer id="contacts" class="site-footer">
+        <div class="wrapper footer-inner">
+            <div class="footer-col">
+                <h4>Города Беларуси: Бобруйск</h4>
+                <p>Учебно-демонстрационный проект по разработке адаптивных веб-интерфейсов.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Учебная дисциплина</h4>
+                <p>Проектирование и разработка пользовательских интерфейсов (ПСИП)</p>
+                <p>Лабораторная работа №6 • 2026 г.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Адаптивная оптимизация</h4>
+                <p>Полная поддержка разрешений: Desktop (1280px+), Tablet (768px), Mobile (375px/320px).</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Информационно-туристический гид г. Бобруйска. Разработано учащимся группы РС02-23 Денисом.</p>
+        </div>
+    </footer>
+</body>
+</html>

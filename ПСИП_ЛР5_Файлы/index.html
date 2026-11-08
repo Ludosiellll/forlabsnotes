@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница | Экстраординарная табличная сетка макета Бобруйск</title>
+    <style>
+        :root {
+            --bg-deep: #070913;
+            --surface-card: rgba(15, 23, 42, 0.82);
+            --surface-border: rgba(255, 255, 255, 0.1);
+            --accent-cyan: #38bdf8;
+            --accent-blue: #3b82f6;
+            --accent-purple: #a855f7;
+            --accent-emerald: #10b981;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-deep);
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(168, 85, 247, 0.12) 0%, transparent 40%),
+                linear-gradient(180deg, #090d16 0%, #030712 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 16px 12px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* -------------------------------------------------------------
+           Задание 1: Главная таблица-сетка для размещения элементов
+           ------------------------------------------------------------- */
+        table.layout-grid {
+            width: 1020px;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: var(--surface-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--surface-border);
+            box-shadow: 
+                0 25px 60px -15px rgba(0, 0, 0, 0.8),
+                0 0 35px rgba(56, 189, 248, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        /* Заголовок таблицы (caption) */
+        caption.grid-caption {
+            caption-side: top;
+            padding: 0 4px 10px 4px;
+            text-align: left;
+        }
+        .caption-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            border-radius: 24px;
+            padding: 5px 14px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 10px rgba(56, 189, 248, 0.15);
+        }
+        .caption-dot {
+            width: 7px;
+            height: 7px;
+            background-color: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-cyan);
+        }
+
+        /* Шапка страницы: Строка 1 таблицы (colspan=2) */
+        th.header-cell {
+            padding: 20px 28px;
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.45) 0%, rgba(15, 23, 42, 0.85) 50%, rgba(88, 28, 135, 0.35) 100%);
+            border-bottom: 1px solid var(--surface-border);
+            text-align: left;
+        }
+        .header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .emblem-wrapper {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            box-shadow: 0 4px 18px rgba(56, 189, 248, 0.2);
+        }
+        .emblem-wrapper img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+        }
+        .title-group h1 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff 30%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2px;
+        }
+        .title-group p {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+        .meta-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 8px 16px;
+            text-align: right;
+            backdrop-filter: blur(10px);
+        }
+        .meta-pill .lab-no {
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+            display: block;
+        }
+        .meta-pill .lab-sub {
+            font-size: 10.5px;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Панель навигации: Строка 2 таблицы (colspan=2) */
+        td.nav-bar-cell {
+            padding: 10px 28px;
+            background: rgba(10, 15, 29, 0.95);
+            border-bottom: 1px solid var(--surface-border);
+        }
+        .nav-links-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .nav-btn {
+            font-size: 12.5px;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 7px 16px;
+            border-radius: 8px;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid transparent;
+        }
+        .nav-btn.active {
+            color: #ffffff;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 14px rgba(56, 189, 248, 0.15);
+        }
+        .nav-btn:hover:not(.active) {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* -------------------------------------------------------------
+           Строка 3: Двухколоночный макет (Sidebar + Main Content)
+           ------------------------------------------------------------- */
+        td.sidebar-cell {
+            width: 270px;
+            vertical-align: top;
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.4);
+            border-right: 1px solid var(--surface-border);
+        }
+
+        /* Виджеты боковой панели */
+        .cyber-widget {
+            background: rgba(30, 41, 59, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        .cyber-widget::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple));
+        }
+        .widget-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--accent-cyan);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .widget-list {
+            list-style: none;
+        }
+        .widget-list li {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            padding: 5px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+        }
+        .widget-list li:last-child {
+            border-bottom: none;
+        }
+        .widget-list li span.val {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Основной контент (Правая колонка) */
+        td.content-cell {
+            vertical-align: top;
+            padding: 22px 26px;
+            background: rgba(15, 23, 42, 0.2);
+        }
+
+        .content-hero-badge {
+            display: inline-block;
+            font-size: 10.5px;
+            font-weight: 700;
+            color: var(--accent-purple);
+            background: rgba(168, 85, 247, 0.12);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 6px;
+            padding: 3px 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+        }
+        .content-headline {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+        .lead-text {
+            font-size: 13px;
+            line-height: 1.55;
+            color: #cbd5e1;
+            margin-bottom: 16px;
+            text-align: justify;
+        }
+
+        /* -------------------------------------------------------------
+           Вложенная сеточная таблица карточек (Cards Grid)
+           ------------------------------------------------------------- */
+        table.cards-grid {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 14px;
+        }
+        td.card-col {
+            width: 50%;
+            vertical-align: top;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+        td.card-col:hover {
+            transform: translateY(-2px);
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 16px rgba(56, 189, 248, 0.15);
+        }
+        .card-img-container {
+            width: 100%;
+            height: 140px;
+            overflow: hidden;
+            position: relative;
+        }
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.92) contrast(1.08);
+            transition: transform 0.4s ease;
+        }
+        .card-col:hover .card-img-container img {
+            transform: scale(1.04);
+        }
+        .card-tag {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .card-info {
+            padding: 12px 14px;
+        }
+        .card-info h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+        .card-info p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .card-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+
+        /* Подвал таблицы: Строка 4 таблицы (colspan=2) */
+        td.footer-cell {
+            padding: 14px 28px;
+            background: rgba(10, 15, 29, 0.98);
+            border-top: 1px solid var(--surface-border);
+            text-align: center;
+        }
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11.5px;
+            color: #64748b;
+        }
+        .footer-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 3px 8px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Задание 1: Главная таблица-сетка для размещения элементов веб-страницы -->
+    <table class="layout-grid">
+        <!-- Заголовок таблицы (caption) -->
+        <caption class="grid-caption">
+            <div class="caption-badge">
+                <span class="caption-dot"></span>
+                Табличная сетка размещения элементов // Задание 1
+            </div>
+        </caption>
+
+        <!-- Строка 1: Шапка сайта (объединение колонок colspan=2) -->
+        <thead>
+            <tr>
+                <th colspan="2" class="header-cell">
+                    <div class="header-flex">
+                        <div class="brand-box">
+                            <div class="emblem-wrapper">
+                                <img src="emblem.png" alt="Герб Бобруйска">
+                            </div>
+                            <div class="title-group">
+                                <h1>Города Беларуси: Бобруйск</h1>
+                                <p>Информационно-туристический гид и культурно-исторический атлас</p>
+                            </div>
+                        </div>
+                        <div class="meta-pill">
+                            <span class="lab-no">Лабораторная работа №5</span>
+                            <span class="lab-sub">Табличная сетка макета</span>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+
+            <!-- Строка 2: Навигационная строка (объединение колонок colspan=2) -->
+            <tr>
+                <td colspan="2" class="nav-bar-cell">
+                    <div class="nav-links-row">
+                        <a href="index.html" class="nav-btn active">
+                            <span>◈ Главная (Табличная сетка)</span>
+                        </a>
+                        <a href="positioning.html" class="nav-btn">
+                            <span>❖ Точное позиционирование (CSS position)</span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </thead>
+
+        <!-- Строка 3: Двухколоночный макет (Sidebar + Content) -->
+        <tbody>
+            <tr>
+                <!-- Столбец 1: Боковое меню и справочные блоки -->
+                <td class="sidebar-cell">
+                    <div class="cyber-widget">
+                        <div class="widget-title">
+                            <span>Навигация по разделам</span>
+                        </div>
+                        <ul class="widget-list">
+                            <li>Бобруйская крепость</li>
+                            <li>Скульптура Бобра</li>
+                            <li>Социалистическая улица</li>
+                            <li>Фабрика «Красный пищевик»</li>
+                            <li>Зелёный пояс Березины</li>
+                        </ul>
+                    </div>
+
+                    <div class="cyber-widget">
+                        <div class="widget-title">
+                            <span>Визитка города</span>
+                        </div>
+                        <ul class="widget-list">
+                            <li><span>Основан:</span> <span class="val">1387 год</span></li>
+                            <li><span>Население:</span> <span class="val">~210 тыс.</span></li>
+                            <li><span>Водная артерия:</span> <span class="val">р. Березина</span></li>
+                            <li><span>Статус:</span> <span class="val">Областное подч.</span></li>
+                        </ul>
+                    </div>
+                </td>
+
+                <!-- Столбец 2: Основное содержимое и вложенная таблица карточек -->
+                <td class="content-cell">
+                    <span class="content-hero-badge">Архитектурно-историческое наследие</span>
+                    <h2 class="content-headline">Историко-культурный потенциал Бобруйска</h2>
+                    <p class="lead-text">
+                        Бобруйск — один из древнейших и самобытных городов Беларуси, сочетающий мощь фортификационного зодчества XIX века, богатые ремесленные традиции и развитый индустриальный комплекс. На данной странице элементы скомпонованы в виде целостной сетки при помощи структуры HTML-таблиц.
+                    </p>
+
+                    <!-- Вложенная таблица из 2 колонок для карточек достопримечательностей -->
+                    <table class="cards-grid">
+                        <tr>
+                            <!-- Карточка 1: Скульптура Бобра -->
+                            <td class="card-col">
+                                <div class="card-img-container">
+                                    <span class="card-tag">Символ города</span>
+                                    <img src="bobr_statue.jpg" alt="Памятник Бобру">
+                                </div>
+                                <div class="card-info">
+                                    <h4>Скульптура Бобра</h4>
+                                    <p>Бронзовый памятник высотой 1,7 метра, открытый в 2006 году на пересечении улиц К. Маркса и Социалистической.</p>
+                                    <span class="card-btn">Подробнее о локации →</span>
+                                </div>
+                            </td>
+
+                            <!-- Карточка 2: Бобруйская крепость -->
+                            <td class="card-col">
+                                <div class="card-img-container">
+                                    <span class="card-tag">Фортификация</span>
+                                    <img src="fortress.jpg" alt="Бобруйская крепость">
+                                </div>
+                                <div class="card-info">
+                                    <h4>Бобруйская крепость</h4>
+                                    <p>Уникальный комплекс оборонительных сооружений начала XIX века, выдержавший осаду войск Наполеона в 1812 году.</p>
+                                    <span class="card-btn">Подробнее о локации →</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+
+        <!-- Строка 4: Подвал таблицы (объединение колонок colspan=2) -->
+        <tfoot>
+            <tr>
+                <td colspan="2" class="footer-cell">
+                    <div class="footer-content">
+                        <span>© 2026 Краеведческий портал «Бобруйск» • Проектирование веб-приложений</span>
+                        <span class="footer-badge">Группа РС02-23</span>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<PredefinedData xmlns="http://v8.1c.ru/8.3/xcf/predef" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CatalogPredefinedItems" version="2.20">
+	<Item id="dd3646ef-0640-475c-919e-82014d04bbae">
+		<Name>ВнешнийСовместитель</Name>
+		<Code>000000002</Code>
+		<Description>Внешний совместитель</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="493b5324-710d-4511-ac03-149008dd5e6b">
+		<Name>ВнутреннийСовместитель</Name>
+		<Code>000000003</Code>
+		<Description>Внутренний совместитель</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="3332c713-08ae-4cc4-afd3-dc4915c8c707">
+		<Name>Штатный</Name>
+		<Code>000000001</Code>
+		<Description>Штатный</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+</PredefinedData>

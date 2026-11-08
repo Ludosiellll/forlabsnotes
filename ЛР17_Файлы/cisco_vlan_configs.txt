@@ -1,0 +1,185 @@
+﻿============================================================
+КОНФИГУРАЦИОННЫЕ КОМАНДЫ ДЛЯ CISCO PACKET TRACER (ЛР17)
+============================================================
+
+1. КОММУТАТОР SW1 (L2):
+enable
+configure terminal
+hostname sw1
+
+! Создание VLAN
+vlan 2
+ name test
+exit
+vlan 10
+ name VLAN0010
+exit
+vlan 15
+ name VLAN0015
+exit
+
+! Настройка Access-портов для VLAN 2
+interface range fa0/1 - 2
+ switchport mode access
+ switchport access vlan 2
+ no shutdown
+exit
+
+! Настройка Access-порта для VLAN 15
+interface fa0/3
+ switchport mode access
+ switchport access vlan 15
+ no shutdown
+exit
+
+! Настройка Access-портов для VLAN 10
+interface range fa0/4 - 5
+ switchport mode access
+ switchport access vlan 10
+ no shutdown
+exit
+
+! Настройка статического Trunk к sw3
+interface fa0/22
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 1,2,10,15
+ no shutdown
+exit
+
+! Для схемы Router-on-a-Stick (порт к R1)
+interface fa0/20
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 2,10,15
+ no shutdown
+exit
+end
+write memory
+
+
+2. КОММУТАТОР SW2 (L2):
+enable
+configure terminal
+hostname sw2
+
+! Создание VLAN
+vlan 2
+ name test
+exit
+vlan 10
+ name VLAN0010
+exit
+
+! Настройка Access-порта для VLAN 10
+interface fa0/1
+ switchport mode access
+ switchport access vlan 10
+ no shutdown
+exit
+
+! Настройка Access-портов для VLAN 2
+interface range fa0/2 - 3
+ switchport mode access
+ switchport access vlan 2
+ no shutdown
+exit
+
+! Настройка статического Trunk к sw3
+interface fa0/22
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 1,2,10
+ no shutdown
+exit
+end
+write memory
+
+
+3. КОММУТАТОР SW3 (L3 - Inter-VLAN Routing):
+enable
+configure terminal
+hostname sw3
+
+! Создание базы VLAN
+vlan 2,10,15
+exit
+
+! Настройка транковых портов к sw1 и sw2
+interface fa0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 1,2,10,15
+ no shutdown
+exit
+
+interface fa0/2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 1,2,10
+ no shutdown
+exit
+
+! Включение межсетевой маршрутизации на L3
+ip routing
+
+! Настройка виртуальных интерфейсов SVI (шлюзы для VLAN)
+interface Vlan2
+ ip address 10.0.2.1 255.255.255.0
+ no shutdown
+exit
+
+interface Vlan10
+ ip address 10.0.10.1 255.255.255.0
+ no shutdown
+exit
+
+interface Vlan15
+ ip address 10.0.15.1 255.255.255.0
+ no shutdown
+exit
+
+! Настройка маршрутизируемого порта 3-го уровня к R1
+interface fa0/10
+ no switchport
+ ip address 192.168.1.2 255.255.255.0
+ no shutdown
+exit
+
+! Маршрут по умолчанию к внешнему маршрутизатору R1
+ip route 0.0.0.0 0.0.0.0 192.168.1.1
+end
+write memory
+
+
+4. МАРШРУТИЗАТОР R1 (Router-on-a-Stick):
+enable
+configure terminal
+hostname R1
+
+! Включение физического интерфейса без IP-адреса
+interface fa0/0
+ no ip address
+ no shutdown
+exit
+
+! Создание логических подинтерфейсов с dot1q инкапсуляцией
+interface fa0/0.2
+ encapsulation dot1q 2
+ ip address 10.0.2.1 255.255.255.0
+ no shutdown
+exit
+
+interface fa0/0.10
+ encapsulation dot1q 10
+ ip address 10.0.10.1 255.255.255.0
+ no shutdown
+exit
+
+interface fa0/0.15
+ encapsulation dot1q 15
+ ip address 10.0.15.1 255.255.255.0
+ no shutdown
+exit
+end
+write memory

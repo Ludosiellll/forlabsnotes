@@ -1,0 +1,24 @@
+﻿mcpServers:
+  memory:
+    command: "C:\\Users\\denis\\AppData\\Local\\AI OS\\bin\\mgimind.exe"
+    args:
+      - "mcp"
+  codebase-memory:
+    command: "C:\\Users\\denis\\AppData\\Local\\AI OS\\bin\\codebase-memory-mcp.exe"
+    args: []
+  1c-syntax:
+    command: "d:\\1с лабы\\tools\\1c-syntax-mcp\\.venv\\Scripts\\python.exe"
+    args:
+      - "d:\\1с лабы\\tools\\1c-syntax-mcp\\server.py"
+  1c-batch:
+    command: "powershell.exe"
+    args:
+      - "-NoProfile"
+      - "-ExecutionPolicy"
+      - "Bypass"
+      - "-File"
+      - "d:\\1с лабы\\.agents\\skills\\1c-batch\\scripts\\run-designer.ps1"
+  1c-litecode:
+    command: "d:\\1с лабы\\tools\\1c-syntax-mcp\\.venv\\Scripts\\python.exe"
+    args:
+      - "d:\\1с лабы\\tools\\1c-litecode-mcp\\lite\\test_mcp.py"

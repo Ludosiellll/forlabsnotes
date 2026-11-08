@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>БыстрУм — Интерактивный прототип мобильного приложения</title>
+  <style>
+    :root {
+      --bg-color: #f1f5f9;
+      --app-bg: #ffffff;
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --accent: #f59e0b;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --card-bg: #f8fafc;
+      --card-border: #e2e8f0;
+      --success: #10b981;
+      --border-radius: 20px;
+    }
+
+    /* Accessibility Theme: Protanopia */
+    body.theme-protanopia {
+      --primary: #0284c7;
+      --accent: #ca8a04;
+      --success: #0d9488;
+    }
+
+    /* Accessibility Theme: Deuteranopia */
+    body.theme-deuteranopia {
+      --primary: #2563eb;
+      --accent: #d97706;
+      --success: #0891b2;
+    }
+
+    /* Accessibility Theme: Tritanopia */
+    body.theme-tritanopia {
+      --primary: #dc2626;
+      --accent: #059669;
+      --success: #16a34a;
+    }
+
+    /* Calm Mode (ASD Friendly): Soft pastel, zero harsh contrast */
+    body.theme-calm {
+      --bg-color: #fdfbf7;
+      --app-bg: #fffdfa;
+      --primary: #6366f1;
+      --accent: #f59e0b;
+      --card-bg: #f7f5f0;
+      --card-border: #e7e2d9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      color: var(--text-main);
+    }
+
+    .proto-header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .proto-header h1 {
+      font-size: 20px;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .proto-header p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Phone Shell */
+    .phone-mockup {
+      width: 380px;
+      height: 760px;
+      background: var(--app-bg);
+      border-radius: 44px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 12px #1e293b, 0 0 0 14px #475569;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Dynamic Island / Notch */
+    .phone-notch {
+      width: 120px;
+      height: 24px;
+      background: #000;
+      border-radius: 20px;
+      margin: 10px auto 4px auto;
+      z-index: 100;
+    }
+
+    /* Status Bar */
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      padding: 2px 24px 6px 24px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Screens Container */
+    .screens-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+      opacity: 0;
+      transform: translateX(100%);
+      pointer-events: none;
+      overflow-y: auto;
+    }
+
+    .screen.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    /* Profile Bar in Main Screen */
+    .child-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 12px 16px;
+      border-radius: 18px;
+      margin-bottom: 16px;
+    }
+
+    .child-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #c7d2fe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .child-info h3 {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .child-info span {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .stars-badge {
+      margin-left: auto;
+      background: #fef3c7;
+      color: #b45309;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+
+    /* Game Selector Cards */
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text-main);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .game-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .game-card {
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 20px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .game-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.12);
+    }
+
+    .game-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .game-details h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .game-details p {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Buttons */
+    .btn-main {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 8px;
+    }
+
+    .btn-main:active {
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      background: var(--card-bg);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+      padding: 12px;
+      border-radius: 16px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    /* Game Play Screen */
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .game-progress-bar {
+      height: 8px;
+      flex: 1;
+      background: #e2e8f0;
+      border-radius: 4px;
+      margin: 0 12px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 60%;
+      height: 100%;
+      background: var(--primary);
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+
+    .timer-pill {
+      background: #fee2e2;
+      color: #dc2626;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+
+    .task-card {
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 24px;
+      padding: 36px 20px;
+      text-align: center;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.04);
+    }
+
+    .task-question {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: 1px;
+    }
+
+    .task-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .answer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .ans-btn {
+      background: white;
+      border: 2px solid var(--card-border);
+      padding: 22px 10px;
+      border-radius: 18px;
+      font-size: 24px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.1s, border-color 0.2s, background 0.2s;
+      color: var(--text-main);
+    }
+
+    .ans-btn:active {
+      transform: scale(0.95);
+    }
+
+    .ans-btn.correct {
+      background: #dcfce7;
+      border-color: #22c55e;
+      color: #15803d;
+    }
+
+    .ans-btn.wrong {
+      background: #fee2e2;
+      border-color: #ef4444;
+      color: #b91c1c;
+    }
+
+    /* Result Screen */
+    .result-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      text-align: center;
+    }
+
+    .stars-row {
+      display: flex;
+      gap: 10px;
+      font-size: 40px;
+      margin: 16px 0;
+    }
+
+    .metric-badge {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 10px 18px;
+      border-radius: 14px;
+      margin-bottom: 8px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .metric-badge strong {
+      color: var(--primary);
+    }
+
+    /* Settings Screen */
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .setting-item label {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .select-theme {
+      padding: 6px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      font-size: 12px;
+      background: white;
+    }
+
+    /* Switch */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #cbd5e1;
+      transition: .3s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    /* Feedback message */
+    .toast {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f172a;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 200;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="proto-header">
+    <h1>Прототип ПО «БыстрУм»</h1>
+    <p>Инклюзивное развивающее приложение для детей (включая детей с РАС и дальтонизмом)</p>
+  </div>
+
+  <div class="phone-mockup">
+    <div class="phone-notch"></div>
+    <div class="status-bar">
+      <span>12:00</span>
+      <span>LTE ■ 100%</span>
+    </div>
+
+    <div class="screens-container">
+      
+      <!-- SCREEN 1: MAIN MENU -->
+      <div id="screen-main" class="screen active">
+        <div class="child-card">
+          <div class="child-avatar">👦</div>
+          <div class="child-info">
+            <h3>Артём</h3>
+            <span>6 лет • 360 XP</span>
+          </div>
+          <div class="stars-badge">⭐ 14</div>
+        </div>
+
+        <div class="section-title">
+          <span>Тренировка мышления</span>
+          <span style="font-size:11px;color:var(--text-muted);">3 игры</span>
+        </div>
+
+        <div class="game-grid">
+          <div class="game-card" onclick="startGame('math')">
+            <div class="game-icon">⚡</div>
+            <div class="game-details">
+              <h4>Математический спринт</h4>
+              <p>Устный счет и скорость решения</p>
+            </div>
+          </div>
+
+          <div class="game-card" onclick="startGame('odd')">
+            <div class="game-icon">🔍</div>
+            <div class="game-details">
+              <h4>Найди лишнее</h4>
+              <p>Внимание, цвета и формы</p>
+            </div>
+          </div>
+
+          <div class="game-card" onclick="startGame('pairs')">
+            <div class="game-icon">🧩</div>
+            <div class="game-details">
+              <h4>Логические пары</h4>
+              <p>Ассоциации и причинные связи</p>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-secondary" onclick="openScreen('achievements')">🏆 Мои награды и кубки</button>
+        <button class="btn-main" onclick="openParentModal()">⚙️ Родительский контроль и доступность</button>
+      </div>
+
+      <!-- SCREEN 2: GAMEPLAY (MATH SPRINT) -->
+      <div id="screen-game" class="screen">
+        <div class="game-header">
+          <button style="border:none;background:none;font-size:18px;cursor:pointer;" onclick="openScreen('main')">✕</button>
+          <div class="game-progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <span class="timer-pill" id="gameTimerBadge">⏱ 15с</span>
+        </div>
+
+        <div class="task-card">
+          <div class="task-question" id="taskQuestion">4 + 3 = ?</div>
+          <div class="task-sub">Выберите правильную карточку</div>
+        </div>
+
+        <div class="answer-grid">
+          <button class="ans-btn" onclick="checkAnswer(this, false)">6</button>
+          <button class="ans-btn" onclick="checkAnswer(this, true)">7</button>
+          <button class="ans-btn" onclick="checkAnswer(this, false)">8</button>
+          <button class="ans-btn" onclick="checkAnswer(this, false)">5</button>
+        </div>
+
+        <div style="text-align:center;font-size:12px;color:var(--text-muted);" id="reactionNotice">
+          Замер времени реакции в миллисекундах
+        </div>
+      </div>
+
+      <!-- SCREEN 3: RESULTS -->
+      <div id="screen-result" class="screen">
+        <div class="result-content">
+          <span style="font-size:48px;">🎉</span>
+          <h2 style="font-size:22px;margin:8px 0 4px;">Отличный результат!</h2>
+          <p style="font-size:13px;color:var(--text-muted);">Раунд успешно завершен</p>
+
+          <div class="stars-row">
+            <span>⭐</span><span>⭐</span><span>⭐</span>
+          </div>
+
+          <div class="metric-badge">
+            <span>Точность ответов:</span>
+            <strong>100%</strong>
+          </div>
+          <div class="metric-badge">
+            <span>Скорость мыслительной реакции:</span>
+            <strong id="finalReaction">760 мс</strong>
+          </div>
+          <div class="metric-badge">
+            <span>Начислено опыта:</span>
+            <strong>+50 XP</strong>
+          </div>
+
+          <div style="background:#fef3c7;border:1px dashed #d97706;padding:10px;border-radius:12px;margin:12px 0;width:100%;">
+            <div style="font-size:12px;font-weight:700;color:#92400e;">🏆 Новое достижение:</div>
+            <div style="font-size:12px;color:#b45309;">«Быстрый счетчик: Уровень 1»</div>
+          </div>
+
+          <button class="btn-main" onclick="openScreen('game')">Играть снова</button>
+          <button class="btn-secondary" onclick="openScreen('main')">В главное меню</button>
+        </div>
+      </div>
+
+      <!-- SCREEN 4: SETTINGS & ACCESSIBILITY -->
+      <div id="screen-settings" class="screen">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          <button style="border:none;background:none;font-size:18px;cursor:pointer;" onclick="openScreen('main')">←</button>
+          <h3 style="font-size:16px;font-weight:700;">Параметры доступности</h3>
+        </div>
+
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">
+          Настройка инклюзивного интерфейса под индивидуальные особенности ребенка
+        </div>
+
+        <div class="setting-item">
+          <div>
+            <label>Палитра для дальтоников</label>
+            <div style="font-size:11px;color:var(--text-muted);">Адаптация контрастных пар цветов</div>
+          </div>
+          <select class="select-theme" id="paletteSelect" onchange="changePalette(this.value)">
+            <option value="standard">Стандартная</option>
+            <option value="protanopia">Протанопия</option>
+            <option value="deuteranopia">Дейтеранопия</option>
+            <option value="tritanopia">Тританопия</option>
+          </select>
+        </div>
+
+        <div class="setting-item">
+          <div>
+            <label>Спокойный режим (для детей с РАС)</label>
+            <div style="font-size:11px;color:var(--text-muted);">Пастельные тона, без резких звуков</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="calmSwitch" onchange="toggleCalmMode(this.checked)">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-item">
+          <div>
+            <label>Таймер времени</label>
+            <div style="font-size:11px;color:var(--text-muted);">Отключение таймера снижает тревогу</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="timerSwitch" checked onchange="toggleTimer(this.checked)">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-item">
+          <div>
+            <label>Дневной лимит игры</label>
+            <div style="font-size:11px;color:var(--text-muted);">Ограничение времени сессии</div>
+          </div>
+          <span style="font-size:12px;font-weight:700;">20 мин</span>
+        </div>
+
+        <div style="margin-top:20px;">
+          <button class="btn-main" onclick="saveSettings()">Сохранить настройки</button>
+        </div>
+      </div>
+
+      <!-- SCREEN 5: ACHIEVEMENTS -->
+      <div id="screen-achievements" class="screen">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          <button style="border:none;background:none;font-size:18px;cursor:pointer;" onclick="openScreen('main')">←</button>
+          <h3 style="font-size:16px;font-weight:700;">Достижения Артёма</h3>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:12px;background:var(--card-bg);padding:12px;border-radius:14px;border:1px solid var(--card-border);">
+            <span style="font-size:28px;">⚡</span>
+            <div>
+              <div style="font-size:13px;font-weight:700;">Быстрый счетчик</div>
+              <div style="font-size:11px;color:var(--text-muted);">Решить 10 примеров без ошибок</div>
+            </div>
+            <span style="margin-left:auto;color:#15803d;font-size:16px;">✓</span>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:12px;background:var(--card-bg);padding:12px;border-radius:14px;border:1px solid var(--card-border);">
+            <span style="font-size:28px;">🎯</span>
+            <div>
+              <div style="font-size:13px;font-weight:700;">Снайпер внимания</div>
+              <div style="font-size:11px;color:var(--text-muted);">Найти лишний предмет за 1 секунду</div>
+            </div>
+            <span style="margin-left:auto;color:#15803d;font-size:16px;">✓</span>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:12px;background:var(--card-bg);padding:12px;border-radius:14px;border:1px solid var(--card-border);opacity:0.6;">
+            <span style="font-size:28px;">🧠</span>
+            <div>
+              <div style="font-size:13px;font-weight:700;">Мастер логики</div>
+              <div style="font-size:11px;color:var(--text-muted);">Соединить 20 логических пар</div>
+            </div>
+            <span style="margin-left:auto;color:var(--text-muted);font-size:12px;">🔒</span>
+          </div>
+        </div>
+
+        <button class="btn-secondary" style="margin-top:auto;" onclick="openScreen('main')">Вернуться назад</button>
+      </div>
+
+    </div>
+
+    <div class="toast" id="toastMsg">Успешно!</div>
+  </div>
+
+  <script>
+    let startTime = 0;
+    let timerEnabled = true;
+
+    function openScreen(screenName) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById('screen-' + screenName);
+      if (target) target.classList.add('active');
+    }
+
+    function startGame(type) {
+      openScreen('game');
+      startTime = performance.now();
+      const questionEl = document.getElementById('taskQuestion');
+      if (type === 'math') {
+        questionEl.textContent = '4 + 3 = ?';
+      } else if (type === 'odd') {
+        questionEl.textContent = '🍎 🍌 🚗 🍇';
+      } else {
+        questionEl.textContent = '🔥 ➔ 🧯 ?';
+      }
+    }
+
+    function checkAnswer(btn, isCorrect) {
+      const reactionTime = Math.round(performance.now() - startTime);
+      if (isCorrect) {
+        btn.classList.add('correct');
+        document.getElementById('reactionNotice').textContent = `Отлично! Реакция: ${reactionTime} мс`;
+        document.getElementById('finalReaction').textContent = `${reactionTime} мс`;
+        setTimeout(() => {
+          btn.classList.remove('correct');
+          openScreen('result');
+        }, 600);
+      } else {
+        btn.classList.add('wrong');
+        setTimeout(() => {
+          btn.classList.remove('wrong');
+        }, 500);
+      }
+    }
+
+    function openParentModal() {
+      const pin = prompt('Родительский контроль: решите пример для входа (2 + 3):');
+      if (pin === '5') {
+        openScreen('settings');
+      } else if (pin !== null) {
+        alert('Неверный ответ! Доступ только для родителей.');
+      }
+    }
+
+    function changePalette(val) {
+      document.body.className = '';
+      if (val !== 'standard') {
+        document.body.classList.add('theme-' + val);
+      }
+      showToast('Палитра изменена: ' + val);
+    }
+
+    function toggleCalmMode(enabled) {
+      if (enabled) {
+        document.body.classList.add('theme-calm');
+        showToast('Спокойный режим (для РАС) включен');
+      } else {
+        document.body.classList.remove('theme-calm');
+        showToast('Спокойный режим выключен');
+      }
+    }
+
+    function toggleTimer(enabled) {
+      timerEnabled = enabled;
+      const badge = document.getElementById('gameTimerBadge');
+      if (enabled) {
+        badge.style.display = 'inline-block';
+        badge.textContent = '⏱ 15с';
+      } else {
+        badge.style.display = 'inline-block';
+        badge.textContent = '🕊 Без таймера';
+        badge.style.background = '#e0f2fe';
+        badge.style.color = '#0369a1';
+      }
+    }
+
+    function saveSettings() {
+      showToast('Настройки сохранены');
+      setTimeout(() => openScreen('main'), 500);
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toastMsg');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 1800);
+    }
+  </script>
+</body>
+</html>

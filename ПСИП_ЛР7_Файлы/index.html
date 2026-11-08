@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ПСИП Лабораторная работа №7 — Визуальные эффекты и анимация на HTML-странице</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Шапка портала с метаданными и анимированным гербом -->
+    <header class="site-header">
+        <div class="wrapper header-inner">
+            <div class="brand">
+                <!-- Простая анимация 1: Пульсирующая эмблема города Бобруйска -->
+                <div class="emblem-wrapper pulse-animation" title="Герб города Бобруйска (Анимация 1: pulseEmblem)">
+                    <img src="emblem.png" alt="Герб города Бобруйска" class="brand-logo">
+                </div>
+                <div class="brand-text">
+                    <span class="portal-badge">Краеведческий портал • Города Беларуси</span>
+                    <h1 class="brand-title">Бобруйск Онлайн</h1>
+                </div>
+            </div>
+
+            <!-- Академический бейдж студента -->
+            <div class="academic-badge">
+                <span class="badge-tag">ПСИП // Лабораторная работа №7</span>
+                <span class="badge-student">Лабынцев Денис Янушевич • РС02-23</span>
+            </div>
+        </div>
+
+        <!-- Задание 3: Анимированное многоуровневое навигационное меню -->
+        <nav class="main-nav">
+            <div class="wrapper nav-inner">
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#hero" class="nav-link active">Главная</a></li>
+                    <li class="nav-item"><a href="#animations" class="nav-link">Простые анимации</a></li>
+                    <li class="nav-item"><a href="#parallax" class="nav-link">Параллакс</a></li>
+                    
+                    <!-- Пункт с анимированным выпадающим подменю (dropdown) -->
+                    <li class="nav-item has-dropdown">
+                        <a href="#slider" class="nav-link dropdown-toggle">
+                            Достопримечательности <span class="arrow-indicator">▼</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="sub-item"><a href="#slider" class="sub-link">Памятник Бобру</a></li>
+                            <li class="sub-item"><a href="#slider" class="sub-link">Бобруйская крепость</a></li>
+                            <li class="sub-item"><a href="#slider" class="sub-link">Театр Дунина-Марцинкевича</a></li>
+                            <li class="sub-item"><a href="#slider" class="sub-link">Особняк Кацнельсон</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a href="#buttons" class="nav-link">Анимированные кнопки</a></li>
+                    <li class="nav-item"><a href="#info" class="nav-link">О проекте</a></li>
+                </ul>
+                <div class="nav-status">
+                    <span class="status-indicator"></span>
+                    <span class="status-text">Интерактивный режим</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+
+        <!-- Задание 6: Анимированный главный заголовок и вступительный блок (Hero) -->
+        <section id="hero" class="hero-section">
+            <div class="wrapper hero-inner">
+                <div class="hero-content">
+                    <div class="hero-chip">
+                        <span class="chip-dot"></span>
+                        <span class="chip-text">Визуальные эффекты CSS3 & HTML5</span>
+                    </div>
+
+                    <!-- Анимированный заголовок с градиентным переливом -->
+                    <h2 class="hero-animated-title">Бобруйск: Легенды, Архитектура и Культура</h2>
+
+                    <!-- Декоративная линия с анимацией расширения -->
+                    <div class="animated-divider"></div>
+
+                    <!-- Анимированный подзаголовок с эффектом печатной машинки -->
+                    <p class="hero-animated-subtitle">
+                        <span class="typewriter-text">Интерактивный путеводитель по жемчужине Приберезинского края...</span>
+                    </p>
+
+                    <p class="hero-description">
+                        Добро пожаловать в цифровую экспозицию, посвященную историко-культурному наследию города Бобруйска.
+                        Страница наглядно демонстрирует применение ключевых кадров @keyframes, эффектов трансформации,
+                        параллакс-глубины и интерактивных hover-эффектов.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#animations" class="btn btn-primary btn-fill-horizontal">Изучить анимации</a>
+                        <a href="#slider" class="btn btn-secondary btn-slide-icon">
+                            <span class="icon">➜</span>
+                            <span class="text">Смотреть галерею</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Простая анимация 2: Парящий талисман с компасом (floatMascot) -->
+                <div class="hero-visual">
+                    <div class="floating-mascot-card float-animation" title="Анимация 2: floatMascot">
+                        <div class="mascot-badge-inner">
+                            <div class="compass-icon">🧭</div>
+                            <h3 class="mascot-title">Гид по Бобруйску</h3>
+                            <p class="mascot-subtitle">Интерактивный компас туриста</p>
+                            <div class="mascot-tags">
+                                <span class="tag">Крепость 1812</span>
+                                <span class="tag">Березина</span>
+                                <span class="tag">Символ Бобра</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Задание 1: Демонстрационная витрина двух простых анимаций -->
+        <section id="animations" class="section">
+            <div class="wrapper">
+                <div class="section-header">
+                    <span class="section-tag">Задание 1</span>
+                    <h2 class="section-title">Простые CSS-анимации к тематике города</h2>
+                    <p class="section-subtitle">
+                        Применение директивы @keyframes для циклического изменения масштаба, прозрачности и пространственного положения.
+                    </p>
+                </div>
+
+                <div class="animations-grid">
+                    <!-- Анимация 1: Пульсация геральдического герба -->
+                    <div class="animation-card">
+                        <div class="card-preview">
+                            <div class="pulse-demo-box">
+                                <img src="emblem.png" alt="Герб Бобруйска" class="pulse-emblem-demo">
+                            </div>
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title">1. Пульсирующее сияние герба (@keyframes pulseGlow)</h3>
+                            <p class="card-desc">
+                                Герб Бобруйска плавно увеличивается в масштабе от 1.0 до 1.08 с одновременным усилением
+                                радиальной золотисто-лазурной тени (box-shadow). Создает ощущение торжественности и привлекает взгляд к символике.
+                            </p>
+                            <div class="code-badge">animation: pulseGlow 3s ease-in-out infinite;</div>
+                        </div>
+                    </div>
+
+                    <!-- Анимация 2: Левитация и покачивание туристического бейджа -->
+                    <div class="animation-card">
+                        <div class="card-preview">
+                            <div class="float-demo-box">
+                                <div class="floating-badge-demo">
+                                    <span class="badge-icon">🦫</span>
+                                    <span class="badge-label">Символ Бобра</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title">2. Парение и покачивание знака (@keyframes floatBadge)</h3>
+                            <p class="card-desc">
+                                Элемент совершает непрерывные вертикальные гармонические колебания по оси Y (от 0 до -14px) с сопутствующим
+                                мягким наклоном по оси Z (от -3deg до +3deg). Имитирует эффект невесомости и воздушного парения.
+                            </p>
+                            <div class="code-badge">animation: floatBadge 4s ease-in-out infinite;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Задание 2: Секция с эффектом параллакса -->
+        <section id="parallax" class="parallax-section">
+            <div class="parallax-bg" style="background-image: url('video_poster.jpg');"></div>
+            <div class="parallax-overlay"></div>
+            
+            <div class="wrapper parallax-content">
+                <div class="parallax-text-box">
+                    <span class="parallax-badge">Задание 2 • Эффект глубины и пространства</span>
+                    <h2 class="parallax-title">Панорама Березины и величие Бобруйской цитадели</h2>
+                    <p class="parallax-desc">
+                        Эффект параллакса реализован за счет фиксации фонового панорамного изображения реки Березина
+                        с помощью свойства <code>background-attachment: fixed</code> при одновременном плавном скольжении
+                        текстового слоя и интерактивных карточек исторической справки.
+                    </p>
+
+                    <div class="parallax-features">
+                        <div class="p-feature-item">
+                            <div class="pf-num">1812</div>
+                            <div class="pf-text">Героическая оборона крепости от наполеоновских войск</div>
+                        </div>
+                        <div class="p-feature-item">
+                            <div class="pf-num">630+</div>
+                            <div class="pf-text">Лет летописной истории Приберезинского края</div>
+                        </div>
+                        <div class="p-feature-item">
+                            <div class="pf-num">200k</div>
+                            <div class="pf-text">Жителей современного индустриального и культурного центра</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Задание 5: Интерактивный слайдер изображений достопримечательностей -->
+        <section id="slider" class="section">
+            <div class="wrapper">
+                <div class="section-header">
+                    <span class="section-tag">Задание 5</span>
+                    <h2 class="section-title">Слайдер достопримечательностей Бобруйска</h2>
+                    <p class="section-subtitle">
+                        Плавное переключение фотоэкспозиций с анимацией трансформации, текстовыми плашками и навигационными элементами.
+                    </p>
+                </div>
+
+                <div class="slider-container">
+                    <div class="slider-track" id="sliderTrack">
+                        <!-- Слайд 1: Памятник Бобру -->
+                        <div class="slide">
+                            <div class="slide-image-wrapper">
+                                <img src="bobr_statue.jpg" alt="Памятник Бобру в Бобруйске">
+                            </div>
+                            <div class="slide-caption">
+                                <span class="slide-num">Экспозиция 01 / 04</span>
+                                <h3 class="slide-title">Памятник Бобру на улице Социалистической</h3>
+                                <p class="slide-desc">
+                                    Бронзовая скульптура вальяжного бобра в сюртуке и котелке — главный народный символ и любимый арт-объект гостей города.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Слайд 2: Бобруйская крепость -->
+                        <div class="slide">
+                            <div class="slide-image-wrapper">
+                                <img src="fortress.jpg" alt="Бобруйская крепость XIX века">
+                            </div>
+                            <div class="slide-caption">
+                                <span class="slide-num">Экспозиция 02 / 04</span>
+                                <h3 class="slide-title">Фортификационные редуты Бобруйской крепости</h3>
+                                <p class="slide-desc">
+                                    Уникальный памятник фортификационной архитектуры Российской империи начала XIX века, выдержавший 4-месячную осаду.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Слайд 3: Театр Дунина-Марцинкевича -->
+                        <div class="slide">
+                            <div class="slide-image-wrapper">
+                                <img src="theater.jpg" alt="Могилевский областной театр драмы и комедии им. В.И. Дунина-Марцинкевича">
+                            </div>
+                            <div class="slide-caption">
+                                <span class="slide-num">Экспозиция 03 / 04</span>
+                                <h3 class="slide-title">Театр драмы и комедии им. В.И. Дунина-Марцинкевича</h3>
+                                <p class="slide-desc">
+                                    Очаг театрального искусства и драматургии, носящий имя выдающегося белорусского классика, родившегося на Бобруйщине.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Слайд 4: Особняк купчихи Кацнельсон -->
+                        <div class="slide">
+                            <div class="slide-image-wrapper">
+                                <img src="katsnelson.jpg" alt="Особняк купчихи Кацнельсон">
+                            </div>
+                            <div class="slide-caption">
+                                <span class="slide-num">Экспозиция 04 / 04</span>
+                                <h3 class="slide-title">Особняк купчихи Кацнельсон (1912 г.)</h3>
+                                <p class="slide-desc">
+                                    Неповторимый архитектурный шедевр деревянного модерна с круглыми резными башенками и фигурной кровлей.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Элементы управления слайдером -->
+                    <button class="slider-btn prev-btn" id="prevBtn" aria-label="Предыдущий слайд">‹</button>
+                    <button class="slider-btn next-btn" id="nextBtn" aria-label="Следующий слайд">›</button>
+
+                    <!-- Индикаторы пагинации -->
+                    <div class="slider-dots" id="sliderDots">
+                        <span class="dot active" data-index="0"></span>
+                        <span class="dot" data-index="1"></span>
+                        <span class="dot" data-index="2"></span>
+                        <span class="dot" data-index="3"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Задание 4: Коллекция анимированных кнопок по методическим примерам -->
+        <section id="buttons" class="section">
+            <div class="wrapper">
+                <div class="section-header">
+                    <span class="section-tag">Задание 4</span>
+                    <h2 class="section-title">Галерея интерактивных анимированных кнопок</h2>
+                    <p class="section-subtitle">
+                        Практическая реализация hover-эффектов: заполнение, смещение, появление иконок, пружинистый отскок и 3D-переворот.
+                    </p>
+                </div>
+
+                <div class="buttons-grid">
+                    <!-- 1. Горизонтальное заполнение -->
+                    <div class="button-card">
+                        <div class="btn-demo-box">
+                            <button class="btn btn-animated btn-fill-horizontal">Забронировать тур</button>
+                        </div>
+                        <div class="btn-info">
+                            <h4 class="btn-title">1. Горизонтальное заполнение</h4>
+                            <p class="btn-desc">Полупрозрачный фон плавно заполняет кнопку слева направо (transition: all 500ms ease).</p>
+                        </div>
+                    </div>
+
+                    <!-- 2. Вертикальное заполнение -->
+                    <div class="button-card">
+                        <div class="btn-demo-box">
+                            <button class="btn btn-animated btn-fill-vertical">Маршрутная карта</button>
+                        </div>
+                        <div class="btn-info">
+                            <h4 class="btn-title">2. Вертикальное заполнение</h4>
+                            <p class="btn-desc">Фоновый цвет выдвигается из нижней грани кнопки вверх, заполняя всю площадь элемента.</p>
+                        </div>
+                    </div>
+
+                    <!-- 3. Появление иконки -->
+                    <div class="button-card">
+                        <div class="btn-demo-box">
+                            <button class="btn btn-animated btn-slide-icon">
+                                <span class="icon">🧭</span>
+                                <span class="text">Начать прогулку</span>
+                            </button>
+                        </div>
+                        <div class="btn-info">
+                            <h4 class="btn-title">3. Появление иконки</h4>
+                            <p class="btn-desc">Увеличение внутреннего отступа и плавное выплывание иконки слева от текстовой подписи.</p>
+                        </div>
+                    </div>
+
+                    <!-- 4. Эффект подпрыгивания (Bounce) -->
+                    <div class="button-card">
+                        <div class="btn-demo-box">
+                            <button class="btn btn-animated btn-bounce">Аудиогид online</button>
+                        </div>
+                        <div class="btn-info">
+                            <h4 class="btn-title">4. Эффект подпрыгивания</h4>
+                            <p class="btn-desc">Анимация @keyframes bounce с упругим вертикальным отскоком и легким сжатием при наведении.</p>
+                        </div>
+                    </div>
+
+                    <!-- 5. Эффект 3D переворота (Методический Пример 5) -->
+                    <div class="button-card">
+                        <div class="btn-demo-box">
+                            <button class="btn btn-animated btn-flip-3d" data-back="Готов к поездке?">Купить билет</button>
+                        </div>
+                        <div class="btn-info">
+                            <h4 class="btn-title">5. Эффект 3D переворота (Пример 5)</h4>
+                            <p class="btn-desc">Трансформация в 3D-пространстве (preserve-3d, rotateX(-90deg) translateY(100%)) со сменой надписи.</p>
+                        </div>
+                    </div>
+
+                    <!-- 6. Эффект перекатывания (Rollover по Примерам 3 и 4) -->
+                    <div class="button-card">
+                        <div class="btn-demo-box">
+                            <a href="#hero" class="rollover-btn-demo" title="Смена состояния спрайта"></a>
+                        </div>
+                        <div class="btn-info">
+                            <h4 class="btn-title">6. Эффект перекатывания (Пример 4)</h4>
+                            <p class="btn-desc">Сдвиг спрайтового фона по вертикали через background-position: 0 -40px при наведении указателя.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок разработчика -->
+        <section id="info" class="section section-dark">
+            <div class="wrapper">
+                <div class="developer-panel">
+                    <img src="developer.jpg" alt="Лабынцев Денис" class="dev-avatar">
+                    <div class="dev-info">
+                        <span class="dev-role">Разработчик проекта • Студент филиала БГТУ</span>
+                        <h3 class="dev-name">Лабынцев Денис Янушевич</h3>
+                        <p class="dev-details">
+                            Учебная группа РС02-23 • Специальность «Программист» • Дисциплина «ПСИП»<br>
+                            г. Бобруйск, ул. Ленина, д. 93А • Дата выполнения: 24.09.2026
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Подвал страницы -->
+    <footer class="site-footer">
+        <div class="wrapper footer-inner">
+            <div class="footer-copy">
+                &copy; 2026 Краеведческий портал «Города Беларуси: Бобруйск». Все права защищены.
+            </div>
+            <div class="footer-notes">
+                Лабораторная работа №7 «Создание визуальных эффектов и анимации на HTML-странице»
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

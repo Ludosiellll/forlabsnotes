@@ -1,0 +1,241 @@
+Лабораторная работа № 10
+Номер учебной группы: РС02-23
+Дата выполнения работы: 07.10.2026
+Тема: Разработка, отладка и испытание программ, реализующих механизм наследования классов
+Цель: Сформировать умение проводить разработку, отладку, испытание программ, реализующих механизм наследования классов
+Оснащение: Методические указания к выполнению, ОС Windows, VS Code
+
+Выполнение заданий
+
+Задание 1. Разработать консольное приложение согласно условию своего варианта
+
+Согласно варианту 30 разработана программа на языке C#, реализующая класс «предметный указатель» с механизмом наследования:
+- вспомогательный класс Item представляет элемент указателя и содержит поля для слова Word и массива номеров страниц Pages, конструктор, индексатор this[int i] и метод вывода Print;
+- базовый класс SubjectIndex содержит массив элементов items, количество элементов count, свойство Count, индексатор this[int i], методы добавления элемента Add, удаления элемента по слову Remove, вывода номеров страниц для заданного слова PrintPages, вывода всего указателя Print и ввода с клавиатуры InputFromKeyboard;
+- производный класс FileSubjectIndex наследует базовый класс SubjectIndex и реализует методы сохранения указателя в текстовый файл SaveToFile и загрузки из файла LoadFromFile.
+
+Исходный код программы представлен в листинге 1
+
+Листинг 1 – Исходный код программы
+using System;
+using System.IO;
+
+namespace Lab10
+{
+    class Item
+    {
+        public string Word;
+        public int[] Pages;
+
+        public Item(string word, int[] pages)
+        {
+            Word = word;
+            Pages = pages;
+        }
+
+        public int this[int i]
+        {
+            get { return Pages[i]; }
+        }
+
+        public void Print()
+        {
+            Console.Write(Word + ": ");
+            for (int i = 0; i < Pages.Length; i++)
+            {
+                Console.Write(Pages[i] + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+
+    class SubjectIndex
+    {
+        protected Item[] items = new Item[50];
+        protected int count = 0;
+
+        public int Count
+        {
+            get { return count; }
+        }
+
+        public Item this[int i]
+        {
+            get { return items[i]; }
+        }
+
+        public void Add(string word, int[] pages)
+        {
+            items[count] = new Item(word, pages);
+            count++;
+        }
+
+        public void Remove(string word)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                if (items[i].Word == word)
+                {
+                    for (int j = i; j < count - 1; j++)
+                    {
+                        items[j] = items[j + 1];
+                    }
+                    items[count - 1] = null;
+                    count--;
+                    break;
+                }
+            }
+        }
+
+        public void PrintPages(string word)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                if (items[i].Word == word)
+                {
+                    Console.Write("Страницы для слова " + word + ": ");
+                    for (int j = 0; j < items[i].Pages.Length; j++)
+                    {
+                        Console.Write(items[i].Pages[j] + " ");
+                    }
+                    Console.WriteLine();
+                    return;
+                }
+            }
+            Console.WriteLine("Слово не найдено");
+        }
+
+        public virtual void Print()
+        {
+            Console.WriteLine("Предметный указатель:");
+            for (int i = 0; i < count; i++)
+            {
+                Console.Write((i + 1) + ". ");
+                items[i].Print();
+            }
+        }
+
+        public void InputFromKeyboard()
+        {
+            Console.Write("Введите слово: ");
+            string word = Console.ReadLine();
+
+            Console.Write("Количество страниц (от 1 до 10): ");
+            int n;
+            while (!int.TryParse(Console.ReadLine(), out n) || n < 1 || n > 10)
+            {
+                Console.Write("Введите число от 1 до 10: ");
+            }
+
+            int[] pages = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write("Страница " + (i + 1) + " (номер): ");
+                int p;
+                while (!int.TryParse(Console.ReadLine(), out p))
+                {
+                    Console.Write("Введите число для страницы " + (i + 1) + ": ");
+                }
+                pages[i] = p;
+            }
+            Add(word, pages);
+        }
+    }
+
+    class FileSubjectIndex : SubjectIndex
+    {
+        public void SaveToFile(string filename)
+        {
+            StreamWriter sw = new StreamWriter(filename);
+            for (int i = 0; i < count; i++)
+            {
+                sw.Write(items[i].Word + " ");
+                for (int j = 0; j < items[i].Pages.Length; j++)
+                {
+                    sw.Write(items[i].Pages[j] + " ");
+                }
+                sw.WriteLine();
+            }
+            sw.Close();
+        }
+
+        public void LoadFromFile(string filename)
+        {
+            if (!File.Exists(filename)) return;
+
+            count = 0;
+            string[] lines = File.ReadAllLines(filename);
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string[] parts = lines[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length > 1)
+                {
+                    string word = parts[0];
+                    int[] pages = new int[parts.Length - 1];
+                    for (int j = 1; j < parts.Length; j++)
+                    {
+                        pages[j - 1] = int.Parse(parts[j]);
+                    }
+                    Add(word, pages);
+                }
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            FileSubjectIndex index = new FileSubjectIndex();
+
+            index.Add("Класс", new int[] { 5, 12, 20 });
+            index.Add("Объект", new int[] { 7, 15 });
+
+            Console.WriteLine("Начальный указатель:");
+            index.Print();
+
+            Console.WriteLine();
+            Console.WriteLine("1. Формирование с клавиатуры:");
+            index.InputFromKeyboard();
+
+            Console.WriteLine();
+            Console.WriteLine("2. Вывод указателя после добавления:");
+            index.Print();
+
+            Console.WriteLine();
+            Console.Write("3. Введите слово для вывода страниц: ");
+            string searchWord = Console.ReadLine();
+            index.PrintPages(searchWord);
+
+            Console.WriteLine();
+            Console.Write("4. Введите слово для удаления: ");
+            string removeWord = Console.ReadLine();
+            index.Remove(removeWord);
+
+            Console.WriteLine();
+            Console.WriteLine("Вывод указателя после удаления:");
+            index.Print();
+
+            Console.WriteLine();
+            Console.WriteLine("5. Работа с файлом:");
+            index.SaveToFile("index.txt");
+
+            FileSubjectIndex fileIndex = new FileSubjectIndex();
+            fileIndex.LoadFromFile("index.txt");
+            fileIndex.Print();
+
+            if (!Console.IsInputRedirected)
+            {
+                Console.Write("Press any key to continue... ");
+                Console.ReadKey(true);
+            }
+        }
+    }
+}
+
+Результат выполнения программы представлен на рисунке 1
+
+[Вставить скриншот: Окно консоли с результатом выполнения программы предметного указателя]
+Рисунок 1 – Результат выполнения программы
+
+Вывод: Сформировал умение проводить разработку, отладку, испытание программ, реализующих механизм наследования классов.

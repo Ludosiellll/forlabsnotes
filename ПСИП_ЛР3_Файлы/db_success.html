@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Успешная регистрация | Бобруйск</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0fdf4; padding: 40px 20px; color: #1e293b; text-align: center; }
+        .card { max-width: 520px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 5px solid #16a34a; }
+        h2 { color: #16a34a; margin-top: 0; }
+        .info-table { width: 100%; border-collapse: collapse; margin: 20px 0; text-align: left; }
+        .info-table td { padding: 9px 12px; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
+        .info-table tr:nth-child(even) { background-color: #f8fafc; }
+        .btn { display: inline-block; padding: 10px 20px; background: #0284c7; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 15px; }
+        .db-badge { background: #dcfce7; color: #15803d; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>✓ Данные успешно сохранены в Базе Данных!</h2>
+        <p>Пользователь добавлен в таблицу <b>users</b> базы данных <b>users.db (SQLite3)</b>.</p>
+        <table class="info-table">
+            <tr><td><b>ID записи (PRIMARY KEY):</b></td><td><span class="db-badge"># 1</span></td></tr>
+            <tr><td><b>Имя пользователя:</b></td><td>Денис</td></tr>
+            <tr><td><b>Фамилия:</b></td><td>Лабынцев</td></tr>
+            <tr><td><b>Электронная почта:</b></td><td>denis.labyntsev@bobruisk.by</td></tr>
+            <tr><td><b>Хэш пароля (SHA-256):</b></td><td><small>fc258401cebee46d31741b1ba75b5c71bd13df0a8f14...</small></td></tr>
+            <tr><td><b>Время фиксации транзакции:</b></td><td>11.09.2026 10:45:00</td></tr>
+        </table>
+        <a href="login.html" class="btn">Перейти к форме авторизации</a>
+    </div>
+</body>
+</html>

@@ -20,6 +20,11 @@ The project map links goal, people, domain, technology, decisions and tasks. Add
 - [[01_Index/Glossary]]
 - [[01_Index/User_Working_Profile]]
 - [[20_Domain/Domain_Map]]
+- [[20_Domain/Subjects_Map]]
+- [[20_Domain/1C_Domain]]
+- [[20_Domain/Networks_Domain]]
+- [[20_Domain/SSP_Domain]]
+- [[20_Domain/Lab_Report_Standard]]
 - [[30_Tech/Tech_Map]]
 - [[30_Tech/Codebase_Map]]
 - [[40_Decisions/Decision_Log]]
@@ -40,6 +45,9 @@ The project map links goal, people, domain, technology, decisions and tasks. Add
 - [[70_Resources/Procedure_Deploy_Template]]
 - [[70_Resources/Procedure_Meeting_Capture]]
 - [[70_Resources/Procedure_Multi_Agent_Review]]
+- [[70_Resources/Procedure_1C_Lab_Execution]]
+- [[70_Resources/1C_MCP_Options]]
+- [[70_Resources/1c_absolute_perfection_rules]]
 
 ## Directions
 

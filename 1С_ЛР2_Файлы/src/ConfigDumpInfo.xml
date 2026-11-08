@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ConfigDumpInfo xmlns="http://v8.1c.ru/8.3/xcf/dumpinfo" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" format="Hierarchical" version="2.20">
+	<ConfigVersions>
+		<Metadata name="Configuration.Лабынцев" id="3b82443f-d312-4a19-a1c7-3e1a8b64dc55" configVersion="652bc84b42c9ab47a19820715746bdff00000000"/>
+		<Metadata name="Language.Русский" id="54087bac-f1ad-4e71-acb0-6b8a3c213488" configVersion="5fd0378a5e4f1e449801dcf14b66f3db00000000"/>
+		<Metadata name="Subsystem.Бухгалтерия" id="04f9743d-08dc-42c3-ac0b-c98468de13fb" configVersion="f1d6d9e442e1ed4c8b8be3a387281bf700000000"/>
+		<Metadata name="Subsystem.Документы" id="faf643f2-b31b-4fc4-ab9f-85ebe14cce78" configVersion="843f5bb26916954ab1f793032b74156c00000000"/>
+		<Metadata name="Subsystem.Обработки" id="b09ba250-856c-44af-980d-3f50b50611a6" configVersion="a3d790c93d9c884bbe2a2504465b708d00000000"/>
+		<Metadata name="Subsystem.Отчёты" id="4ff9b612-e9ad-4155-b357-320d40dfa5fd" configVersion="df290857a257aa4a83c00e07edac00ab00000000"/>
+		<Metadata name="Subsystem.Расчеты" id="8a6a9873-13a2-4081-9fc1-1e8641a6bb71" configVersion="a6b3cb3619c2a0489b343bf7e685378000000000"/>
+		<Metadata name="Subsystem.РегистрыНакопления" id="3aafdc36-5424-4daa-b0e2-87824f06eeaf" configVersion="542b7b90e602c84fb0c26c770643bacf00000000"/>
+		<Metadata name="Subsystem.РегистрыСведений" id="eff6cd3e-acc8-4464-bd3a-2ab397a58b33" configVersion="1ce274259e787c4d8a001607a7d8f7c800000000"/>
+		<Metadata name="Subsystem.Справочники" id="5d227877-f803-48cb-bbe3-8d428d1b8326" configVersion="a53318faa2ebce4d9340cc0cf6899dd400000000"/>
+	</ConfigVersions>
+</ConfigDumpInfo>

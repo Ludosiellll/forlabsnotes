@@ -1,0 +1,175 @@
+﻿Лабораторная работа №17
+Номер учебной группы: РС02-23
+Дата выполнения работы: 09.09.2026
+Тема работы: Настройка VLAN на основе портов
+Цель работы: Сформировать навык настройки VLAN на основе портов
+Оснащение: ПК, ОС Windows, ПО Cisco Packet Tracer, методические указания к выполнению
+Задание: Изучите основные теоретические сведения, выполните практические задания, ответьте на контрольные вопросы и задания.
+
+Результаты выполнения работы:
+
+Задание 1. Настройка виртуальных локальных сетей (VLAN) и access-портов на коммутаторах Cisco.
+
+Виртуальная локальная сеть (VLAN) представляет собой логическую группу сетевых узлов, трафик которых полностью изолирован на канальном уровне модели OSI от других узлов той же физической сети. Порты коммутатора, подключенные к конечным узлам (рабочим станциям пользователей), настраиваются в режим доступа (access port). Порт доступа принадлежит строго одной виртуальной сети и передает кадры без тегов IEEE 802.1Q.
+
+Параметры распределения виртуальных сетей, номеров портов и схемы IP-адресации представлены в таблице 1
+
+Таблица 1 – Распределение портов и адресация VLAN
+Имя сети	VLAN ID	Назначенные порты sw1	Назначенные порты sw2	IP-подсеть	Шлюз по умолчанию (sw3/R1)
+test	VLAN 2	Fa0/1, Fa0/2	Fa0/2, Fa0/3	10.0.2.0/24	10.0.2.1
+VLAN0010	VLAN 10	Fa0/4, Fa0/5	Fa0/1	10.0.10.0/24	10.0.10.1
+VLAN0015	VLAN 15	Fa0/3	Отсутствуют	10.0.15.0/24	10.0.15.1
+Trunk (Magistral)	1, 2, 10, 15	Fa0/22 (к sw3)	Fa0/22 (к sw3)	Не назначается	Не назначается
+L3-Link (Routed)	Не тегируется	-	-	192.168.1.0/24	192.168.1.1 (R1 fa0/0)
+
+Команды создания виртуальных сетей и привязки портов в режиме access на коммутаторе sw1 представлены в листинге 1
+
+Листинг 1 – Базовая настройка VLAN и портов доступа на коммутаторе sw1
+sw1(config)# vlan 2
+sw1(config-vlan)# name test
+sw1(config-vlan)# exit
+sw1(config)# vlan 10
+sw1(config-vlan)# name VLAN0010
+sw1(config-vlan)# exit
+sw1(config)# vlan 15
+sw1(config-vlan)# name VLAN0015
+sw1(config-vlan)# exit
+sw1(config)# interface range fa0/1 - 2
+sw1(config-if-range)# switchport mode access
+sw1(config-if-range)# switchport access vlan 2
+sw1(config-if-range)# no shutdown
+sw1(config-if-range)# exit
+sw1(config)# interface fa0/3
+sw1(config-if)# switchport mode access
+sw1(config-if)# switchport access vlan 15
+sw1(config-if)# no shutdown
+sw1(config-if)# exit
+sw1(config)# interface range fa0/4 - 5
+sw1(config-if-range)# switchport mode access
+sw1(config-if-range)# switchport access vlan 10
+sw1(config-if-range)# no shutdown
+sw1(config-if-range)# exit
+
+Проверка состояния базы VLAN и распределения физических интерфейсов выполняется привилегированной командой show vlan brief.
+
+Результат выполнения команды проверки состояния портов представлен на рисунке 1
+
+[ СЮДА ВСТАВЛЯЕТСЯ СКРИНШОТ ИЗ ФАЙЛА screen_show_vlan_brief.png ]
+
+Рисунок 1 – Результат выполнения команды show vlan brief на коммутаторе sw1
+
+Задание 2. Настройка магистральных каналов (Trunk) и протокола Dynamic Trunk Protocol (DTP).
+
+Магистральный канал (trunk) обеспечивает одновременную передачу мультиплексированного трафика нескольких VLAN по единой физической линии связи между коммутаторами. Для разделения потоков данных используется общепринятый стандарт инкапсуляции IEEE 802.1Q, при котором в каждый передаваемый Ethernet-кадр добавляется 4-байтный тег с идентификатором VLAN ID.
+
+Настройка статического магистрального канала, фильтрация перечня разрешенных VLAN и согласование режимов DTP представлены в листинге 2
+
+Листинг 2 – Настройка статического trunk и фильтрации VLAN на коммутаторе sw1
+sw1(config)# interface fa0/22
+sw1(config-if)# switchport trunk encapsulation dot1q
+sw1(config-if)# switchport mode trunk
+sw1(config-if)# switchport trunk allowed vlan 1,2,10,15
+sw1(config-if)# switchport trunk native vlan 1
+sw1(config-if)# no shutdown
+sw1(config-if)# exit
+
+Для автоматического согласования состояния магистрали применяется проприетарный протокол Cisco Dynamic Trunk Protocol (DTP). Он поддерживает режимы switchport mode dynamic auto (пассивный переход в trunk при наличии запроса), switchport mode dynamic desirable (активная регулярная посылка DTP-запросов на поднятие trunk) и switchport nonegotiate (отключение DTP для предотвращения конфликтов с оборудованием сторонних производителей).
+
+Результаты проверки характеристик и режимов работы магистрального порта fa0/22 представлены на рисунке 2
+
+[ СЮДА ВСТАВЛЯЕТСЯ СКРИНШОТ ИЗ ФАЙЛА screen_show_interface_switchport.png ]
+
+Рисунок 2 – Результат вывода команды show interface fa0/22 switchport
+
+Задание 3. Настройка маршрутизации между VLAN (Inter-VLAN Routing) с использованием L3-коммутатора и технологии Router-on-a-Stick.
+
+По умолчанию трафик между различными виртуальными локальными сетями изолирован. Для организации взаимодействия между узлами разных VLAN реализованы два архитектурных подхода:
+1. Маршрутизация на коммутаторе 3-го уровня (L3 Switch) с помощью создания виртуальных интерфейсов коммутатора (Switch Virtual Interface, SVI) для каждого VLAN, которые выполняют роль шлюзов по умолчанию, и включения механизма ip routing.
+2. Маршрутизация на внешнем маршрутизаторе по технологии «Router-on-a-Stick», при которой физический порт маршрутизатора делится на логические подинтерфейсы (subinterfaces) с привязкой тегов dot1q.
+
+Конфигурация коммутатора 3-го уровня sw3 с настройкой SVI и маршрутизируемого порта к внешнему маршрутизатору представлена в листинге 3
+
+Листинг 3 – Конфигурация маршрутизации между VLAN на коммутаторе 3-го уровня sw3
+sw3(config)# ip routing
+sw3(config)# vlan 2,10,15
+sw3(config)# interface fa0/1
+sw3(config-if)# switchport trunk encapsulation dot1q
+sw3(config-if)# switchport mode trunk
+sw3(config-if)# switchport trunk allowed vlan 1,2,10,15
+sw3(config-if)# exit
+sw3(config)# interface fa0/2
+sw3(config-if)# switchport trunk encapsulation dot1q
+sw3(config-if)# switchport mode trunk
+sw3(config-if)# switchport trunk allowed vlan 1,2,10
+sw3(config-if)# exit
+sw3(config)# interface Vlan2
+sw3(config-if)# ip address 10.0.2.1 255.255.255.0
+sw3(config-if)# no shutdown
+sw3(config-if)# exit
+sw3(config)# interface Vlan10
+sw3(config-if)# ip address 10.0.10.1 255.255.255.0
+sw3(config-if)# no shutdown
+sw3(config-if)# exit
+sw3(config)# interface Vlan15
+sw3(config-if)# ip address 10.0.15.1 255.255.255.0
+sw3(config-if)# no shutdown
+sw3(config-if)# exit
+sw3(config)# interface FastEthernet 0/10
+sw3(config-if)# no switchport
+sw3(config-if)# ip address 192.168.1.2 255.255.255.0
+sw3(config-if)# no shutdown
+sw3(config-if)# exit
+sw3(config)# ip route 0.0.0.0 0.0.0.0 192.168.1.1
+
+Конфигурация логических подинтерфейсов на маршрутизаторе R1 по схеме Router-on-a-Stick представлена в листинге 4
+
+Листинг 4 – Конфигурация логических подинтерфейсов на маршрутизаторе R1
+R1(config)# interface fa0/0
+R1(config-if)# no ip address
+R1(config-if)# no shutdown
+R1(config-if)# exit
+R1(config)# interface fa0/0.2
+R1(config-subif)# encapsulation dot1q 2
+R1(config-subif)# ip address 10.0.2.1 255.255.255.0
+R1(config-subif)# no shutdown
+R1(config-subif)# exit
+R1(config)# interface fa0/0.10
+R1(config-subif)# encapsulation dot1q 10
+R1(config-subif)# ip address 10.0.10.1 255.255.255.0
+R1(config-subif)# no shutdown
+R1(config-subif)# exit
+R1(config)# interface fa0/0.15
+R1(config-subif)# encapsulation dot1q 15
+R1(config-subif)# ip address 10.0.15.1 255.255.255.0
+R1(config-subif)# no shutdown
+R1(config-subif)# exit
+
+Схема топологии сети с разделением на виртуальные сети VLAN и организацией межсетевой маршрутизации представлена на рисунке 3
+
+[ СЮДА ВСТАВЛЯЕТСЯ СХЕМА ИЗ ФАЙЛА scheme_vlan_topology.png ]
+
+Рисунок 3 – Топология сети VLAN с межсетевой маршрутизацией
+
+Ответы на контрольные вопросы:
+
+1. Дайте определение access port.
+Ответ: Access port (порт доступа) — это коммутационный порт, который принадлежит строго одной виртуальной локальной сети (VLAN) и передает нетегированный информационный трафик. Данный тип порта предназначен для прямого подключения конечных сетевых устройств (рабочих станций, серверов, сетевых принтеров), сетевые карты которых не поддерживают распознавание кадров с тегами IEEE 802.1Q. При передаче исходящего кадра конечному узлу коммутатор удаляет заголовок тега VLAN, а при получении нетегированного кадра от узла маркирует его идентификатором соответствующего access-порта.
+
+2. Дайте определение trunk port.
+Ответ: Trunk port (магистральный порт) — это коммутационный порт, посредством которого осуществляется передача мультиплексированного информационного трафика от одного либо нескольких VLAN одновременно по единой физической линии связи. Магистральные порты применяются для межкоммутаторных соединений и подключения коммутаторов к маршрутизаторам. Для идентификации принадлежности Ethernet-кадров к конкретным виртуальным сетям используется механизм инкапсуляции и тегирования по стандарту IEEE 802.1Q (добавление 4-байтового тега с полем VLAN ID), за исключением кадров native VLAN, передаваемых без тегов.
+
+3. Запишите как создать VLAN с идентификатором 7 и именем TEST?
+Ответ: Создание виртуальной локальной сети с идентификатором 7 и назначением имени TEST в интерфейсе командной строки Cisco IOS выполняется следующей последовательностью команд:
+sw1# configure terminal
+sw1(config)# vlan 7
+sw1(config-vlan)# name TEST
+sw1(config-vlan)# exit
+
+4. Дайте определение и описание Dynamic Trunk Protocol (DTP).
+Ответ: Dynamic Trunk Protocol (DTP) — это проприетарный протокол канального уровня компании Cisco, предназначенный для автоматического динамического согласования режима работы сетевого интерфейса (access или trunk) и протокола инкапсуляции (IEEE 802.1Q или ISL) с портом соседнего коммутатора. Протокол включен по умолчанию и осуществляет обмен DTP-кадрами каждые 30 секунд. DTP поддерживает следующие режимы интерфейса:
+switchport mode dynamic auto — автоматический пассивный режим, при котором порт готов перейти в trunk, только если соседний порт настроен в режим desirable или trunk;
+switchport mode dynamic desirable — активный режим согласования, при котором порт периодически рассылает DTP-кадры и переходит в trunk, если на противоположном конце порт находится в режимах trunk, desirable или auto;
+switchport mode trunk — постоянный безусловный перевод порта в магистральный режим trunk независимо от состояния противоположной стороны;
+switchport nonegotiate — отключение генерации DTP-кадров на интерфейсе для предотвращения конфликтов и обеспечения совместимости с сетевым оборудованием сторонних производителей при ручной настройке статического trunk.
+
+Вывод: Сформировал навык настройки VLAN на основе портов.

@@ -11,29 +11,32 @@ tags:
 
 Map of repositories, modules, entry points, commands and gotchas. This is the implemented truth — agents read it before touching code and update it after learning something durable.
 
-## Repositories
+## Repositories & Structure
 
-| Repository | Purpose | Location | Key commands |
+| Component | Purpose | Location | Key commands |
 | --- | --- | --- | --- |
-| This workspace | Project context and AI OS | `D:\1с лабы` | `tools/check_agent_health.ps1`, `tools/check_ai_os_readiness.ps1`, `tools/sync_mgimind.ps1` |
-| Лабораторные работы по 1С | Product code | `none yet` | e.g. `docker compose up --build`, `pytest` |
+| Workspace / AI OS | Markdown vault & agent skills | `D:\1с лабы` | `.agents/skills/...`, `tools/...` |
+| 1C Cumulative Database | Infobase 1C:Enterprise (`1Cv8.1CD`) | `1С_ЛР4_Файлы\Base1C` (transfers to `ЛР<N>`) | `Запуск_1С_Предприятие.bat`, `Запуск_Конфигуратор.bat` |
+| 1C Metadata XML Source | XML sources for batch compilation | `1С_ЛР4_Файлы\src\` | `load-config.ps1`, `dump-config.ps1` |
+| EPF Generators | External processors for data population | `1С_ЛР4_Файлы\epf_src\` | `build-epf.ps1` |
+| Flash Drive Delivery | Student `.dt` archives for grading | `E:\Программирование 1С\ЛР<N>\` | `DESIGNER /DumpIB` |
 
-## Structure of the product repo
+## Key Commands
 
-- `backend/` — ...
-- `frontend/` — ...
-- Record the three things future agents always need: entry points, test commands, known gotchas.
+- Run 1C:Enterprise (Thin Client): `D:\1c_app\8.3.27.1508\bin\1cv8ct.exe /F "d:\1с лабы\1С_ЛР4_Файлы\Base1C"`
+- Run Designer (Thick Client): `D:\1c_app\8.3.27.1508\bin\1cv8t.exe DESIGNER /F "d:\1с лабы\1С_ЛР4_Файлы\Base1C"`
+- Load Config from XML: `powershell -File .agents/skills/1c-batch/scripts/load-config.ps1 -XmlDir 1С_ЛР4_Файлы/src`
+- Build EPF: `powershell -File .agents/skills/1c-batch/scripts/build-epf.ps1 -RootXml epf_src/ЗаполнениеЛР4.xml -Output epf/ЗаполнениеЛР4.epf`
 
-## Commands
+## Gotchas / Known failure modes
 
-- Run: ...
-- Tests: ...
-- Build: ...
-
-## Gotchas / known failure modes
-
-- Example shape: "YYYY-MM-DD: the first run without a filled `.env` fails on required secrets — intended behavior."
-- Capture verified bug patterns here after each diagnosis (see [[70_Resources/Procedure_Bug_Diagnosis_Loop]]).
+- **CP866 Cyrillic Encoding in `cmd.exe`**: Console `cmd.exe` corrupts Cyrillic executable paths such as `D:\1cпред`. Use the ASCII junction `D:\1c_app` for platform binaries; never put `chcp 65001` in batch files.
+- **Designer CLI project paths and completion**: the ASCII junction for the executable does not fix Cyrillic or spaced paths passed as Designer arguments. Mount the lab folder to an ASCII drive with `subst` per [[40_Decisions/2026-09-23_1C_CLI_Cyrillic_Paths_And_Subst_Bypass]], wait synchronously for Designer to finish, check its exit code, and inspect its output log before using the database.
+- **Empty Form Stubs (`<ChildItems/>`)**: Scaffolding via `form-add.ps1` or `meta-compile.ps1` for CommonForm creates empty `<ChildItems/>`. Guard in `load-config.ps1` auto-compiles UI via `form-compile -FromObject`. If custom form is unneeded, let 1C auto-generate forms.
+- **Exclusive Database Lock**: File-based `1Cv8.1CD` does not allow concurrent Designer sessions. Close all 1C client processes before running batch scripts.
+- **Educational Platform Binaries**: 8.3.27.1508 Educational uses `1cv8t.exe` (fat/designer) and `1cv8ct.exe` (thin client). Standard `1cv8.exe` does not exist in this distribution.
+- **Posting Data (`ОбработкаПроведения`)**: Auto-fill scripts (`.epf`) must save documents with `РежимЗаписиДокумента.Проведение`, and the module must set `Движения.ИмяРегистра.Записывать = Истина`, otherwise registers remain empty.
+- **UTF-8 with BOM**: PowerShell 5.1 and 1C Designer require UTF-8 with BOM for scripts and BSL modules. Without BOM, Cyrillic text corrupts into ANSI/Windows-1251 mojibake.
 
 ## AI OS tools (this workspace)
 

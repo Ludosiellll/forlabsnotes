@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcssch="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.20">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Работа с документами</v8:content>
+		</v8:item>
+	</Title>
+	<AutoTitle>false</AutoTitle>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1"/>
+	<ChildItems>
+		<Button name="СоздатьДокумент" id="1">
+			<Type>UsualButton</Type>
+			<CommandName>Form.Command.СоздатьДокумент</CommandName>
+			<ExtendedTooltip name="СоздатьДокументРасширеннаяПодсказка" id="2"/>
+		</Button>
+		<Button name="ОтменаПроведения" id="3">
+			<Type>UsualButton</Type>
+			<CommandName>Form.Command.ОтменаПроведения</CommandName>
+			<ExtendedTooltip name="ОтменаПроведенияРасширеннаяПодсказка" id="4"/>
+		</Button>
+		<Button name="КопияДокумента" id="5">
+			<Type>UsualButton</Type>
+			<CommandName>Form.Command.КопияДокумента</CommandName>
+			<ExtendedTooltip name="КопияДокументаРасширеннаяПодсказка" id="6"/>
+		</Button>
+		<Button name="ИзменениеДокумента" id="7">
+			<Type>UsualButton</Type>
+			<CommandName>Form.Command.ИзменениеДокумента</CommandName>
+			<ExtendedTooltip name="ИзменениеДокументаРасширеннаяПодсказка" id="8"/>
+		</Button>
+		<Button name="ОткрытьФормуДокумента" id="9">
+			<Type>UsualButton</Type>
+			<CommandName>Form.Command.ОткрытьФормуДокумента</CommandName>
+			<ExtendedTooltip name="ОткрытьФормуДокументаРасширеннаяПодсказка" id="10"/>
+		</Button>
+		<Button name="ОткрытиеФормыСписка" id="11">
+			<Type>UsualButton</Type>
+			<CommandName>Form.Command.ОткрытиеФормыСписка</CommandName>
+			<ExtendedTooltip name="ОткрытиеФормыСпискаРасширеннаяПодсказка" id="12"/>
+		</Button>
+		<Button name="БлокировкаДокумента" id="13">
+			<Type>UsualButton</Type>
+			<CommandName>Form.Command.БлокировкаДокумента</CommandName>
+			<ExtendedTooltip name="БлокировкаДокументаРасширеннаяПодсказка" id="14"/>
+		</Button>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type xmlns:d5p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d5p1:DataProcessorObject.РаботаСДокументами</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="СоздатьДокумент" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создать документ</v8:content>
+				</v8:item>
+			</Title>
+			<Action>СоздатьДокумент</Action>
+		</Command>
+		<Command name="ОтменаПроведения" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Отмена проведения</v8:content>
+				</v8:item>
+			</Title>
+			<Action>ОтменаПроведения</Action>
+		</Command>
+		<Command name="КопияДокумента" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Копия документа</v8:content>
+				</v8:item>
+			</Title>
+			<Action>КопияДокумента</Action>
+		</Command>
+		<Command name="ИзменениеДокумента" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Изменение документа</v8:content>
+				</v8:item>
+			</Title>
+			<Action>ИзменениеДокумента</Action>
+		</Command>
+		<Command name="ОткрытьФормуДокумента" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Открыть форму документа</v8:content>
+				</v8:item>
+			</Title>
+			<Action>ОткрытьФормуДокумента</Action>
+		</Command>
+		<Command name="ОткрытиеФормыСписка" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Открыть форму списка</v8:content>
+				</v8:item>
+			</Title>
+			<Action>ОткрытиеФормыСписка</Action>
+		</Command>
+		<Command name="БлокировкаДокумента" id="7">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Блокировка документа</v8:content>
+				</v8:item>
+			</Title>
+			<Action>БлокировкаДокумента</Action>
+		</Command>
+	</Commands>
+</Form>

@@ -1,0 +1,53 @@
+! Конфигурация оборудования для Лабораторной работы №20 (Cisco Packet Tracer)
+
+! 1. Конфигурация маршрутизатора Router1 (Шлюз локальной сети)
+enable
+configure terminal
+hostname Router1
+
+interface FastEthernet0/0
+ip address 10.0.0.1 255.0.0.0
+no shutdown
+ip nat inside
+exit
+
+interface FastEthernet0/1
+ip address 11.0.0.1 255.0.0.0
+no shutdown
+ip nat outside
+exit
+
+ip route 0.0.0.0 0.0.0.0 11.0.0.2
+
+access-list 34 permit any
+
+ip nat pool natpool 11.0.0.1 11.0.0.1 netmask 255.0.0.0
+
+ip nat inside source list 34 pool natpool overload
+
+end
+write memory
+
+
+! 2. Конфигурация маршрутизатора Router2 (Маршрутизатор провайдера / Интернет)
+enable
+configure terminal
+hostname Router2
+
+interface FastEthernet0/1
+ip address 11.0.0.2 255.0.0.0
+no shutdown
+exit
+
+interface FastEthernet0/0
+ip address 12.0.0.1 255.0.0.0
+no shutdown
+exit
+
+end
+write memory
+
+
+! 3. Команды для проверки работы NAT на Router1
+show ip nat translations
+show ip nat statistics

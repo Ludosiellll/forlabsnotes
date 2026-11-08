@@ -1,0 +1,1194 @@
+/* ==========================================================================
+   Лабораторная работа №7 (ПСИП) — Визуальные эффекты и анимация на HTML-странице
+   Студент: Лабынцев Денис Янушевич • Группа: РС02-23 • Дата: 24.09.2026
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0. Сброс стилей и базовые CSS-переменные
+   -------------------------------------------------------------------------- */
+:root {
+    --bg-main: #0b1120;
+    --bg-surface: #1e293b;
+    --bg-card: #151f32;
+    --bg-card-hover: #1e293b;
+    --border-color: #334155;
+    --border-accent: #38bdf8;
+    
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    
+    --accent-blue: #38bdf8;
+    --accent-indigo: #6366f1;
+    --accent-violet: #a855f7;
+    --accent-green: #22c55e;
+    --accent-orange: #f97316;
+    
+    --font-stack: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+    --transition-standard: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-stack);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    width: 92%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   1. Шапка сайта и брендинг
+   -------------------------------------------------------------------------- */
+.site-header {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* --- Задание 1 (Часть 1): Простая анимация пульсации герба --- */
+@keyframes pulseGlow {
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.3));
+    }
+    50% {
+        transform: scale(1.08);
+        filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.85)) drop-shadow(0 0 35px rgba(99, 102, 241, 0.5));
+    }
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.3));
+    }
+}
+
+.emblem-wrapper.pulse-animation {
+    display: inline-block;
+    animation: pulseGlow 3.2s ease-in-out infinite;
+}
+
+.brand-logo {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+}
+
+.portal-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-blue);
+    font-weight: 600;
+}
+
+.brand-title {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.academic-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.badge-tag {
+    font-size: 0.72rem;
+    background: rgba(56, 189, 248, 0.15);
+    color: var(--accent-blue);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.badge-student {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   2. Задание 3: Анимированное меню навигации с выпадающим списком
+   -------------------------------------------------------------------------- */
+.main-nav {
+    background: rgba(11, 17, 32, 0.98);
+    border-top: 1px solid rgba(51, 65, 85, 0.5);
+    border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+}
+
+.nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 16px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+/* Анимированное подчеркивание с эффектом масштабирования от центра */
+.nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+    right: 16px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-indigo));
+    border-radius: 3px 3px 0 0;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link:hover {
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    transform: scaleX(1);
+}
+
+.nav-link.active {
+    color: var(--accent-blue);
+}
+
+.arrow-indicator {
+    font-size: 0.65rem;
+    transition: transform 0.3s ease;
+}
+
+.has-dropdown:hover .arrow-indicator {
+    transform: rotate(180deg);
+}
+
+/* Анимированное выпадающее меню (dropdown) */
+.sub-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 250px;
+    background: #1e293b;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    list-style: none;
+    padding: 8px 0;
+    
+    /* Состояние скрыто по умолчанию */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(18px) scale(0.96);
+    transform-origin: top left;
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), visibility 0.35s;
+    z-index: 100;
+}
+
+.has-dropdown:hover .sub-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(4px) scale(1);
+}
+
+.sub-item {
+    width: 100%;
+}
+
+.sub-link {
+    display: block;
+    padding: 10px 18px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.88rem;
+    position: relative;
+    transition: all 0.25s ease;
+}
+
+.sub-link:hover {
+    color: #ffffff;
+    background: rgba(56, 189, 248, 0.12);
+    padding-left: 24px;
+}
+
+.nav-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-green);
+    animation: indicatorBlink 2s infinite ease-in-out;
+}
+
+@keyframes indicatorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+.status-text {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   3. Задание 6: Анимированный главный заголовок и вступительный блок (Hero)
+   -------------------------------------------------------------------------- */
+.hero-section {
+    padding: 70px 0 60px;
+    background: radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.12), transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1), transparent 50%);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.hero-inner {
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.hero-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 14px;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 999px;
+    margin-bottom: 20px;
+}
+
+.chip-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+}
+
+.chip-text {
+    font-size: 0.8rem;
+    color: var(--accent-blue);
+    font-weight: 600;
+}
+
+/* Анимация переливающегося градиента для заголовка */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.hero-animated-title {
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 35%, #c084fc 70%, #38bdf8 100%);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 6s ease-in-out infinite;
+    margin-bottom: 16px;
+}
+
+/* Декоративный анимированный разделитель */
+@keyframes expandDivider {
+    0% {
+        width: 0;
+        opacity: 0;
+    }
+    100% {
+        width: 140px;
+        opacity: 1;
+    }
+}
+
+.animated-divider {
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-indigo));
+    border-radius: 2px;
+    margin-bottom: 18px;
+    animation: expandDivider 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Анимация печатной машинки */
+@keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blinkCursor {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--accent-blue); }
+}
+
+.hero-animated-subtitle {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 18px;
+    display: inline-block;
+}
+
+.typewriter-text {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid var(--accent-blue);
+    animation: 
+        typewriter 3.5s steps(55, end) 0.5s 1 normal both,
+        blinkCursor 0.75s step-end infinite;
+}
+
+.hero-description {
+    color: var(--text-secondary);
+    font-size: 1.02rem;
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+/* --- Задание 1 (Часть 2): Простая анимация парения и покачивания бейджа --- */
+@keyframes floatBadge {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    50% {
+        transform: translateY(-14px) rotate(2deg);
+        box-shadow: 0 24px 38px rgba(56, 189, 248, 0.25);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+}
+
+.floating-mascot-card.float-animation {
+    animation: floatBadge 4.5s ease-in-out infinite;
+}
+
+.floating-mascot-card {
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+}
+
+.compass-icon {
+    font-size: 3.5rem;
+    margin-bottom: 12px;
+}
+
+.mascot-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 6px;
+}
+
+.mascot-subtitle {
+    font-size: 0.9rem;
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+}
+
+.mascot-tags {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    font-size: 0.75rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-color);
+    padding: 3px 10px;
+    border-radius: 999px;
+    color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   4. Общие стили секций
+   -------------------------------------------------------------------------- */
+.section {
+    padding: 70px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.section-dark {
+    background: #090d16;
+}
+
+.section-header {
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto 50px;
+}
+
+.section-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: rgba(56, 189, 248, 0.12);
+    color: var(--accent-blue);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    padding: 3px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.section-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   5. Задание 1: Демонстрационная витрина двух простых анимаций
+   -------------------------------------------------------------------------- */
+.animations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.animation-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-preview {
+    background: #090d16;
+    height: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.pulse-emblem-demo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    animation: pulseGlow 2.8s ease-in-out infinite;
+}
+
+.floating-badge-demo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #1e293b;
+    border: 1px solid var(--border-accent);
+    padding: 12px 24px;
+    border-radius: 30px;
+    animation: floatBadge 3.6s ease-in-out infinite;
+}
+
+.badge-icon {
+    font-size: 2rem;
+}
+
+.badge-label {
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 1.05rem;
+}
+
+.card-info {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.card-desc {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 16px;
+    flex-grow: 1;
+}
+
+.code-badge {
+    background: #090d16;
+    border: 1px solid #334155;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: Consolas, monospace;
+    font-size: 0.82rem;
+    color: #38bdf8;
+}
+
+/* --------------------------------------------------------------------------
+   6. Задание 2: Секция с эффектом параллакса
+   -------------------------------------------------------------------------- */
+.parallax-section {
+    position: relative;
+    padding: 110px 0;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Ключевое свойство CSS-параллакса */
+    filter: brightness(0.65) saturate(1.2);
+    z-index: 1;
+}
+
+.parallax-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(11, 17, 32, 0.85) 0%, rgba(11, 17, 32, 0.6) 50%, rgba(11, 17, 32, 0.95) 100%);
+    z-index: 2;
+}
+
+.parallax-content {
+    position: relative;
+    z-index: 3;
+}
+
+.parallax-text-box {
+    max-width: 780px;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.parallax-badge {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+}
+
+.parallax-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.25;
+    margin-bottom: 16px;
+}
+
+.parallax-desc {
+    font-size: 1.02rem;
+    color: #cbd5e1;
+    line-height: 1.7;
+    margin-bottom: 26px;
+}
+
+.parallax-desc code {
+    background: rgba(56, 189, 248, 0.15);
+    color: var(--accent-blue);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: Consolas, monospace;
+}
+
+.parallax-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 24px;
+}
+
+.p-feature-item {
+    text-align: left;
+}
+
+.pf-num {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent-blue);
+    line-height: 1.2;
+}
+
+.pf-text {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* --------------------------------------------------------------------------
+   7. Задание 5: Интерактивный слайдер изображений
+   -------------------------------------------------------------------------- */
+.slider-container {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #090d16;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.slider-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    width: 100%;
+}
+
+.slide {
+    min-width: 100%;
+    position: relative;
+    user-select: none;
+}
+
+.slide-image-wrapper {
+    height: 480px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.slide-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s ease;
+}
+
+.slide:hover .slide-image-wrapper img {
+    transform: scale(1.03);
+}
+
+.slide-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 30px 40px;
+    background: linear-gradient(180deg, transparent 0%, rgba(9, 13, 22, 0.95) 80%);
+    color: #ffffff;
+}
+
+.slide-num {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.slide-title {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.slide-desc {
+    font-size: 0.92rem;
+    color: #cbd5e1;
+    max-width: 720px;
+    line-height: 1.5;
+}
+
+/* Кнопки переключения слайдов */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.slider-btn:hover {
+    background: var(--accent-blue);
+    color: #0b1120;
+    border-color: var(--accent-blue);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn { left: 20px; }
+.next-btn { right: 20px; }
+
+/* Индикаторы пагинации слайдов */
+.slider-dots {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    transition: all 0.35s ease;
+}
+
+.dot.active {
+    width: 32px;
+    background: var(--accent-blue);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+
+/* --------------------------------------------------------------------------
+   8. Задание 4: Коллекция анимированных кнопок по методическим указаниям
+   -------------------------------------------------------------------------- */
+.buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.button-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.btn-demo-box {
+    height: 90px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 18px;
+}
+
+.btn-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 6px;
+}
+
+.btn-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+}
+
+/* Базовый класс для всех интерактивных кнопок */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* 1. Горизонтальное заполнение (по методичке: transition: all 500ms ease) */
+.btn-fill-horizontal {
+    background: transparent;
+    color: #38bdf8;
+    border: 2px solid #38bdf8;
+    transition: all 500ms ease;
+}
+
+.btn-fill-horizontal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background: #38bdf8;
+    z-index: -1;
+    transition: all 500ms ease;
+}
+
+.btn-fill-horizontal:hover {
+    color: #0b1120;
+}
+
+.btn-fill-horizontal:hover::before {
+    width: 100%;
+}
+
+/* 2. Вертикальное заполнение */
+.btn-fill-vertical {
+    background: transparent;
+    color: #a855f7;
+    border: 2px solid #a855f7;
+    transition: all 500ms ease;
+}
+
+.btn-fill-vertical::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background: #a855f7;
+    z-index: -1;
+    transition: all 500ms ease;
+}
+
+.btn-fill-vertical:hover {
+    color: #ffffff;
+}
+
+.btn-fill-vertical:hover::before {
+    height: 100%;
+}
+
+/* 3. Появление иконки (по методичке: иконка плавно появляется слева) */
+.btn-slide-icon {
+    background: #1e293b;
+    color: #ffffff;
+    border: 1px solid var(--border-color);
+    padding-left: 20px;
+    padding-right: 20px;
+    transition: all 400ms ease;
+}
+
+.btn-slide-icon .icon {
+    display: inline-block;
+    opacity: 0;
+    width: 0;
+    transform: translateX(-15px);
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-slide-icon .text {
+    transition: transform 400ms ease;
+}
+
+.btn-slide-icon:hover {
+    background: #334155;
+    padding-left: 14px;
+}
+
+.btn-slide-icon:hover .icon {
+    opacity: 1;
+    width: 20px;
+    margin-right: 6px;
+    transform: translateX(0);
+}
+
+/* 4. Эффект подпрыгивания (Bounce) */
+@keyframes btnBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px) scaleY(1.05);
+    }
+    60% {
+        transform: translateY(-4px) scaleY(0.98);
+    }
+    80% {
+        transform: translateY(-2px);
+    }
+}
+
+.btn-bounce {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+    transition: background 0.3s ease;
+}
+
+.btn-bounce:hover {
+    animation: btnBounce 0.75s ease-in-out;
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.5);
+}
+
+/* 5. Эффект 3D переворота (СТРОГО по Примеру 5 методических указаний) */
+.btn-flip-3d {
+    width: 170px;
+    height: 44px;
+    background: #2563eb;
+    color: #ffffff;
+    border-radius: 5px;
+    position: relative;
+    transform-style: preserve-3d; /* Дочерние элементы будут отображаться в 3D */
+    perspective: 1000px;
+    transition: transform 500ms ease;
+    overflow: visible; /* Для отображения 3D-грани */
+}
+
+.btn-flip-3d::after {
+    top: -100%;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #3a9999;
+    border-radius: 5px;
+    content: attr(data-back);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 600;
+    transform-origin: left bottom; /* Координаты точки трансформации */
+    transform: rotateX(90deg); /* Поворот по оси X на 90 градусов */
+    transition: all 500ms ease;
+}
+
+.btn-flip-3d:hover {
+    transform-origin: center bottom; /* Координаты точки трансформации */
+    transform: rotateX(-90deg) translateY(100%); /* Поворот на -90 и сдвиг на 100% */
+}
+
+/* 6. Эффект перекатывания (СТРОГО по Примерам 3 и 4 методических указаний) */
+.rollover-btn-demo {
+    background: url("rollover_sprite.png"); /* Спрайт: 151x80px */
+    display: block;
+    width: 151px;
+    height: 40px;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: background-position 0.2s ease;
+}
+
+.rollover-btn-demo:hover {
+    background-position: 0 -40px; /* Смещение фона на половину высоты */
+}
+
+/* --------------------------------------------------------------------------
+   9. Блок разработчика и подвал
+   -------------------------------------------------------------------------- */
+.developer-panel {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    background: #111827;
+    border: 1px solid var(--border-color);
+    padding: 30px 40px;
+    border-radius: 16px;
+}
+
+.dev-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent-blue);
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+}
+
+.dev-role {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.dev-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.dev-details {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.site-footer {
+    background: #090d16;
+    border-top: 1px solid var(--border-color);
+    padding: 24px 0;
+    text-align: center;
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   10. Адаптивность для мобильных устройств
+   -------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+    .hero-inner {
+        grid-template-columns: 1fr;
+    }
+    .animations-grid {
+        grid-template-columns: 1fr;
+    }
+    .buttons-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .parallax-features {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 640px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .nav-menu {
+        flex-wrap: wrap;
+    }
+    .buttons-grid {
+        grid-template-columns: 1fr;
+    }
+    .slide-image-wrapper {
+        height: 320px;
+    }
+    .developer-panel {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-inner {
+        flex-direction: column;
+        gap: 8px;
+    }
+}

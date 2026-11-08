@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Краеведческий тест: Города Беларуси — Бобруйск | Вариант 14</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 35px;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #0284c7;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        .header img {
+            width: 70px;
+            height: 85px;
+            margin-bottom: 10px;
+        }
+        h1 {
+            color: #0f172a;
+            margin: 0 0 8px 0;
+            font-size: 24px;
+        }
+        p.subtitle {
+            margin: 0;
+            color: #64748b;
+            font-size: 15px;
+        }
+        fieldset {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            background-color: #fdfdfd;
+        }
+        legend {
+            font-weight: bold;
+            color: #0369a1;
+            padding: 0 10px;
+            font-size: 16px;
+        }
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            flex: 1;
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            color: #334155;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="url"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"],
+        input[type="datetime-local"],
+        input[type="month"],
+        input[type="week"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid #94a3b8;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #0284c7;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+        .radio-group, .checkbox-group {
+            margin-top: 6px;
+        }
+        .radio-item, .checkbox-item {
+            margin-bottom: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .radio-item input, .checkbox-item input {
+            cursor: pointer;
+        }
+        .range-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        input[type="range"] {
+            flex: 1;
+            cursor: pointer;
+        }
+        .color-picker {
+            height: 40px;
+            padding: 2px 4px;
+            cursor: pointer;
+            width: 100px;
+        }
+        .buttons-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .btn {
+            padding: 11px 22px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s;
+        }
+        .btn-submit {
+            background-color: #0284c7;
+            color: #ffffff;
+        }
+        .btn-submit:hover {
+            background-color: #0369a1;
+        }
+        .btn-reset {
+            background-color: #e2e8f0;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+        }
+        .btn-reset:hover {
+            background-color: #cbd5e1;
+        }
+        .btn-info {
+            background-color: #f59e0b;
+            color: #ffffff;
+        }
+        .btn-info:hover {
+            background-color: #d97706;
+        }
+        .footer-nav {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .footer-nav a {
+            color: #0284c7;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: 600;
+        }
+        .footer-nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="emblem.png" alt="Герб Бобруйска">
+        <h1>Тестирование: История и культура города Бобруйска</h1>
+        <p class="subtitle">Комплексная форма проверки знаний с использованием всех элементов разметки HTML</p>
+    </div>
+
+    <form action="/test_submit" method="post" enctype="multipart/form-data">
+        <!-- Скрытое поле (hidden) -->
+        <input type="hidden" name="variant_id" value="14">
+        <input type="hidden" name="test_code" value="PSIP-LR3-BOBRUISK">
+
+        <!-- РАЗДЕЛ 1: РЕГИСТРАЦИОННЫЕ ДАННЫЕ УЧАСТНИКА -->
+        <fieldset>
+            <legend>1. Личные и контактные данные участника</legend>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fullname">ФИО обучающегося (текстовое поле):</label>
+                    <input type="text" id="fullname" name="fullname" placeholder="Лабынцев Денис Янушевич" required maxlength="60" value="Лабынцев Денис Янушевич">
+                </div>
+                <div class="form-group">
+                    <label for="test_pin">Код доступа к тесту (пароль):</label>
+                    <input type="password" id="test_pin" name="test_pin" placeholder="••••••••" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Электронная почта (email):</label>
+                    <input type="email" id="email" name="email" placeholder="student@bobruisk.by" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Номер телефона (tel):</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+375 (XX) XXX-XX-XX" pattern="\+375[0-9]{9}">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="user_url">Ссылка на профиль / сайт (url):</label>
+                    <input type="url" id="user_url" name="user_url" placeholder="https://bobruisk.by/profile">
+                </div>
+                <div class="form-group">
+                    <label for="session_id">Идентификатор сессии (readonly):</label>
+                    <input type="text" id="session_id" name="session_id" value="RS02-23-V14-DENIS" readonly>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- РАЗДЕЛ 2: ВРЕМЕННЫЕ И ДАТОВЫЕ ПАРАМЕТРЫ -->
+        <fieldset>
+            <legend>2. Временные параметры проведения тестирования</legend>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="test_date">Дата сдачи теста (date):</label>
+                    <input type="date" id="test_date" name="test_date" value="2026-09-11">
+                </div>
+                <div class="form-group">
+                    <label for="test_time">Время начала (time):</label>
+                    <input type="time" id="test_time" name="test_time" value="10:00">
+                </div>
+                <div class="form-group">
+                    <label for="datetime_local">Точная отметка (datetime-local):</label>
+                    <input type="datetime-local" id="datetime_local" name="datetime_local" value="2026-09-11T10:00">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="test_month">Учебный месяц (month):</label>
+                    <input type="month" id="test_month" name="test_month" value="2026-09">
+                </div>
+                <div class="form-group">
+                    <label for="test_week">Учебная неделя года (week):</label>
+                    <input type="week" id="test_week" name="test_week" value="2026-W37">
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- РАЗДЕЛ 3: ВОПРОСЫ ТЕСТА ПО БОБРУЙСКУ -->
+        <fieldset>
+            <legend>3. Вопросы краеведческого теста по городу Бобруйску</legend>
+
+            <!-- Радиокнопки (radio) -->
+            <div class="form-group">
+                <label>Вопрос 1 (radio). На какой реке расположен город Бобруйск?</label>
+                <div class="radio-group">
+                    <div class="radio-item"><input type="radio" id="r_berezina" name="river" value="berezina" checked><label for="r_berezina" style="font-weight:normal; margin:0;">Березина (правильный ответ)</label></div>
+                    <div class="radio-item"><input type="radio" id="r_neman" name="river" value="neman"><label for="r_neman" style="font-weight:normal; margin:0;">Неман</label></div>
+                    <div class="radio-item"><input type="radio" id="r_dnepr" name="river" value="dnepr"><label for="r_dnepr" style="font-weight:normal; margin:0;">Днепр</label></div>
+                    <div class="radio-item"><input type="radio" id="r_pripyat" name="river" value="pripyat"><label for="r_pripyat" style="font-weight:normal; margin:0;">Припять</label></div>
+                </div>
+            </div>
+
+            <!-- Флажки (checkbox) -->
+            <div class="form-group">
+                <label>Вопрос 2 (checkbox). Какие известные предприятия находятся в Бобруйске? (выберите несколько):</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="checkbox" id="f_belshina" name="factories[]" value="belshina" checked><label for="f_belshina" style="font-weight:normal; margin:0;">ОАО «Белшина»</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="f_agromash" name="factories[]" value="agromash" checked><label for="f_agromash" style="font-weight:normal; margin:0;">ОАО «Бобруйскагромаш»</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="f_pischevik" name="factories[]" value="pischevik" checked><label for="f_pischevik" style="font-weight:normal; margin:0;">ОАО «Красный пищевик» (зефир и пастила)</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="f_maz" name="factories[]" value="maz"><label for="f_maz" style="font-weight:normal; margin:0;">ОАО «Минский автомобильный завод» (Минск)</label></div>
+                </div>
+            </div>
+
+            <!-- Числовое поле (number) -->
+            <div class="form-group">
+                <label for="foundation_year">Вопрос 3 (number). В каком году Бобруйск впервые упомянут в летописных источниках?</label>
+                <input type="number" id="foundation_year" name="foundation_year" min="1000" max="2026" step="1" value="1387" required>
+            </div>
+
+            <!-- Выпадающий список (select) -->
+            <div class="form-group">
+                <label for="district_select">Вопрос 4 (select). В каком районе города находится Бобруйская крепость?</label>
+                <select id="district_select" name="district_select">
+                    <option value="lenin">Ленинский район (исторический центр)</option>
+                    <option value="pervomay">Первомайский район</option>
+                    <option value="suburb">Пригородный район</option>
+                </select>
+            </div>
+
+            <!-- Ползунок диапазона (range) -->
+            <div class="form-group">
+                <label for="scale">Вопрос 5 (range). Оцените уровень сложности заданий по шкале от 1 до 10:</label>
+                <div class="range-container">
+                    <span>1 (Легко)</span>
+                    <input type="range" id="scale" name="scale" min="1" max="10" value="8" oninput="this.nextElementSibling.value = this.value">
+                    <output>8</output>
+                    <span>10 (Сложно)</span>
+                </div>
+            </div>
+
+            <!-- Многострочное текстовое поле (textarea) -->
+            <div class="form-group">
+                <label for="essay">Вопрос 6 (textarea). Развернутый исторический комментарий о Бобруйской крепости:</label>
+                <textarea id="essay" name="essay" rows="4" placeholder="Опишите роль Бобруйской крепости в войне 1812 года...">Бобруйская крепость — памятник фортификационного зодчества первой половины XIX века. Гарнизон крепости успешно сдерживал блокаду наполеоновских войск на протяжении четырех месяцев, прикрывая фланг русской армии.</textarea>
+            </div>
+        </fieldset>
+
+        <!-- РАЗДЕЛ 4: ФАЙЛЫ И ОФОРМЛЕНИЕ СЕРТИФИКАТА -->
+        <fieldset>
+            <legend>4. Загрузка материалов и выбор дизайна сертификата</legend>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="user_file">Прикрепить исследовательский файл / эссе (file):</label>
+                    <input type="file" id="user_file" name="user_file">
+                </div>
+                <div class="form-group">
+                    <label for="cert_color">Цвет рамки электронного сертификата (color):</label>
+                    <input type="color" id="cert_color" name="cert_color" class="color-picker" value="#0284c7">
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- ПАНЕЛЬ КНОПОК РАЗЛИЧНЫХ ТИПОВ -->
+        <div class="buttons-panel">
+            <!-- Кнопка отправки формы (submit) -->
+            <button type="submit" class="btn btn-submit">Отправить ответы (submit)</button>
+
+            <!-- Кнопка сброса значений (reset) -->
+            <button type="reset" class="btn btn-reset">Сбросить поля (reset)</button>
+
+            <!-- Кнопка без специального назначения с JS-обработчиком (button) -->
+            <button type="button" class="btn btn-info" onclick="alert('Подсказка: Бобруйск впервые упомянут в 1387 году в грамоте князя Скиргайло, расположен на реке Березине!')">Подсказка (button)</button>
+
+            <!-- Кнопка в виде изображения (image) -->
+            <input type="image" src="btn_submit.png" alt="Отправить через image" title="Отправка формы через тег input type='image'">
+        </div>
+    </form>
+
+    <div class="footer-nav">
+        <a href="login.html">← Форма входа</a>
+        <a href="register.html">Форма регистрации</a>
+        <a href="index.html">На главную страницу портала Бобруйска</a>
+    </div>
+</div>
+
+</body>
+</html>

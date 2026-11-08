@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Точное позиционирование CSS position | Экстраординарный дизайн</title>
+    <style>
+        :root {
+            --bg-deep: #070913;
+            --surface-card: rgba(15, 23, 42, 0.85);
+            --surface-border: rgba(255, 255, 255, 0.12);
+            --accent-cyan: #38bdf8;
+            --accent-blue: #3b82f6;
+            --accent-purple: #a855f7;
+            --accent-gold: #f59e0b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-deep);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.12) 0%, transparent 40%),
+                linear-gradient(180deg, #090d16 0%, #030712 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 16px 12px 60px 12px;
+        }
+
+        .container {
+            max-width: 1020px;
+            margin: 0 auto;
+            background: var(--surface-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 18px;
+            border: 1px solid var(--surface-border);
+            box-shadow: 
+                0 25px 60px -15px rgba(0, 0, 0, 0.8),
+                0 0 35px rgba(56, 189, 248, 0.08);
+            padding: 24px 28px;
+            position: relative; /* Базовый контекст */
+        }
+
+        /* Шапка страницы */
+        .page-header {
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--surface-border);
+            padding-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-left h1 {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff 40%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 3px;
+        }
+        .header-left p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .header-right .tech-pill {
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* -------------------------------------------------------------
+           Задание 2: Свойство CSS position (relative, absolute, fixed)
+           в сочетании с координатами top, bottom, left, right
+           ------------------------------------------------------------- */
+
+        /* 1. Родительский блок: position: relative */
+        .showcase-card {
+            position: relative; /* Контейнер для абсолютного позиционирования дочерних элементов */
+            width: 100%;
+            height: 330px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 20px;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Изображение подложки */
+        .showcase-card img.main-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.88) contrast(1.1);
+        }
+
+        /* 2. Элемент 1: top: 18px; left: 18px; (position: absolute) */
+        .badge-category {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(56, 189, 248, 0.5);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 7px 15px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 15px rgba(56, 189, 248, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10;
+        }
+        .badge-category .dot {
+            width: 7px;
+            height: 7px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-cyan);
+        }
+
+        /* 3. Элемент 2: top: 18px; right: 18px; (position: absolute) */
+        .badge-rating {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(245, 158, 11, 0.5);
+            backdrop-filter: blur(10px);
+            color: var(--accent-gold);
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 7px 15px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 15px rgba(245, 158, 11, 0.25);
+            z-index: 10;
+        }
+
+        /* 4. Элемент 3: Гео-пин координат в центре (position: absolute; top: 42%; left: 51%;) */
+        .geo-pin-target {
+            position: absolute;
+            top: 42%;
+            left: 51%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 9;
+        }
+        .geo-pulse-ring {
+            width: 28px;
+            height: 28px;
+            background: rgba(56, 189, 248, 0.25);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 18px var(--accent-cyan);
+        }
+        .geo-center-dot {
+            width: 8px;
+            height: 8px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #ffffff;
+        }
+        .geo-pin-tag {
+            margin-top: 5px;
+            background: rgba(10, 15, 29, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            border-radius: 8px;
+            padding: 3px 9px;
+            font-size: 10.5px;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        /* 5. Элемент 4: bottom: 0; left: 0; right: 0; (position: absolute) */
+        .overlay-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(7, 9, 19, 0.95) 0%, rgba(15, 23, 42, 0.8) 65%, transparent 100%);
+            backdrop-filter: blur(8px);
+            padding: 26px 24px 16px 24px;
+            z-index: 8;
+        }
+        .overlay-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        .mini-tag {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 9px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .overlay-caption h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 3px;
+        }
+        .overlay-caption p {
+            font-size: 12.5px;
+            color: #cbd5e1;
+            line-height: 1.5;
+            max-width: 860px;
+        }
+
+        /* -------------------------------------------------------------
+           Технический разбор правил позиционирования
+           ------------------------------------------------------------- */
+        .tech-panel {
+            background: rgba(30, 41, 59, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+        }
+        .panel-heading {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .rules-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .rule-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 10px 14px;
+        }
+        .rule-card .code-label {
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            display: block;
+            margin-bottom: 2px;
+        }
+        .rule-card p {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* -------------------------------------------------------------
+           6. Фиксированная кнопка: position: fixed; bottom: 24px; right: 24px;
+           ------------------------------------------------------------- */
+        .fixed-action-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.95) 0%, rgba(59, 130, 246, 0.95) 100%);
+            color: #ffffff;
+            font-size: 12.5px;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 
+                0 8px 24px rgba(56, 189, 248, 0.4),
+                0 0 20px rgba(59, 130, 246, 0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            z-index: 1000;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .fixed-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(56, 189, 248, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Шапка страницы -->
+        <header class="page-header">
+            <div class="header-left">
+                <h1>Задание 2. Точное позиционирование элементов (CSS position)</h1>
+                <p>Применение relative, absolute, fixed в сочетании с координатами top, bottom, left и right</p>
+            </div>
+            <div class="header-right">
+                <span class="tech-pill">CSS Coordinate Space</span>
+            </div>
+        </header>
+
+        <!-- Родительский блок: position: relative -->
+        <div class="showcase-card">
+            <!-- Фоновое изображение -->
+            <img src="bobr_statue.jpg" alt="Памятник Бобру в Бобруйске" class="main-photo">
+
+            <!-- 1. Абсолютное позиционирование в левом верхнем углу (top: 18px; left: 18px;) -->
+            <div class="badge-category">
+                <span class="dot"></span>
+                <span>Памятник архитектуры</span>
+            </div>
+
+            <!-- 2. Абсолютное позиционирование в правом верхнем углу (top: 18px; right: 18px;) -->
+            <div class="badge-rating">
+                <span>★ Рейтинг 9.9 // ТОП-1</span>
+            </div>
+
+            <!-- 3. Точечный пин координат в центре (top: 42%; left: 51%;) -->
+            <div class="geo-pin-target">
+                <div class="geo-pulse-ring">
+                    <div class="geo-center-dot"></div>
+                </div>
+                <div class="geo-pin-tag">Координата: 53°08' с.ш. 29°13' в.д.</div>
+            </div>
+
+            <!-- 4. Абсолютная панель по нижней грани (bottom: 0; left: 0; right: 0;) -->
+            <div class="overlay-caption">
+                <div class="overlay-tags">
+                    <span class="mini-tag">Ул. Социалистическая</span>
+                    <span class="mini-tag">Материал: Бронза (1.7 м)</span>
+                    <span class="mini-tag">Открытие: 2006 год</span>
+                </div>
+                <h2>Скульптура Бобра — визитная карточка города</h2>
+                <p>
+                    Скульптурная композиция установлена в пешеходной исторической зоне Бобруйска. Бронзовый бобр символизирует гостеприимство, процветание и добрый колорит жителей старинного города.
+                </p>
+            </div>
+        </div>
+
+        <!-- Технический разбор правил позиционирования -->
+        <div class="tech-panel">
+            <div class="panel-heading">
+                <span>Архитектура системы позиционирования CSS:</span>
+            </div>
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <span class="code-label">1. position: relative</span>
+                    <p>Задано для <span style="color:#fff;">.showcase-card</span>. Создает локальную систему координат для всех вложенных абсолютных элементов.</p>
+                </div>
+                <div class="rule-card">
+                    <span class="code-label">2. position: absolute (top, left)</span>
+                    <p>Применено к бейджу категории <span style="color:#fff;">.badge-category</span> с координатами <span style="color:var(--accent-cyan);">top: 18px; left: 18px;</span> в левом углу.</p>
+                </div>
+                <div class="rule-card">
+                    <span class="code-label">3. position: absolute (top, right)</span>
+                    <p>Применено к бейджу рейтинга <span style="color:#fff;">.badge-rating</span> с координатами <span style="color:var(--accent-gold);">top: 18px; right: 18px;</span> в правом углу.</p>
+                </div>
+                <div class="rule-card">
+                    <span class="code-label">4. position: absolute (bottom, left, right)</span>
+                    <p>Применено к инфопанели <span style="color:#fff;">.overlay-caption</span> с растяжкой <span style="color:var(--accent-cyan);">bottom: 0; left: 0; right: 0;</span> по нижней грани.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Фиксированная кнопка в окне браузера: position: fixed; bottom: 24px; right: 24px; -->
+    <a href="index.html" class="fixed-action-btn">
+        <span>← На главную (Сетка)</span>
+    </a>
+
+</body>
+</html>

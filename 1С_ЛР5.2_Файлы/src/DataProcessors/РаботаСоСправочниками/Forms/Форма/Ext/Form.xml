@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcssch="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.20">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Работа со справочниками</v8:content>
+		</v8:item>
+	</Title>
+	<AutoTitle>false</AutoTitle>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1"/>
+	<ChildItems>
+		<Button name="СозданиеЭлементовСправочника" id="1">
+			<Type>UsualButton</Type>
+			<CommandName>Form.Command.СозданиеЭлементовСправочника</CommandName>
+			<ExtendedTooltip name="СозданиеЭлементовСправочникаРасширеннаяПодсказка" id="2"/>
+		</Button>
+		<Button name="СозданиеПодчинённогоЭлемента" id="3">
+			<Type>UsualButton</Type>
+			<CommandName>Form.Command.СозданиеПодчинённогоЭлемента</CommandName>
+			<ExtendedTooltip name="СозданиеПодчинённогоЭлементаРасширеннаяПодсказка" id="4"/>
+		</Button>
+		<Button name="СозданиеГруппыСправочника" id="5">
+			<Type>UsualButton</Type>
+			<CommandName>Form.Command.СозданиеГруппыСправочника</CommandName>
+			<ExtendedTooltip name="СозданиеГруппыСправочникаРасширеннаяПодсказка" id="6"/>
+		</Button>
+		<Button name="ПереносЭлементовВГруппы" id="7">
+			<Type>UsualButton</Type>
+			<CommandName>Form.Command.ПереносЭлементовВГруппы</CommandName>
+			<ExtendedTooltip name="ПереносЭлементовВГруппыРасширеннаяПодсказка" id="8"/>
+		</Button>
+		<Button name="ИзменениеЭлементаСправочника" id="9">
+			<Type>UsualButton</Type>
+			<CommandName>Form.Command.ИзменениеЭлементаСправочника</CommandName>
+			<ExtendedTooltip name="ИзменениеЭлементаСправочникаРасширеннаяПодсказка" id="10"/>
+		</Button>
+		<Button name="КопированиеЭлементовСправочника" id="11">
+			<Type>UsualButton</Type>
+			<CommandName>Form.Command.КопированиеЭлементовСправочника</CommandName>
+			<ExtendedTooltip name="КопированиеЭлементовСправочникаРасширеннаяПодсказка" id="12"/>
+		</Button>
+		<Button name="ПолучитьЭлементСправочника" id="13">
+			<Type>UsualButton</Type>
+			<CommandName>Form.Command.ПолучитьЭлементСправочника</CommandName>
+			<ExtendedTooltip name="ПолучитьЭлементСправочникаРасширеннаяПодсказка" id="14"/>
+		</Button>
+		<UsualGroup name="ГруппаПользовательскийВвод" id="15">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Новый элемент</v8:content>
+				</v8:item>
+			</Title>
+			<Group>Vertical</Group>
+			<ExtendedTooltip name="ГруппаПользовательскийВводРасширеннаяПодсказка" id="16"/>
+			<ChildItems>
+				<InputField name="ВводНаименование" id="17">
+					<DataPath>ВводНаименование</DataPath>
+					<ContextMenu name="ВводНаименованиеКонтекстноеМеню" id="18"/>
+					<ExtendedTooltip name="ВводНаименованиеРасширеннаяПодсказка" id="19"/>
+				</InputField>
+				<InputField name="ВводАртикул" id="20">
+					<DataPath>ВводАртикул</DataPath>
+					<ContextMenu name="ВводАртикулКонтекстноеМеню" id="21"/>
+					<ExtendedTooltip name="ВводАртикулРасширеннаяПодсказка" id="22"/>
+				</InputField>
+				<InputField name="ВводЕдиницаИзмерения" id="23">
+					<DataPath>ВводЕдиницаИзмерения</DataPath>
+					<ContextMenu name="ВводЕдиницаИзмеренияКонтекстноеМеню" id="24"/>
+					<ExtendedTooltip name="ВводЕдиницаИзмеренияРасширеннаяПодсказка" id="25"/>
+				</InputField>
+				<Button name="СозданиеЭлементаПользовательскийВвод" id="26">
+					<Type>UsualButton</Type>
+					<CommandName>Form.Command.СозданиеЭлементаПользовательскийВвод</CommandName>
+					<ExtendedTooltip name="СозданиеЭлементаПользовательскийВводРасширеннаяПодсказка" id="27"/>
+				</Button>
+			</ChildItems>
+		</UsualGroup>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type xmlns:d5p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d5p1:DataProcessorObject.РаботаСоСправочниками</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+		</Attribute>
+		<Attribute name="ВводНаименование" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Наименование</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>30</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ВводАртикул" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Артикул</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>6</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ВводЕдиницаИзмерения" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Единица измерения</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type xmlns:d5p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d5p1:CatalogRef.КлассификаторЕдиницИзмерения</v8:Type>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="СозданиеЭлементовСправочника" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создание элементов справочника</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создание элементов справочника</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>СозданиеЭлементовСправочника</Action>
+		</Command>
+		<Command name="СозданиеПодчинённогоЭлемента" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создание подчинённого элемента</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создание подчинённого элемента</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>СозданиеПодчинённогоЭлемента</Action>
+		</Command>
+		<Command name="СозданиеГруппыСправочника" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создание группы справочника</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создание группы справочника</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>СозданиеГруппыСправочника</Action>
+		</Command>
+		<Command name="ПереносЭлементовВГруппы" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Перенос элементов в группы</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Перенос элементов в группы</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ПереносЭлементовВГруппы</Action>
+		</Command>
+		<Command name="ИзменениеЭлементаСправочника" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Изменение элемента справочника</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Изменение элемента справочника</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ИзменениеЭлементаСправочника</Action>
+		</Command>
+		<Command name="КопированиеЭлементовСправочника" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Копирование элементов справочника</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Копирование элементов справочника</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>КопированиеЭлементовСправочника</Action>
+		</Command>
+		<Command name="ПолучитьЭлементСправочника" id="7">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Получить элемент справочника</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Получить элемент справочника</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ПолучитьЭлементСправочника</Action>
+		</Command>
+		<Command name="СозданиеЭлементаПользовательскийВвод" id="8">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создать элемент</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создать элемент</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>СозданиеЭлементаПользовательскийВвод</Action>
+		</Command>
+	</Commands>
+</Form>

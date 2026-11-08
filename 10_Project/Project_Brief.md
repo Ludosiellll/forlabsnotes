@@ -10,35 +10,37 @@ tags:
 
 ## Summary
 
-делаю лабораторные работы по определенному шаблону оформляя в ворде в виде отчетов
+Выполнение лабораторных работ по платформе «1С:Предприятие 8.3» в строгом соответствии с методическими указаниями и генерация/оформление итоговых отчетов в формате Word (.docx).
 
 ## Why the project exists
 
-- The business problem it solves.
-- What happens if it is not built.
+- Систематизация процесса выполнения лабораторных работ по 1С.
+- Формирование качественных, структурированных отчетов по утвержденному стандарту учебного заведения.
+- Накопление базы знаний по конфигурациям, механизмам платформы и решениям задач.
 
 ## Users and stakeholders
 
-- Who uses it, who pays for it, who accepts it.
-- Decision-makers: see [[01_Index/People]].
+- Денис ([[01_Index/People]]): студент / разработчик, выполняющий работы.
+- Преподаватель / проверяющий: принимает отчеты в формате Word (.docx).
 
 ## Main scenarios
 
-- Scenario 1 ...
-- Scenario 2 ...
+- Сценарий 1: Получение методички к очередной лабораторной работе, анализ заданий и контрольных вопросов.
+- Сценарий 2: Выполнение практических заданий в учебной платформе «1С:Предприятие 8.3» / Конфигураторе.
+- Сценарий 3: Сбор результатов, описаний, скриншотов, подготовка полных ответов на контрольные вопросы.
+- Сценарий 4: Формирование отчета в Word (.docx) по утвержденной форме: [[20_Domain/Lab_Report_Standard]].
 
 ## Constraints
 
-- Do not store secrets, tokens, passwords or private customer data in notes.
-- Legal/contractual constraints (contracts, NDA, data residency) — record them here as soon as they are known.
-- Technical constraints (environments, access, sandboxes).
+- Строгое следование утвержденной форме отчета из методички.
+- Все разделы отчета должны быть заполнены (Тема, Цель, Оснащение, Задание, Результаты с описаниями и скриншотами, Ответы на все контрольные вопросы, Вывод).
+- Не сохранять конфиденциальные данные в заметках.
 
 ## Where truth lives
 
-- Code: `none yet`
-- Documentation: links or paths to specs/requirements documents.
-- Task tracker: link or "this workspace, [[60_Tasks/Task_Log]]".
-- Communications: where decisions actually happen (calls, chats) and how they get captured here.
+- Методические указания: текст заданий, контрольные вопросы и форма отчета.
+- Стандарт отчета: [[20_Domain/Lab_Report_Standard]].
+- Task tracker: этот workspace, [[60_Tasks/Task_Log]].
 
 ## Links
 

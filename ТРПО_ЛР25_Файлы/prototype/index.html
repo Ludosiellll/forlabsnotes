@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>БыстрУм</title>
+  <style>
+    :root {
+      --bg-color: #f5f3ff;
+      --app-bg: #ffffff;
+      --primary: #6d28d9;
+      --primary-dark: #5b21b6;
+      --accent: #f59e0b;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --card-bg: #f8fafc;
+      --card-border: #e2e8f0;
+      --success: #10b981;
+      --danger: #ef4444;
+      --phone-border: #1e1b4b;
+    }
+
+    body.theme-protanopia {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --accent: #ca8a04;
+      --success: #0d9488;
+      --phone-border: #0c4a6e;
+    }
+
+    body.theme-deuteranopia {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --accent: #d97706;
+      --success: #0891b2;
+      --phone-border: #1e3a8a;
+    }
+
+    body.theme-tritanopia {
+      --primary: #dc2626;
+      --primary-dark: #b91c1c;
+      --accent: #059669;
+      --success: #16a34a;
+      --phone-border: #7f1d1d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 15px;
+      color: var(--text-main);
+    }
+
+    .proto-bar {
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .proto-bar h1 {
+      font-size: 19px;
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    .proto-bar p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Phone Shell */
+    .phone-container {
+      width: 380px;
+      height: 760px;
+      background: var(--app-bg);
+      border-radius: 42px;
+      box-shadow: 0 25px 50px -12px rgba(109, 40, 217, 0.25), 0 0 0 10px var(--phone-border), 0 0 0 12px #94a3b8;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Top Notch & Status */
+    .status-bar {
+      height: 38px;
+      background: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    /* Screen Views */
+    .screen-view {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      background: #fafafa;
+    }
+
+    .screen-view.active {
+      display: flex;
+    }
+
+    /* Header Profile Card */
+    .profile-card {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      border-radius: 20px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 6px -1px rgba(245, 158, 11, 0.15);
+      border: 1px solid #fcd34d;
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .profile-avatar {
+      width: 44px;
+      height: 44px;
+      background: #f59e0b;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .profile-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #78350f;
+    }
+
+    .profile-level {
+      font-size: 11px;
+      color: #92400e;
+      font-weight: 500;
+    }
+
+    .profile-badges {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+    }
+
+    .star-badge {
+      background: #ffffff;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #d97706;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+
+    .xp-badge {
+      font-size: 10px;
+      color: #92400e;
+      font-weight: 600;
+    }
+
+    .hero-banner {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      border-left: 4px solid var(--primary);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+
+    .hero-banner h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 2px;
+    }
+
+    .hero-banner p {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Game Cards */
+    .game-card {
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.15s, box-shadow 0.15s;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .game-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.06);
+    }
+
+    .game-card.math {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .game-card.extra {
+      background: #ffedd5;
+      color: #9a3412;
+    }
+
+    .game-card.logic {
+      background: #ede9fe;
+      color: #5b21b6;
+    }
+
+    .game-icon {
+      font-size: 28px;
+    }
+
+    .game-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .game-sub {
+      font-size: 11px;
+      opacity: 0.85;
+    }
+
+    /* Nav Buttons */
+    .btn-nav {
+      background: #fff;
+      border: 2px solid var(--card-border);
+      border-radius: 16px;
+      padding: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: all 0.15s;
+    }
+
+    .btn-nav:hover {
+      background: var(--card-bg);
+      border-color: var(--primary);
+    }
+
+    .btn-nav.primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .btn-nav.primary:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Modal Layer */
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 50;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 28px;
+      padding: 22px;
+      width: 100%;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
+      text-align: center;
+      animation: popIn 0.2s ease-out;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* PIN Pad */
+    .pin-display {
+      background: #f1f5f9;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 10px;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 12px 0;
+      letter-spacing: 4px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pin-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .pin-btn {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #334155;
+      transition: background 0.1s;
+    }
+
+    .pin-btn:active {
+      background: #e2e8f0;
+    }
+
+    .pin-btn.action {
+      background: #fee2e2;
+      color: #dc2626;
+      border-color: #fecaca;
+    }
+
+    .pin-btn.submit {
+      background: var(--success);
+      color: #fff;
+      border-color: var(--success);
+    }
+
+    /* Settings Group */
+    .settings-group {
+      background: #fff;
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 12px;
+      border: 1px solid var(--card-border);
+    }
+
+    .settings-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .settings-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .settings-row:last-child {
+      border-bottom: none;
+    }
+
+    .settings-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* Toggle Switch */
+    .toggle {
+      width: 44px;
+      height: 24px;
+      background: #cbd5e1;
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .toggle.active {
+      background: var(--success);
+    }
+
+    .toggle::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+
+    .toggle.active::after {
+      transform: translateX(20px);
+    }
+
+    /* Analytics Dashboard */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .metric-card {
+      background: #fff;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .metric-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 2px;
+    }
+
+    .metric-label {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .status-alert {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #065f46;
+      margin-bottom: 12px;
+    }
+
+    /* Math Game */
+    .math-card {
+      background: #fef9c3;
+      border: 2px solid #fde047;
+      border-radius: 22px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .math-equation {
+      font-size: 36px;
+      font-weight: 800;
+      color: #854d0e;
+    }
+
+    .math-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .math-btn {
+      background: #fff;
+      border: 2px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #1e293b;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .math-btn:hover {
+      border-color: var(--primary);
+      background: #f8fafc;
+    }
+
+    /* Achievements list */
+    .ach-item {
+      background: #fff;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .ach-item.unlocked {
+      background: #fef3c7;
+      border-color: #fcd34d;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="proto-bar">
+    <h1>БыстрУм</h1>
+    <p>Детское развивающее мобильное приложение</p>
+  </div>
+
+  <div class="phone-container">
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span>09:41</span>
+      <span>БыстрУм • 4G • 100%</span>
+    </div>
+
+    <!-- 1. SCREEN: MAIN MENU -->
+    <div id="screen-main" class="screen-view active">
+      <div class="profile-card">
+        <div class="profile-info">
+          <div class="profile-avatar">🐻</div>
+          <div>
+            <div class="profile-name">Артём</div>
+            <div class="profile-level">6 лет • Уровень <span id="val-level">3</span></div>
+          </div>
+        </div>
+        <div class="profile-badges">
+          <div class="star-badge">★ <span id="val-stars">14</span></div>
+          <div class="xp-badge"><span id="val-xp">360</span> XP</div>
+        </div>
+      </div>
+
+      <div class="hero-banner">
+        <h3>«Играй, Артём!»</h3>
+        <p>Выбери мини-игру и занимайся в своём комфортном темпе без таймера.</p>
+      </div>
+
+      <!-- Games -->
+      <div class="game-card math" onclick="openMathGame()">
+        <div class="game-icon">🧮</div>
+        <div>
+          <div class="game-title">Математический спринт</div>
+          <div class="game-sub">Играй с числами • Сложение и сравнение</div>
+        </div>
+      </div>
+
+      <div class="game-card extra" onclick="playSoftAlert('Поиск лишнего')">
+        <div class="game-icon">🔍</div>
+        <div>
+          <div class="game-title">Поиск лишнего</div>
+          <div class="game-sub">Найди лишний предмет на картинке</div>
+        </div>
+      </div>
+
+      <div class="game-card logic" onclick="playSoftAlert('Логические пары')">
+        <div class="game-icon">🧩</div>
+        <div>
+          <div class="game-title">Логические пары</div>
+          <div class="game-sub">Соединяй подходящие фигуры и картинки</div>
+        </div>
+      </div>
+
+      <div style="flex: 1;"></div>
+
+      <button class="btn-nav" onclick="navTo('screen-achievements')">
+        🏆 Мои достижения и кубки
+      </button>
+
+      <button class="btn-nav primary" onclick="openParentalGate()">
+        ⚙️ Родительские настройки (Вход по PIN)
+      </button>
+    </div>
+
+    <!-- 2. SCREEN: PARENT SETTINGS -->
+    <div id="screen-settings" class="screen-view">
+      <h2 style="font-size: 17px; margin-bottom: 12px; color: var(--primary-dark);">⚙️ Родительские настройки</h2>
+
+      <div class="settings-group">
+        <div class="settings-title">Звук и тактильный отклик</div>
+        <div class="settings-row">
+          <div class="settings-label">Звуки игры (мягкие частоты)</div>
+          <div class="toggle active" id="toggle-sound" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-label">Тактильный виброотклик (25 мс)</div>
+          <div class="toggle active" id="toggle-haptic" onclick="toggleSwitch(this)"></div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-label">Спокойный режим (без спешки)</div>
+          <div class="toggle active" id="toggle-calm" onclick="toggleSwitch(this)"></div>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-title">Тайм-менеджмент сессии</div>
+        <div class="settings-row">
+          <div class="settings-label">Длительность игры</div>
+          <span style="font-size: 13px; font-weight: 700; color: var(--primary);">15 минут</span>
+        </div>
+        <div class="settings-row">
+          <div class="settings-label">Напоминать о перерыве</div>
+          <div class="toggle active" id="toggle-break" onclick="toggleSwitch(this)"></div>
+        </div>
+        <button class="btn-nav" style="margin-top: 10px; background: #ecfdf5; border-color: #a7f3d0; color: #065f46;" onclick="showBreakModal()">
+          🌿 Проверить окно отдыха (Демо)
+        </button>
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-title">Адаптация палитры (Дальтонизм)</div>
+        <select id="select-theme" style="width: 100%; padding: 8px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 13px;" onchange="changeTheme(this.value)">
+          <option value="standard">Стандартная (теплая фиолетово-желтая)</option>
+          <option value="theme-protanopia">Протанопия (сине-желтый спектр)</option>
+          <option value="theme-deuteranopia">Дейтеранопия (зеленый спектр)</option>
+          <option value="theme-tritanopia">Тританопия (красно-бирюзовый)</option>
+        </select>
+      </div>
+
+      <button class="btn-nav" style="background: #e0e7ff; border-color: #c7d2fe; color: #3730a3;" onclick="navTo('screen-analytics')">
+        📊 Открыть когнитивную аналитику
+      </button>
+
+      <button class="btn-nav" onclick="navTo('screen-main')">
+        ← Назад в главное меню
+      </button>
+    </div>
+
+    <!-- 3. SCREEN: COGNITIVE ANALYTICS -->
+    <div id="screen-analytics" class="screen-view">
+      <h2 style="font-size: 17px; margin-bottom: 12px; color: var(--primary-dark);">📊 Аналитика развития Артёма</h2>
+
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="metric-value">100%</div>
+          <div class="metric-label">Точность ответов</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value" id="val-reaction">760 мс</div>
+          <div class="metric-label">Средняя реакция</div>
+        </div>
+      </div>
+
+      <div class="status-alert">
+        🟢 Высокая концентрация. Признаков утомляемости не зафиксировано.
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-title">Последние сессии мини-игр</div>
+        <div style="font-size: 12px; line-height: 1.8; color: #334155;" id="analytics-log">
+          <div>• 09:35 | Математический спринт: <b>740 мс</b> [Верно]</div>
+          <div>• 09:38 | Математический спринт: <b>780 мс</b> [Верно]</div>
+          <div>• 09:40 | Математический спринт: <b>760 мс</b> [Верно]</div>
+        </div>
+      </div>
+
+      <button class="btn-nav" onclick="navTo('screen-settings')">
+        ← Назад в настройки
+      </button>
+    </div>
+
+    <!-- 4. SCREEN: MATH GAME -->
+    <div id="screen-game" class="screen-view">
+      <h2 style="font-size: 17px; margin-bottom: 4px; color: var(--primary-dark);">🧮 Математический спринт</h2>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Реши пример в своём темпе (без таймера):</p>
+
+      <div class="math-card">
+        <div class="math-equation" id="game-equation">3 + 2 = ?</div>
+      </div>
+
+      <div class="math-options" id="game-options">
+        <button class="math-btn" onclick="submitAnswer(4)">4</button>
+        <button class="math-btn" onclick="submitAnswer(5)">5</button>
+        <button class="math-btn" onclick="submitAnswer(6)">6</button>
+      </div>
+
+      <div style="flex: 1;"></div>
+
+      <button class="btn-nav" onclick="navTo('screen-main')">
+        ← Завершить игру
+      </button>
+    </div>
+
+    <!-- 5. SCREEN: ACHIEVEMENTS -->
+    <div id="screen-achievements" class="screen-view">
+      <h2 style="font-size: 17px; margin-bottom: 4px; color: var(--primary-dark);">🏆 Мои достижения</h2>
+      <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px; font-style: italic;">
+        «Ты учишься и растёшь! Играй в своём темпе. Новые кубки подождут.»
+      </p>
+
+      <div class="ach-item unlocked">
+        <div style="font-size: 22px;">🏆</div>
+        <div>
+          <div style="font-size: 13px; font-weight: 700; color: #78350f;">Друг чисел</div>
+          <div style="font-size: 11px; color: #92400e;">За 1 игру с числами (Получено)</div>
+        </div>
+      </div>
+
+      <div class="ach-item">
+        <div style="font-size: 22px;">🔒</div>
+        <div>
+          <div style="font-size: 13px; font-weight: 700; color: #64748b;">Кубок счёта</div>
+          <div style="font-size: 11px; color: #94a3b8;">За 5 игр с числами (Впереди)</div>
+        </div>
+      </div>
+
+      <div class="ach-item unlocked">
+        <div style="font-size: 22px;">🏆</div>
+        <div>
+          <div style="font-size: 13px; font-weight: 700; color: #78350f;">Зоркий глаз</div>
+          <div style="font-size: 11px; color: #92400e;">За 1 игру на поиск (Получено)</div>
+        </div>
+      </div>
+
+      <div class="ach-item">
+        <div style="font-size: 22px;">🔒</div>
+        <div>
+          <div style="font-size: 13px; font-weight: 700; color: #64748b;">Кубок внимания</div>
+          <div style="font-size: 11px; color: #94a3b8;">За 5 игр на поиск (Впереди)</div>
+        </div>
+      </div>
+
+      <div style="flex: 1;"></div>
+
+      <button class="btn-nav" onclick="navTo('screen-main')">
+        ← Назад в главное меню
+      </button>
+    </div>
+
+    <!-- MODAL: PARENTAL GATE -->
+    <div id="modal-gate" class="modal-overlay">
+      <div class="modal-box">
+        <div style="font-size: 26px; margin-bottom: 6px;">🔒</div>
+        <h3 style="font-size: 16px; font-weight: 800; color: var(--primary-dark);">Родительский барьер</h3>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">
+          Подтвердите, что вы взрослый.<br>Сколько будет: <b id="gate-question" style="color: #0f172a; font-size: 14px;">2 + 3 = ?</b>
+        </p>
+
+        <div class="pin-display" id="gate-pin">_</div>
+
+        <div class="pin-grid">
+          <button class="pin-btn" onclick="pressPin('1')">1</button>
+          <button class="pin-btn" onclick="pressPin('2')">2</button>
+          <button class="pin-btn" onclick="pressPin('3')">3</button>
+          <button class="pin-btn" onclick="pressPin('4')">4</button>
+          <button class="pin-btn" onclick="pressPin('5')">5</button>
+          <button class="pin-btn" onclick="pressPin('6')">6</button>
+          <button class="pin-btn" onclick="pressPin('7')">7</button>
+          <button class="pin-btn" onclick="pressPin('8')">8</button>
+          <button class="pin-btn" onclick="pressPin('9')">9</button>
+          <button class="pin-btn action" onclick="clearPin()">C</button>
+          <button class="pin-btn" onclick="pressPin('0')">0</button>
+          <button class="pin-btn submit" onclick="checkGate()">✓</button>
+        </div>
+
+        <button class="btn-nav" style="margin-bottom: 0;" onclick="closeGate()">Отмена</button>
+      </div>
+    </div>
+
+    <!-- MODAL: BREAK REMINDER -->
+    <div id="modal-break" class="modal-overlay">
+      <div class="modal-box" style="background: #f0fdf4; border: 2px solid #86efac;">
+        <div style="font-size: 38px; margin-bottom: 8px;">🌿 🧸 ⏰</div>
+        <h3 style="font-size: 18px; font-weight: 800; color: #166534; margin-bottom: 6px;">Время отдохнуть!</h3>
+        <p style="font-size: 13px; color: #14532d; line-height: 1.5; margin-bottom: 16px;">
+          Ты отлично позанимался 15 минут, Артём!<br><br>
+          Пора сделать разминку для глаз:<br>
+          👀 Поморгай 5 раз<br>
+          🌳 Посмотри вдаль в окно<br>
+          🙆 Потянись вверх ручками!
+        </p>
+        <button class="btn-nav primary" style="background: #22c55e; border-color: #22c55e; width: 100%;" onclick="closeBreakModal()">
+          Хорошо, отдыхаем! 💚
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Audio synthesis for soft feedback
+    const audioCtx = (window.AudioContext || window.webkitAudioContext) ? new (window.AudioContext || window.webkitAudioContext)() : null;
+
+    function playTone(freq, type = 'sine', duration = 0.08) {
+      if (!audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function soundTap() { playTone(520, 'sine', 0.06); }
+    function soundSuccess() {
+      playTone(587.33, 'triangle', 0.1);
+      setTimeout(() => playTone(880, 'sine', 0.15), 100);
+    }
+    function soundFail() { playTone(220, 'sawtooth', 0.15); }
+
+    // State
+    let stars = 14;
+    let xp = 360;
+    let level = 3;
+    let gateAnswer = 5;
+    let enteredPin = "";
+    let startTime = 0;
+
+    function navTo(screenId) {
+      soundTap();
+      document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+    }
+
+    function toggleSwitch(el) {
+      soundTap();
+      el.classList.toggle('active');
+    }
+
+    function changeTheme(themeClass) {
+      document.body.className = '';
+      if (themeClass !== 'standard') {
+        document.body.classList.add(themeClass);
+      }
+      soundTap();
+    }
+
+    function playSoftAlert(name) {
+      soundTap();
+      alert(`Мини-игра «${name}» запущена в индивидуальном комфортном темпе!`);
+    }
+
+    // Parental Gate
+    function openParentalGate() {
+      soundTap();
+      const n1 = Math.floor(Math.random() * 4) + 2;
+      const n2 = Math.floor(Math.random() * 4) + 2;
+      gateAnswer = n1 + n2;
+      document.getElementById('gate-question').textContent = `${n1} + ${n2} = ?`;
+      enteredPin = "";
+      document.getElementById('gate-pin').textContent = "_";
+      document.getElementById('modal-gate').classList.add('active');
+    }
+
+    function closeGate() {
+      soundTap();
+      document.getElementById('modal-gate').classList.remove('active');
+    }
+
+    function pressPin(d) {
+      soundTap();
+      if (enteredPin.length < 3) {
+        enteredPin += d;
+        document.getElementById('gate-pin').textContent = enteredPin;
+      }
+    }
+
+    function clearPin() {
+      soundTap();
+      enteredPin = "";
+      document.getElementById('gate-pin').textContent = "_";
+    }
+
+    function checkGate() {
+      if (parseInt(enteredPin, 10) === gateAnswer) {
+        soundSuccess();
+        document.getElementById('modal-gate').classList.remove('active');
+        navTo('screen-settings');
+      } else {
+        soundFail();
+        alert("Неверный ответ! Доступ открыт только для взрослых.");
+        clearPin();
+      }
+    }
+
+    // Break Reminder
+    function showBreakModal() {
+      soundSuccess();
+      document.getElementById('modal-break').classList.add('active');
+    }
+
+    function closeBreakModal() {
+      soundTap();
+      document.getElementById('modal-break').classList.remove('active');
+      navTo('screen-main');
+    }
+
+    // Math Sprint Game
+    function openMathGame() {
+      soundTap();
+      startTime = performance.now();
+      navTo('screen-game');
+    }
+
+    function submitAnswer(ans) {
+      const reactionMs = Math.round(performance.now() - startTime);
+      if (ans === 5) {
+        soundSuccess();
+        stars += 1;
+        xp += 15;
+        document.getElementById('val-stars').textContent = stars;
+        document.getElementById('val-xp').textContent = xp;
+
+        // Record reaction
+        document.getElementById('val-reaction').textContent = `${reactionMs} мс`;
+        const log = document.getElementById('analytics-log');
+        const now = new Date().toTimeString().split(' ')[0];
+        log.innerHTML = `<div>• ${now} | Математический спринт: <b>${reactionMs} мс</b> [Верно]</div>` + log.innerHTML;
+
+        alert(`🌟 Верно! Ты отлично справился!\n⏱ Время реакции: ${reactionMs} мс\n★ Начислена 1 звезда и 15 XP!`);
+        navTo('screen-main');
+      } else {
+        soundFail();
+        alert("Попробуй ещё разок! Мы никуда не спешим.");
+      }
+    }
+  </script>
+</body>
+</html>

@@ -13,7 +13,7 @@ People, teams and areas of responsibility.
 
 | Name / team | Role | Responsible for | Links |
 | --- | --- | --- | --- |
-| Денис | Internal AI-agent operator | Runs agents, curates this workspace, coordinates implementation | [[01_Index/User_Working_Profile]] |
+| Лабынцев Денис Янушевич | Обучающийся (группа РС02-23, специальность «Программист», г. Бобруйск, ул. Ленина, д. 93А) / Internal AI operator | Runs agents, curates this workspace, coordinates implementation | [[01_Index/User_Working_Profile]] |
 | n/a | Main stakeholder | Business vision, priorities, acceptance | [[10_Project/Project_Brief]] |
 | Example: Tech lead | Technical counterpart | Access, servers, integrations, infrastructure | [[30_Tech/Tech_Map]] |
 

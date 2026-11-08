@@ -55,6 +55,7 @@ Keep this list short (10-20 dated bullets max). Newest facts on top of their top
 - [[70_Resources/Procedure_Deploy_Template]]
 - [[70_Resources/Procedure_Meeting_Capture]]
 - [[70_Resources/Procedure_Multi_Agent_Review]]
+- [[70_Resources/Procedure_1C_Lab_Execution]]
 
 ## When to update this note
 

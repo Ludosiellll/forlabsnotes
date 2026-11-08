@@ -1,0 +1,23 @@
+﻿Протокол сеанса взаимодействия FTP-клиента и FTP-сервера:
+
+Клиент -> Сервер: Установление TCP-соединения на порт 21 (SYN -> SYN/ACK -> ACK)
+Сервер -> Клиент: 220 Service ready for new user (FTP Server Ready)
+Клиент -> Сервер: USER all
+Сервер -> Клиент: 331 User name okay, need password.
+Клиент -> Сервер: PASS all
+Сервер -> Клиент: 230 User logged in, proceed. (Аутентификация успешна)
+Клиент -> Сервер: SYST
+Сервер -> Клиент: 215 Windows_NT
+Клиент -> Сервер: PWD
+Сервер -> Клиент: 257 " /\ is current directory.
+Клиент -> Сервер: TYPE I
+Сервер -> Клиент: 200 Type set to I (Binary mode).
+Клиент -> Сервер: PASV
+Сервер -> Клиент: 227 Entering Passive Mode (10,0,0,11,195,80).
+Клиент -> Сервер: Установление отдельного TCP-соединения передачи данных на порт 50000 (FTP-DATA)
+Клиент -> Сервер: RETR file.zip
+Сервер -> Клиент: 150 Opening BINARY mode data connection for file.zip.
+По каналу данных FTP-DATA передаются блоки полезной нагрузки файла file.zip.
+Сервер -> Клиент (канал управления): 226 Transfer complete.
+Клиент -> Сервер: QUIT
+Сервер -> Клиент: 221 Goodbye. Закрытие сеанса связи.

@@ -1,0 +1,5 @@
+d:\1с лабы\ТРПО_ЛР24_Файлы\App\BystrUmApp.exe
+d:\1с лабы\ТРПО_ЛР24_Файлы\App\BystrUmApp.dll
+d:\1с лабы\ТРПО_ЛР24_Файлы\App\BystrUmApp.deps.json
+d:\1с лабы\ТРПО_ЛР24_Файлы\App\BystrUmApp.runtimeconfig.json
+d:\1с лабы\ТРПО_ЛР24_Файлы\App\BystrUmApp.pdb
